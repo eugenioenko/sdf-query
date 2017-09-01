@@ -95,14 +95,14 @@
             return classes;
         };
 
-        var single = (typeof single === "boolean") ? single : false;
+        single = (typeof single === "boolean") ? single : false;
         var elements =  [];
         if (arguments.length) {
             if (typeof selector === "string"){
                 if(single){
                     elements.push(document.querySelector(selector));
                 } else {
-                    elements = document.querySelectorAll(selector)
+                    elements = document.querySelectorAll(selector);
                 }
             } else if(typeof selector === "object" && selector instanceof Node){
                 elements.push(selector);
@@ -351,14 +351,13 @@
                     console.error("'append' takes value{string|node} as argument");
                     return this;
                 }
-                for (var i = 0; i < this.nodes.length; ++i) {
-                    if(typeof value === "string"){
-                        for (var i = 0; i < this.nodes.length; ++i) {
-                            this.nodes[i].innerHTML += value;
-                        }
-                    } else {
-                        this.nodes[0].appendChild(value);
+
+                if(typeof value === "string"){
+                    for (var i = 0; i < this.nodes.length; ++i) {
+                        this.nodes[i].innerHTML += value;
                     }
+                } else {
+                    this.nodes[0].appendChild(value);
                 }
                 return this;
             },
@@ -453,13 +452,13 @@
                 this.length = 0;
                 return this;
             }
-        }
-    }
+        };
+    };
 
-    if(typeof window["sdf"] === "undefined"){
-        window["sdf"] = {
+    if(typeof window.sdf === "undefined"){
+        window.sdf = {
             $: query
-        }
+        };
     }
 
 })();
