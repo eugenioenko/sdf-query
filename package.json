@@ -1,7 +1,7 @@
 {
   "name": "sdf-query",
   "version": "1.0.0",
-  "description": "Simple javascript library for traversing and modifying html elements",
+  "description": "Simple utility for selecting and modifying DOM elements used by SDF CSS Framework",
   "main": "js/sdf-query.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

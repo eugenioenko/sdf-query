@@ -1,6 +1,6 @@
 # [sdf-query](https://github.com/eugenioenko/sdf-query#readme) *1.0.0*
 
-> Simple javascript library for traversing and modifying html elements
+> Simple utility for selecting and modifying DOM elements used by SDF CSS Framework
 
 
 ### js/sdf-query.js
@@ -311,7 +311,7 @@ Prepends a string to each element in the list
 
 
 
-#### addClass(value) 
+#### addClass(classList) 
 
 Adds class to elements in the list
 
@@ -322,7 +322,7 @@ Adds class to elements in the list
 
 | Name | Type | Description |  |
 | ---- | ---- | ----------- | -------- |
-| value | `string`  | List of classes separated by space | &nbsp; |
+| classList | `string`  | List of classes separated by space | &nbsp; |
 
 
 
@@ -348,7 +348,7 @@ sdf.$('li').addClass('class-1 class-2 class-3')
 
 
 
-#### removeClass(value) 
+#### removeClass(classList) 
 
 Removes classes from  elements in the list
 
@@ -359,7 +359,7 @@ Removes classes from  elements in the list
 
 | Name | Type | Description |  |
 | ---- | ---- | ----------- | -------- |
-| value | `string`  | List of classes separated by space | &nbsp; |
+| classList | `string`  | List of classes separated by space | &nbsp; |
 
 
 

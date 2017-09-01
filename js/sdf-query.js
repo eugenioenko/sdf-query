@@ -1,7 +1,6 @@
 /**
  * SDF Query
- * Simple utility for selecting and modifying DOM elements used by
- * SDF CSS Framework
+ * Simple utility for selecting and modifying DOM elements used by SDF CSS Framework
  *
  * An open source application development framework for PHP
  *
@@ -337,7 +336,7 @@
 			},
 		/**
 		 * Adds class to elements in the list
-		 * @param  {string} value List of classes separated by space
+		 * @param  {string} classList List of classes separated by space
 		 * @return {object}        Query object for nesting
 		 * @example
 		 * // adds classes through custom iterator
@@ -369,7 +368,7 @@
 			},
 		/**
 		 * Removes classes from  elements in the list
-		 * @param  {string} value List of classes separated by space
+		 * @param  {string} classList List of classes separated by space
 		 * @return {object}        Query object for nesting
 		 */
 			removeClass: function(classList){
