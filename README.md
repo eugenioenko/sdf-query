@@ -1,12 +1,12 @@
 # [sdf-query](https://github.com/eugenioenko/sdf-query#readme) *1.0.0*
 
-> Simple javascript library for traversing and modifying html elements used by SDF Framework
+> Simple javascript library for traversing and modifying html elements
 
 
 ### js/sdf-query.js
 
 
-#### query(selector, single)
+#### query(selector, single) 
 
 Query Function
 
@@ -47,6 +47,8 @@ sdf.$('ul').append('<li>appended</li>').prepend('<li>prepended</li>');
 ```javascript
  // Custom iterator
  sdf.$('span').each(function(){ sdf.$(this).attr('data-active', 'false')});
+ // Chaining
+ sdf.$('span[data-attr="value"]').prepend('<br>').append('!');
 ```
 
 
@@ -57,7 +59,7 @@ sdf.$('ul').append('<li>appended</li>').prepend('<li>prepended</li>');
 
 
 
-#### on(event, method)
+#### on(event, method) 
 
 Adds event listener to the selected elements
 this points to the current iterated element
@@ -89,7 +91,7 @@ sdf.$('selector').on('click', function(){ //to do });
 
 
 
-#### each(method)
+#### each(method) 
 
 Iterates over the list of  nodes and passes the iterated element
 as this to the function set in the argument
@@ -106,6 +108,16 @@ as this to the function set in the argument
 
 
 
+##### Examples
+
+```javascript
+// Iterates over buttons with class active
+sdf.$('button.active').each(function(){
+  sdf.$(this).attr('data-active', false);
+});
+```
+
+
 ##### Returns
 
 
@@ -113,7 +125,7 @@ as this to the function set in the argument
 
 
 
-#### html(value)
+#### html(value) 
 
 Sets the innerHTML of each elements in the list or
 Gets the value of innerHTML of the first element if no arguments
@@ -130,6 +142,14 @@ Gets the value of innerHTML of the first element if no arguments
 
 
 
+##### Examples
+
+```javascript
+// sets inner conent of body
+sdf.$('body', true).html('<h1>Hello, World!</h1>');
+```
+
+
 ##### Returns
 
 
@@ -137,7 +157,7 @@ Gets the value of innerHTML of the first element if no arguments
 
 
 
-#### text(value)
+#### text(value) 
 
 Sets the textContent of each elements in the list or
 Gets the value of textContent of the first element if no arguments
@@ -161,7 +181,7 @@ Gets the value of textContent of the first element if no arguments
 
 
 
-#### attr(attr, value)
+#### attr(attr, value) 
 
 Sets the attribute of each elements in the list or
 Gets the value of attribute of the first element if no arguments
@@ -179,6 +199,18 @@ Gets the value of attribute of the first element if no arguments
 
 
 
+##### Examples
+
+```javascript
+// reads the attribute data-date from a clicked button
+sdf.$('button').click(function(){
+  var date = sdf.$(this).attr('data-date');
+  // to do
+  sdf.$(this).attr('data-date', date);
+});
+```
+
+
 ##### Returns
 
 
@@ -186,7 +218,7 @@ Gets the value of attribute of the first element if no arguments
 
 
 
-#### removeAttr(attr)
+#### removeAttr(attr) 
 
 Removes an attribute from each element in the list
 
@@ -209,7 +241,7 @@ Removes an attribute from each element in the list
 
 
 
-#### value(val)
+#### value(val) 
 
 Sets the value of each elements in the list or
 Gets the value of value of the first element if no arguments
@@ -233,7 +265,7 @@ Gets the value of value of the first element if no arguments
 
 
 
-#### append(value)
+#### append(value) 
 
 Appends a string to each element in the list
 
@@ -256,7 +288,7 @@ Appends a string to each element in the list
 
 
 
-#### prepend(value)
+#### prepend(value) 
 
 Prepends a string to each element in the list
 
@@ -279,13 +311,21 @@ Prepends a string to each element in the list
 
 
 
-#### remove()
+#### remove() 
 
 Removes each element from the page
 
 
 
 
+
+
+##### Examples
+
+```javascript
+// destroys the body
+sdf.$('body', true).remove();
+```
 
 
 ##### Returns

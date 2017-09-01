@@ -57,6 +57,8 @@
  * @example
  *  // Custom iterator
  *  sdf.$('span').each(function(){ sdf.$(this).attr('data-active', 'false')});
+ *  // Chaining
+ *  sdf.$('span[data-attr="value"]').prepend('<br>').append('!');
  * @return {object} Which contains the methods for dom manipulation.
  *
  */
@@ -135,6 +137,11 @@
 		 * as this to the function set in the argument
 		 * @param  {function} method A function to execute for each node,
 		 *   "this" is gonna be set to the current iterated element
+		 * @example
+		 * // Iterates over buttons with class active
+		 * sdf.$('button.active').each(function(){
+		 *   sdf.$(this).attr('data-active', false);
+		 * });
 		 * @return {object}        Query object for nesting
 		 */
 			each: function(method){
@@ -155,6 +162,9 @@
 		 * Sets the innerHTML of each elements in the list or
 		 * Gets the value of innerHTML of the first element if no arguments
 		 * @param  {string} value Optional, the new innerHTML value
+		 * @example
+		 * // sets inner conent of body
+		 * sdf.$('body', true).html('<h1>Hello, World!</h1>');
 		 * @return {object|string}        Query object for nesting or value if getter
 		 */
 			html: function(value){
@@ -202,6 +212,13 @@
 		 * Gets the value of attribute of the first element if no arguments
 		 * @param {string} attr Attribute to be set
 		 * @param  {string} value Optional, the new attribute value
+		 * @example
+		 * // reads the attribute data-date from a clicked button
+		 * sdf.$('button').click(function(){
+		 *   var date = sdf.$(this).attr('data-date');
+		 *   // to do
+		 *   sdf.$(this).attr('data-date', date);
+		 * });
 		 * @return {mixed}        Query object for nesting or value if getter
 		 */
 			attr: function(attr, value){
@@ -313,6 +330,9 @@
 		/**
 		 * Removes each element from the page
 		 * @return {object}        Query object for nesting
+		 * @example
+		 * // destroys the body
+		 * sdf.$('body', true).remove();
 		 */
 			remove: function(){
 				for (var i = 0; i < this.nodes.length; i++) {
