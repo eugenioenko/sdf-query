@@ -24,11 +24,11 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  *
- * @package	SDF
- * @author	eugenioenko
- * @license	http://opensource.org/licenses/MIT	MIT License
- * @link	https://github.com/eugenioenko/sdf-query
- * @since	Version 1.0.0
+ * @package SDF
+ * @author  eugenioenko
+ * @license http://opensource.org/licenses/MIT  MIT License
+ * @link    https://github.com/eugenioenko/sdf-query
+ * @since   Version 1.0.0
  */
 (function(){
 
@@ -61,405 +61,405 @@
  * @return {object} Which contains the methods for dom manipulation.
  *
  */
-	var query = function (selector, single){
+    var query = function (selector, single){
 
-		var emptyNodeList = function(nodeList){
-			return nodeList.length == 0;
-		};
-		var validArguments = function(args){
-			if(args.length != (arguments.length-1)){
-				return false;
-			}
-			for(var i = 0; i < args.length; ++i){
-				if(arguments[i+1] === "any"){
-					// cast to string
-					args[i] = (args[i]).toString();
-				} else if(arguments[i+1] === "str|node"){
-					if(typeof args[i] !== "string" && typeof args[i] !== "object"){
-						args[i] = (args[i]).toString();
-					}
-				} else {
-					if(typeof args[i] !== arguments[i+1]) return false;
-				}
-			}
-			return true;
-		};
-		var emptyArguments = function(args){
-			return args.length == 0;
-		};
-		var createClassList = function(classList){
-			var classes = classList.split(' ');
-			for (var i = 0; i < classes.length; ++i){
-				classes[i] = classes[i].replace(' ', '');
-			}
-			return classes;
-		};
+        var emptyNodeList = function(nodeList){
+            return nodeList.length == 0;
+        };
+        var validArguments = function(args){
+            if(args.length != (arguments.length-1)){
+                return false;
+            }
+            for(var i = 0; i < args.length; ++i){
+                if(arguments[i+1] === "any"){
+                    // cast to string
+                    args[i] = (args[i]).toString();
+                } else if(arguments[i+1] === "str|node"){
+                    if(typeof args[i] !== "string" && typeof args[i] !== "object"){
+                        args[i] = (args[i]).toString();
+                    }
+                } else {
+                    if(typeof args[i] !== arguments[i+1]) return false;
+                }
+            }
+            return true;
+        };
+        var emptyArguments = function(args){
+            return args.length == 0;
+        };
+        var createClassList = function(classList){
+            var classes = classList.split(' ');
+            for (var i = 0; i < classes.length; ++i){
+                classes[i] = classes[i].replace(' ', '');
+            }
+            return classes;
+        };
 
-		var single = (typeof single === "boolean") ? single : false;
-		var elements =  [];
-		if (arguments.length) {
-			if (typeof selector === "string"){
-				if(single){
-					elements.push(document.querySelector(selector));
-				} else {
-					elements = document.querySelectorAll(selector)
-				}
-			} else if(typeof selector === "object" && selector instanceof Node){
-				elements.push(selector);
-				selector = false;
-			}else {
-				// selector is not a string nor a dom Node
-				console.error(selector + " is not a string, 'query' requires a string as selector");
-				selector = false;
-			}
-		} else {
-			// null selector used for create
-			selector = false;
-		}
+        var single = (typeof single === "boolean") ? single : false;
+        var elements =  [];
+        if (arguments.length) {
+            if (typeof selector === "string"){
+                if(single){
+                    elements.push(document.querySelector(selector));
+                } else {
+                    elements = document.querySelectorAll(selector)
+                }
+            } else if(typeof selector === "object" && selector instanceof Node){
+                elements.push(selector);
+                selector = false;
+            }else {
+                // selector is not a string nor a dom Node
+                console.error(selector + " is not a string, 'query' requires a string as selector");
+                selector = false;
+            }
+        } else {
+            // null selector used for create
+            selector = false;
+        }
 
-		return {
-			selector: selector,
-			nodes: elements,
-			length: elements.length,
+        return {
+            selector: selector,
+            nodes: elements,
+            length: elements.length,
 
-		/**
-		 * Adds event listener to the selected elements
-		 * this points to the current iterated element
-		 * @param  {string}   event  Type of the event to listen to
-		 * @param  {function} method Method to execute on the event
-		 * @example
-		 * sdf.$('selector').on('click', function(){ //to do });
-		 * @return {object}   Query object for nesting
-		 */
-			on: function(event, method){
-				if(emptyNodeList(this.nodes)) {
-					console.error("No elements with selector: " + this.selector + ' for on method');
-					return this;
-				}
-				if(!validArguments(arguments, "string", "function")){
-					console.error("'on' requires event{string} and method{function}");
-					return this;
-				}
-				// adding event listeners
-				for (var i = 0; i < this.nodes.length; ++i) {
-					this.nodes[i].addEventListener(event, method);
-				}
-				return this;
-			},
-		/**
-		 * Iterates over the list of  nodes and passes the iterated element
-		 * as this to the function set in the argument
-		 * @param  {function} method A function to execute for each node,
-		 *   "this" is gonna be set to the current iterated element
-		 * @example
-		 * // Iterates over buttons with class active
-		 * sdf.$('button.active').each(function(){
-		 *   sdf.$(this).attr('data-active', false);
-		 * });
-		 * @return {object}        Query object for nesting
-		 */
-			each: function(method){
-				if(emptyNodeList(this.nodes)) {
-					console.error("No elements with selector: " + this.selector + ' for each');
-					return this;
-				}
-				if(!validArguments(arguments, "function")){
-					console.error(method + " is not a function, 'each' requires a function as argument");
-					return this;
-				}
-				for (var i = 0; i < this.nodes.length; ++i) {
-					method.call(this.nodes[i]);
-				}
-				return this;
-			},
-		/**
-		 * Sets the innerHTML of each elements in the list or
-		 * Gets the value of innerHTML of the first element if no arguments
-		 * @param  {string} value Optional, the new innerHTML value
-		 * @example
-		 * // sets inner conent of body
-		 * sdf.$('body', true).html('<h1>Hello, World!</h1>');
-		 * @return {object|string}        Query object for nesting or value if getter
-		 */
-			html: function(value){
-				if(emptyNodeList(this.nodes)) {
-					console.error("No elements with selector: " + this.selector + ' for html');
-					return this;
-				}
-				if(emptyArguments(arguments)){
-					return this.nodes[0].innerHTML;
-				}
-				if(!validArguments(arguments, "any")){
-					console.error("'html' takes value{any} as argument or no arguments.");
-					return this;
-				}
-				for (var i = 0; i < this.nodes.length; ++i) {
-					this.nodes[i].innerHTML = value;
-				}
-				return this;
-			},
-		/**
-		 * Sets the textContent of each elements in the list or
-		 * Gets the value of textContent of the first element if no arguments
-		 * @param  {string} value Optional, the new textContent value
-		 * @return {mixed}        Query object for nesting or value if getter
-		 */
-			text: function(value){
-				if(emptyNodeList(this.nodes)) {
-					console.error("No elements with selector: " + this.selector + ' for text');
-					return this;
-				}
-				if(emptyArguments(arguments)){
-					return this.nodes[0].textContent;
-				}
-				if(!validArguments(arguments, "any")){
-					console.error("'text' takes value{any} as argument or no arguments.");
-					return this;
-				}
-				for (var i = 0; i < this.nodes.length; ++i) {
-					this.nodes[i].textContent = value;
-				}
-				return this;
-			},
-		/**
-		 * Sets the attribute of each elements in the list or
-		 * Gets the value of attribute of the first element if no arguments
-		 * @param {string} attr Attribute to be set
-		 * @param  {string} value Optional, the new attribute value
-		 * @example
-		 * // reads the attribute data-date from a clicked button
-		 * sdf.$('button').click(function(){
-		 *   var date = sdf.$(this).attr('data-date');
-		 *   // to do
-		 *   sdf.$(this).attr('data-date', date);
-		 * });
-		 * @return {mixed}        Query object for nesting or value if getter
-		 */
-			attr: function(attr, value){
-				if(emptyNodeList(this.nodes)) {
-					console.error("No elements with selector: " + this.selector + ' for text');
-					return this;
-				}
-				if(emptyArguments(arguments)){
-					console.error("'attr' requires at least one argument as attribute{string}");
-					return this;
-				}
-				if(arguments.length == 1){
-					if(!validArguments(arguments, "string")){
-						console.error("'attr' takes attribute{string} as argument for getter");
-						return this;
-					}
-					return this.nodes[0].getAttribute(attr);
-				}
+        /**
+         * Adds event listener to the selected elements
+         * this points to the current iterated element
+         * @param  {string}   event  Type of the event to listen to
+         * @param  {function} method Method to execute on the event
+         * @example
+         * sdf.$('selector').on('click', function(){ //to do });
+         * @return {object}   Query object for nesting
+         */
+            on: function(event, method){
+                if(emptyNodeList(this.nodes)) {
+                    console.error("No elements with selector: " + this.selector + ' for on method');
+                    return this;
+                }
+                if(!validArguments(arguments, "string", "function")){
+                    console.error("'on' requires event{string} and method{function}");
+                    return this;
+                }
+                // adding event listeners
+                for (var i = 0; i < this.nodes.length; ++i) {
+                    this.nodes[i].addEventListener(event, method);
+                }
+                return this;
+            },
+        /**
+         * Iterates over the list of  nodes and passes the iterated element
+         * as this to the function set in the argument
+         * @param  {function} method A function to execute for each node,
+         *   "this" is gonna be set to the current iterated element
+         * @example
+         * // Iterates over buttons with class active
+         * sdf.$('button.active').each(function(){
+         *   sdf.$(this).attr('data-active', false);
+         * });
+         * @return {object}        Query object for nesting
+         */
+            each: function(method){
+                if(emptyNodeList(this.nodes)) {
+                    console.error("No elements with selector: " + this.selector + ' for each');
+                    return this;
+                }
+                if(!validArguments(arguments, "function")){
+                    console.error(method + " is not a function, 'each' requires a function as argument");
+                    return this;
+                }
+                for (var i = 0; i < this.nodes.length; ++i) {
+                    method.call(this.nodes[i]);
+                }
+                return this;
+            },
+        /**
+         * Sets the innerHTML of each elements in the list or
+         * Gets the value of innerHTML of the first element if no arguments
+         * @param  {string} value Optional, the new innerHTML value
+         * @example
+         * // sets inner conent of body
+         * sdf.$('body', true).html('<h1>Hello, World!</h1>');
+         * @return {object|string}        Query object for nesting or value if getter
+         */
+            html: function(value){
+                if(emptyNodeList(this.nodes)) {
+                    console.error("No elements with selector: " + this.selector + ' for html');
+                    return this;
+                }
+                if(emptyArguments(arguments)){
+                    return this.nodes[0].innerHTML;
+                }
+                if(!validArguments(arguments, "any")){
+                    console.error("'html' takes value{any} as argument or no arguments.");
+                    return this;
+                }
+                for (var i = 0; i < this.nodes.length; ++i) {
+                    this.nodes[i].innerHTML = value;
+                }
+                return this;
+            },
+        /**
+         * Sets the textContent of each elements in the list or
+         * Gets the value of textContent of the first element if no arguments
+         * @param  {string} value Optional, the new textContent value
+         * @return {mixed}        Query object for nesting or value if getter
+         */
+            text: function(value){
+                if(emptyNodeList(this.nodes)) {
+                    console.error("No elements with selector: " + this.selector + ' for text');
+                    return this;
+                }
+                if(emptyArguments(arguments)){
+                    return this.nodes[0].textContent;
+                }
+                if(!validArguments(arguments, "any")){
+                    console.error("'text' takes value{any} as argument or no arguments.");
+                    return this;
+                }
+                for (var i = 0; i < this.nodes.length; ++i) {
+                    this.nodes[i].textContent = value;
+                }
+                return this;
+            },
+        /**
+         * Sets the attribute of each elements in the list or
+         * Gets the value of attribute of the first element if no arguments
+         * @param {string} attr Attribute to be set
+         * @param  {string} value Optional, the new attribute value
+         * @example
+         * // reads the attribute data-date from a clicked button
+         * sdf.$('button').click(function(){
+         *   var date = sdf.$(this).attr('data-date');
+         *   // to do
+         *   sdf.$(this).attr('data-date', date);
+         * });
+         * @return {mixed}        Query object for nesting or value if getter
+         */
+            attr: function(attr, value){
+                if(emptyNodeList(this.nodes)) {
+                    console.error("No elements with selector: " + this.selector + ' for text');
+                    return this;
+                }
+                if(emptyArguments(arguments)){
+                    console.error("'attr' requires at least one argument as attribute{string}");
+                    return this;
+                }
+                if(arguments.length == 1){
+                    if(!validArguments(arguments, "string")){
+                        console.error("'attr' takes attribute{string} as argument for getter");
+                        return this;
+                    }
+                    return this.nodes[0].getAttribute(attr);
+                }
 
-				if(!validArguments(arguments, "string", "any")){
-					console.error("'attr' takes two attribute{string}, value{any} as setter");
-					return this;
-				}
-				for (var i = 0; i < this.nodes.length; ++i) {
-					this.nodes[i].setAttribute(attr, value);
-				}
-				return this;
-			},
-		/**
-		 * Removes an attribute from each element in the list
-		 * @param  {string} attr Name of the attribute to be removed from the element
-		 * @return {object}        Query object for nesting
-		 */
-			removeAttr: function(attrName){
-				if(emptyNodeList(this.nodes)) {
-					console.error("No elements with selector: " + this.selector + ' for append');
-					return this;
-				}
-				if(!validArguments(arguments, "any")){
-					console.error("'append' takes string{any} as argument");
-					return this;
-				}
-				for (var i = 0; i < this.nodes.length; ++i) {
-					this.nodes[i].removeAttribute(attrName);
-				}
-				return this;
-			},
-		/**
-		 * Sets the value of each elements in the list or
-		 * Gets the value of value of the first element if no arguments
-		 * @param  {string} val Optional, the new value value
-		 * @return {object}        Query object for nesting
-		 */
-			value: function(val){
-				if(emptyNodeList(this.nodes)) {
-					console.error("No inputs with selector: " + this.selector + ' for value');
-					return this;
-				}
-				if(emptyArguments(arguments)){
-					return this.nodes[0].value;
-				}
-				if(!validArguments(arguments, "any")){
-					console.error("'value' takes value{string} as argument or no arguments.");
-					return this;
-				}
-				for (var i = 0; i < this.nodes.length; ++i) {
-					this.nodes[i].value = val;
-				}
-				return this;
-			},
+                if(!validArguments(arguments, "string", "any")){
+                    console.error("'attr' takes two attribute{string}, value{any} as setter");
+                    return this;
+                }
+                for (var i = 0; i < this.nodes.length; ++i) {
+                    this.nodes[i].setAttribute(attr, value);
+                }
+                return this;
+            },
+        /**
+         * Removes an attribute from each element in the list
+         * @param  {string} attr Name of the attribute to be removed from the element
+         * @return {object}        Query object for nesting
+         */
+            removeAttr: function(attrName){
+                if(emptyNodeList(this.nodes)) {
+                    console.error("No elements with selector: " + this.selector + ' for append');
+                    return this;
+                }
+                if(!validArguments(arguments, "any")){
+                    console.error("'append' takes string{any} as argument");
+                    return this;
+                }
+                for (var i = 0; i < this.nodes.length; ++i) {
+                    this.nodes[i].removeAttribute(attrName);
+                }
+                return this;
+            },
+        /**
+         * Sets the value of each elements in the list or
+         * Gets the value of value of the first element if no arguments
+         * @param  {string} val Optional, the new value value
+         * @return {object}        Query object for nesting
+         */
+            value: function(val){
+                if(emptyNodeList(this.nodes)) {
+                    console.error("No inputs with selector: " + this.selector + ' for value');
+                    return this;
+                }
+                if(emptyArguments(arguments)){
+                    return this.nodes[0].value;
+                }
+                if(!validArguments(arguments, "any")){
+                    console.error("'value' takes value{string} as argument or no arguments.");
+                    return this;
+                }
+                for (var i = 0; i < this.nodes.length; ++i) {
+                    this.nodes[i].value = val;
+                }
+                return this;
+            },
 
-			/**
-			 * Creates a html element to be later appended with append
-			 * @param  {string} type The type of element: div,li, button, a...
-			 * @param  {string} html Inner html of the element
-			 * @return {object}      Node element of DOM
-			 * @example
-			 * // creates a node and appends it
-			 * sdf.$('ul').append(sdf.$().create('li', 'list item A'));
-			 */
-			create: function(type, html){
-				if(!validArguments(arguments, "string", "string")){
-					console.error("'create' takes type{string} and html{string} as argument");
-					return this;
-				}
-				var element = document.createElement(type);
-				element.innerHTML = html;
-				return element;
-			},
-		/**
-		 * Appends a string or Node to an element
-		 * If a string representing an html element is used, the function will iterate over
-		 * every element of the list from the selector. The append is gonna be done with innerHTML.
-		 * if a Node is used as argument, it will append it only to the first element of the list
-		 * with appendChild. Use 'each' if you want to iterate over every element
-		 * @param  {string|object} value String or Node to be appended
-		 * @example
-		 * // adds a '<i>!</i>' to every link
-		 * sdf.$('a').append('<i>!</i>');
-		 * // adds a '<span><i>!</i><i>!</i><i>!</i></span>' to the first link
-		 * sdf.$('a').append(sdf.$().create('span', '<i>!</i><i>!</i><i>!</i>'));
-		 * // same as above but for each element. Works the fastest most of the time;
-		 * sdf.$('a').each(function(){
-		 *   sdf.$(this).append(sdf.$().create('span', '<i>!</i><i>!</i><i>!</i>'));
-		 * });
-		 * @return {object}        Query object for nesting
-		 */
+            /**
+             * Creates a html element to be later appended with append
+             * @param  {string} type The type of element: div,li, button, a...
+             * @param  {string} html Inner html of the element
+             * @return {object}      Node element of DOM
+             * @example
+             * // creates a node and appends it
+             * sdf.$('ul').append(sdf.$().create('li', 'list item A'));
+             */
+            create: function(type, html){
+                if(!validArguments(arguments, "string", "string")){
+                    console.error("'create' takes type{string} and html{string} as argument");
+                    return this;
+                }
+                var element = document.createElement(type);
+                element.innerHTML = html;
+                return element;
+            },
+        /**
+         * Appends a string or Node to an element
+         * If a string representing an html element is used, the function will iterate over
+         * every element of the list from the selector. The append is gonna be done with innerHTML.
+         * if a Node is used as argument, it will append it only to the first element of the list
+         * with appendChild. Use 'each' if you want to iterate over every element
+         * @param  {string|object} value String or Node to be appended
+         * @example
+         * // adds a '<i>!</i>' to every link
+         * sdf.$('a').append('<i>!</i>');
+         * // adds a '<span><i>!</i><i>!</i><i>!</i></span>' to the first link
+         * sdf.$('a').append(sdf.$().create('span', '<i>!</i><i>!</i><i>!</i>'));
+         * // same as above but for each element. Works the fastest most of the time;
+         * sdf.$('a').each(function(){
+         *   sdf.$(this).append(sdf.$().create('span', '<i>!</i><i>!</i><i>!</i>'));
+         * });
+         * @return {object}        Query object for nesting
+         */
 
 
-			append: function(value){
-				if(emptyNodeList(this.nodes)) {
-					console.error("No elements with selector: " + this.selector + ' for append');
-					return this;
-				}
-				if(!validArguments(arguments, "str|node")){
-					console.error("'append' takes value{string|node} as argument");
-					return this;
-				}
-				for (var i = 0; i < this.nodes.length; ++i) {
-					if(typeof value === "string"){
-						for (var i = 0; i < this.nodes.length; ++i) {
-							this.nodes[i].innerHTML += value;
-						}
-					} else {
-						this.nodes[0].appendChild(value);
-					}
-				}
-				return this;
-			},
-		/**
-		 * Prepends a string to each element in the list
-		 * @param  {string} value String to be prepended
-		 * @return {object}        Query object for nesting
-		 */
-			prepend: function(value){
-				if(emptyNodeList(this.nodes)) {
-					console.error("No elements with selector: " + this.selector + ' for prepend');
-					return this;
-				}
-				if(!validArguments(arguments, "string")){
-					console.error("'prepend' takes string{string} as argument");
-					return this;
-				}
-				for (var i = 0; i < this.nodes.length; ++i) {
-					this.nodes[i].innerHTML = value + this.nodes[i].innerHTML;
-				}
-				return this;
-			},
-		/**
-		 * Adds class to elements in the list
-		 * @param  {string} classList List of classes separated by space
-		 * @return {object}        Query object for nesting
-		 * @example
-		 * // adds classes through custom iterator
-		 * sdf.$('li').each(function(){
-		 *   sdf.$(this).addClass('class-1 class-2 class-3');
-		 * });
-		 * @example
-		 * // adds classes through method
-		 * sdf.$('li').addClass('class-1 class-2 class-3')
-		 */
-			addClass: function(classList){
-				if(emptyNodeList(this.nodes)) {
-					console.error("No elements with selector: " + this.selector + ' for addClass');
-					return this;
-				}
-				if(!validArguments(arguments, "string")){
-					console.error("'addClass' takes classList{string} as argument");
-					return this;
-				}
-				var classes = createClassList(classList);
-				for (var i = 0; i < this.nodes.length; ++i) {
-					for(var j = 0; j < classes.length; ++j){
-						if(classes[j] != ''){
-							this.nodes[i].classList.add(classes[j]);
-						}
-					}
-				}
-				return this;
-			},
-		/**
-		 * Removes classes from  elements in the list
-		 * @param  {string} classList List of classes separated by space
-		 * @return {object}        Query object for nesting
-		 */
-			removeClass: function(classList){
-				if(emptyNodeList(this.nodes)) {
-					console.error("No elements with selector: " + this.selector + ' for removeClass');
-					return this;
-				}
-				if(!validArguments(arguments, "string")){
-					console.error("'removeClass' takes classList{string} as argument");
-					return this;
-				}
-				var classes = createClassList(classList);
-				for (var i = 0; i < this.nodes.length; ++i) {
-					for(var j = 0; j < classes.length; ++j){
-						if(classes[j] != ''){
-							this.nodes[i].classList.remove(classes[j]);
-						}
-					}
-				}
-				return this;
-			},
-		/**
-		 * Removes each element from the page
-		 * @return {object}        Query object for nesting
-		 * @example
-		 * // destroys the body
-		 * sdf.$('body', true).remove();
-		 */
-			remove: function(){
-				for (var i = 0; i < this.nodes.length; ++i) {
-					this.nodes[i].parentNode.removeChild(this.nodes[i]);
-				}
-				this.nodes = [];
-				this.selector = null;
-				this.length = 0;
-				return this;
-			}
-		}
-	}
+            append: function(value){
+                if(emptyNodeList(this.nodes)) {
+                    console.error("No elements with selector: " + this.selector + ' for append');
+                    return this;
+                }
+                if(!validArguments(arguments, "str|node")){
+                    console.error("'append' takes value{string|node} as argument");
+                    return this;
+                }
+                for (var i = 0; i < this.nodes.length; ++i) {
+                    if(typeof value === "string"){
+                        for (var i = 0; i < this.nodes.length; ++i) {
+                            this.nodes[i].innerHTML += value;
+                        }
+                    } else {
+                        this.nodes[0].appendChild(value);
+                    }
+                }
+                return this;
+            },
+        /**
+         * Prepends a string to each element in the list
+         * @param  {string} value String to be prepended
+         * @return {object}        Query object for nesting
+         */
+            prepend: function(value){
+                if(emptyNodeList(this.nodes)) {
+                    console.error("No elements with selector: " + this.selector + ' for prepend');
+                    return this;
+                }
+                if(!validArguments(arguments, "string")){
+                    console.error("'prepend' takes string{string} as argument");
+                    return this;
+                }
+                for (var i = 0; i < this.nodes.length; ++i) {
+                    this.nodes[i].innerHTML = value + this.nodes[i].innerHTML;
+                }
+                return this;
+            },
+        /**
+         * Adds class to elements in the list
+         * @param  {string} classList List of classes separated by space
+         * @return {object}        Query object for nesting
+         * @example
+         * // adds classes through custom iterator
+         * sdf.$('li').each(function(){
+         *   sdf.$(this).addClass('class-1 class-2 class-3');
+         * });
+         * @example
+         * // adds classes through method
+         * sdf.$('li').addClass('class-1 class-2 class-3')
+         */
+            addClass: function(classList){
+                if(emptyNodeList(this.nodes)) {
+                    console.error("No elements with selector: " + this.selector + ' for addClass');
+                    return this;
+                }
+                if(!validArguments(arguments, "string")){
+                    console.error("'addClass' takes classList{string} as argument");
+                    return this;
+                }
+                var classes = createClassList(classList);
+                for (var i = 0; i < this.nodes.length; ++i) {
+                    for(var j = 0; j < classes.length; ++j){
+                        if(classes[j] != ''){
+                            this.nodes[i].classList.add(classes[j]);
+                        }
+                    }
+                }
+                return this;
+            },
+        /**
+         * Removes classes from  elements in the list
+         * @param  {string} classList List of classes separated by space
+         * @return {object}        Query object for nesting
+         */
+            removeClass: function(classList){
+                if(emptyNodeList(this.nodes)) {
+                    console.error("No elements with selector: " + this.selector + ' for removeClass');
+                    return this;
+                }
+                if(!validArguments(arguments, "string")){
+                    console.error("'removeClass' takes classList{string} as argument");
+                    return this;
+                }
+                var classes = createClassList(classList);
+                for (var i = 0; i < this.nodes.length; ++i) {
+                    for(var j = 0; j < classes.length; ++j){
+                        if(classes[j] != ''){
+                            this.nodes[i].classList.remove(classes[j]);
+                        }
+                    }
+                }
+                return this;
+            },
+        /**
+         * Removes each element from the page
+         * @return {object}        Query object for nesting
+         * @example
+         * // destroys the body
+         * sdf.$('body', true).remove();
+         */
+            remove: function(){
+                for (var i = 0; i < this.nodes.length; ++i) {
+                    this.nodes[i].parentNode.removeChild(this.nodes[i]);
+                }
+                this.nodes = [];
+                this.selector = null;
+                this.length = 0;
+                return this;
+            }
+        }
+    }
 
-	if(typeof window["sdf"] === "undefined"){
-		window["sdf"] = {
-			$: query
-		}
-	}
+    if(typeof window["sdf"] === "undefined"){
+        window["sdf"] = {
+            $: query
+        }
+    }
 
 })();
