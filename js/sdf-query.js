@@ -84,6 +84,14 @@
 		var emptyArguments = function(args){
 			return args.length == 0;
 		};
+		var createClassList = function(classList){
+			var classes = classList.split(' ');
+			for (var i = 0; i < classes.length; ++i){
+				classes[i] = classes[i].replace(' ', '');
+			}
+			console.log(classes);
+			return classes;
+		};
 
 		var single = (typeof single === "boolean") ? single : false;
 		var elements =  [];
@@ -127,7 +135,7 @@
 					return this;
 				}
 				// adding event listeners
-				for (var i = 0; i < this.nodes.length; i++) {
+				for (var i = 0; i < this.nodes.length; ++i) {
 					this.nodes[i].addEventListener(event, method);
 				}
 				return this;
@@ -153,7 +161,7 @@
 					console.error(method + " is not a function, 'each' requires a function as argument");
 					return this;
 				}
-				for (var i = 0; i < this.nodes.length; i++) {
+				for (var i = 0; i < this.nodes.length; ++i) {
 					method.call(this.nodes[i]);
 				}
 				return this;
@@ -179,7 +187,7 @@
 					console.error("'html' takes value{any} as argument or no arguments.");
 					return this;
 				}
-				for (var i = 0; i < this.nodes.length; i++) {
+				for (var i = 0; i < this.nodes.length; ++i) {
 					this.nodes[i].innerHTML = value;
 				}
 				return this;
@@ -202,7 +210,7 @@
 					console.error("'text' takes value{any} as argument or no arguments.");
 					return this;
 				}
-				for (var i = 0; i < this.nodes.length; i++) {
+				for (var i = 0; i < this.nodes.length; ++i) {
 					this.nodes[i].textContent = value;
 				}
 				return this;
@@ -242,7 +250,7 @@
 					console.error("'attr' takes two attribute{string}, value{any} as setter");
 					return this;
 				}
-				for (var i = 0; i < this.nodes.length; i++) {
+				for (var i = 0; i < this.nodes.length; ++i) {
 					this.nodes[i].setAttribute(attr, value);
 				}
 				return this;
@@ -261,7 +269,7 @@
 					console.error("'append' takes string{any} as argument");
 					return this;
 				}
-				for (var i = 0; i < this.nodes.length; i++) {
+				for (var i = 0; i < this.nodes.length; ++i) {
 					this.nodes[i].removeAttribute(attrName);
 				}
 				return this;
@@ -284,7 +292,7 @@
 					console.error("'value' takes value{string} as argument or no arguments.");
 					return this;
 				}
-				for (var i = 0; i < this.nodes.length; i++) {
+				for (var i = 0; i < this.nodes.length; ++i) {
 					this.nodes[i].value = val;
 				}
 				return this;
@@ -303,7 +311,7 @@
 					console.error("'append' takes string{string} as argument");
 					return this;
 				}
-				for (var i = 0; i < this.nodes.length; i++) {
+				for (var i = 0; i < this.nodes.length; ++i) {
 					this.nodes[i].innerHTML += value;
 				}
 				return this;
@@ -322,8 +330,64 @@
 					console.error("'prepend' takes string{string} as argument");
 					return this;
 				}
-				for (var i = 0; i < this.nodes.length; i++) {
+				for (var i = 0; i < this.nodes.length; ++i) {
 					this.nodes[i].innerHTML = value + this.nodes[i].innerHTML;
+				}
+				return this;
+			},
+		/**
+		 * Adds class to elements in the list
+		 * @param  {string} value List of classes separated by space
+		 * @return {object}        Query object for nesting
+		 * @example
+		 * // adds classes through custom iterator
+		 * sdf.$('li').each(function(){
+		 *   sdf.$(this).addClass('class-1 class-2 class-3');
+		 * });
+		 * @example
+		 * // adds classes through method
+		 * sdf.$('li').addClass('class-1 class-2 class-3')
+		 */
+			addClass: function(classList){
+				if(emptyNodeList(this.nodes)) {
+					console.error("No elements with selector: " + this.selector + ' for addClass');
+					return this;
+				}
+				if(!validArguments(arguments, "string")){
+					console.error("'addClass' takes classList{string} as argument");
+					return this;
+				}
+				var classes = createClassList(classList);
+				for (var i = 0; i < this.nodes.length; ++i) {
+					for(var j = 0; j < classes.length; ++j){
+						if(classes[j] != ''){
+							this.nodes[i].classList.add(classes[j]);
+						}
+					}
+				}
+				return this;
+			},
+		/**
+		 * Removes classes from  elements in the list
+		 * @param  {string} value List of classes separated by space
+		 * @return {object}        Query object for nesting
+		 */
+			removeClass: function(classList){
+				if(emptyNodeList(this.nodes)) {
+					console.error("No elements with selector: " + this.selector + ' for removeClass');
+					return this;
+				}
+				if(!validArguments(arguments, "string")){
+					console.error("'removeClass' takes classList{string} as argument");
+					return this;
+				}
+				var classes = createClassList(classList);
+				for (var i = 0; i < this.nodes.length; ++i) {
+					for(var j = 0; j < classes.length; ++j){
+						if(classes[j] != ''){
+							this.nodes[i].classList.remove(classes[j]);
+						}
+					}
 				}
 				return this;
 			},
@@ -335,7 +399,7 @@
 		 * sdf.$('body', true).remove();
 		 */
 			remove: function(){
-				for (var i = 0; i < this.nodes.length; i++) {
+				for (var i = 0; i < this.nodes.length; ++i) {
 					this.nodes[i].parentNode.removeChild(this.nodes[i]);
 				}
 				this.nodes = [];

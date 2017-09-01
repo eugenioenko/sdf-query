@@ -311,6 +311,66 @@ Prepends a string to each element in the list
 
 
 
+#### addClass(value) 
+
+Adds class to elements in the list
+
+
+
+
+##### Parameters
+
+| Name | Type | Description |  |
+| ---- | ---- | ----------- | -------- |
+| value | `string`  | List of classes separated by space | &nbsp; |
+
+
+
+
+##### Examples
+
+```javascript
+// adds classes through custom iterator
+sdf.$('li').each(function(){
+  sdf.$(this).addClass('class-1 class-2 class-3');
+});
+```
+```javascript
+// adds classes through method
+sdf.$('li').addClass('class-1 class-2 class-3')
+```
+
+
+##### Returns
+
+
+- `object`  Query object for nesting
+
+
+
+#### removeClass(value) 
+
+Removes classes from  elements in the list
+
+
+
+
+##### Parameters
+
+| Name | Type | Description |  |
+| ---- | ---- | ----------- | -------- |
+| value | `string`  | List of classes separated by space | &nbsp; |
+
+
+
+
+##### Returns
+
+
+- `object`  Query object for nesting
+
+
+
 #### remove() 
 
 Removes each element from the page
