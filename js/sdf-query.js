@@ -92,7 +92,6 @@
 			for (var i = 0; i < classes.length; ++i){
 				classes[i] = classes[i].replace(' ', '');
 			}
-			console.log(classes);
 			return classes;
 		};
 
