@@ -1,6 +1,6 @@
 /**
  * SDF Query
- * Simple utility for selecting and modifying DOM elements user by
+ * Simple utility for selecting and modifying DOM elements used by
  * SDF CSS Framework
  *
  * An open source application development framework for PHP
@@ -36,15 +36,29 @@
 /**
  * Query Function
  *
- * This function enables you to select elements from the DOM and modify their
- * attributes, classes, values and styles. And  add event handlers.
+ * This function enables you to select html elements from the DOM and return an object which
+ * lets you modify their attributes, classes, values, styles and  add event handlers.
  *
  * @param  {string|object} selector A string which is gonna be used to query elements or a Node element
  * @param {boolean}        single If set to True, will limit the result of the query
  * to a single element by using querySelector instead of querySelectorAll.
- * @return {object} Will return an object with a list of elements and the methods
- * for modifying them. The result could be chained and subsequent calls could be
- * performed
+ * @example
+ * // adds an event handler for a button of id #button_id
+ * sdf.$('#button_id', true).on('click', function(){});
+ * @example
+ * // sets the attribute data-item to all the li of a page
+ * sdf.$('li').attr('data-item', 'value');
+ * @example
+ * // removes class .active from all h2 of the page
+ * sdf.$('h2.active').removeClass('active');
+ * @example
+ * // Iterates over all the ul of a page and appends an li and prepends li
+ * sdf.$('ul').append('<li>appended</li>').prepend('<li>prepended</li>');
+ * @example
+ *  // Custom iterator
+ *  sdf.$('span').each(function(){ sdf.$(this).attr('data-active', 'false')});
+ * @return {object} Which contains the methods for dom manipulation.
+ *
  */
 	var query = function (selector, single){
 
@@ -52,15 +66,16 @@
 			return nodeList.length == 0;
 		};
 		var validArguments = function(args){
-			if(args.length  != (arguments.length-1)){
+			if(args.length != (arguments.length-1)){
 				return false;
 			}
 			for(var i = 0; i < args.length; ++i){
-				if(arguments[i+1] === "string"){
+				if(arguments[i+1] === "any"){
 					// cast to string
 					args[i] = (args[i]).toString();
+				} else {
+					if(typeof args[i] !== arguments[i+1]) return false;
 				}
-				if(typeof args[i] !== arguments[i+1]) return false;
 			}
 			return true;
 		};
@@ -92,9 +107,12 @@
 			length: elements.length,
 
 		/**
-		 * Adds event listener to the elements in the query list
+		 * Adds event listener to the selected elements
+		 * this points to the current iterated element
 		 * @param  {string}   event  Type of the event to listen to
 		 * @param  {function} method Method to execute on the event
+		 * @example
+		 * sdf.$('selector').on('click', function(){ //to do });
 		 * @return {object}   Query object for nesting
 		 */
 			on: function(event, method){
@@ -112,12 +130,13 @@
 				}
 				return this;
 			},
-			/**
-			 * Iterates over the list of dom nodes
-			 * @param  {function} method A function to execute for each node,
-			 *   "this" is gonna be set to the current iterated element
-			 * @return {object}        Query object for nesting
-			 */
+		/**
+		 * Iterates over the list of  nodes and passes the iterated element
+		 * as this to the function set in the argument
+		 * @param  {function} method A function to execute for each node,
+		 *   "this" is gonna be set to the current iterated element
+		 * @return {object}        Query object for nesting
+		 */
 			each: function(method){
 				if(emptyNodeList(this.nodes)) {
 					console.error("No elements with selector: " + this.selector + ' for each');
@@ -132,12 +151,12 @@
 				}
 				return this;
 			},
-			/**
-			 * Sets the innerHTML of each elements in the list or
-			 * Gets the value of innerHTML of the first element if no arguments
-			 * @param  {string} value Optional, the new innerHTML value
-			 * @return {mixed}        Query object for nesting or value if getter
-			 */
+		/**
+		 * Sets the innerHTML of each elements in the list or
+		 * Gets the value of innerHTML of the first element if no arguments
+		 * @param  {string} value Optional, the new innerHTML value
+		 * @return {object|string}        Query object for nesting or value if getter
+		 */
 			html: function(value){
 				if(emptyNodeList(this.nodes)) {
 					console.error("No elements with selector: " + this.selector + ' for html');
@@ -146,8 +165,8 @@
 				if(emptyArguments(arguments)){
 					return this.nodes[0].innerHTML;
 				}
-				if(!validArguments(arguments, "string")){
-					console.error("'html' takes value{string} as argument or no arguments.");
+				if(!validArguments(arguments, "any")){
+					console.error("'html' takes value{any} as argument or no arguments.");
 					return this;
 				}
 				for (var i = 0; i < this.nodes.length; i++) {
@@ -155,12 +174,12 @@
 				}
 				return this;
 			},
-			/**
-			 * Sets the textContent of each elements in the list or
-			 * Gets the value of textContent of the first element if no arguments
-			 * @param  {string} value Optional, the new textContent value
-			 * @return {mixed}        Query object for nesting or value if getter
-			 */
+		/**
+		 * Sets the textContent of each elements in the list or
+		 * Gets the value of textContent of the first element if no arguments
+		 * @param  {string} value Optional, the new textContent value
+		 * @return {mixed}        Query object for nesting or value if getter
+		 */
 			text: function(value){
 				if(emptyNodeList(this.nodes)) {
 					console.error("No elements with selector: " + this.selector + ' for text');
@@ -169,8 +188,8 @@
 				if(emptyArguments(arguments)){
 					return this.nodes[0].textContent;
 				}
-				if(!validArguments(arguments, "string")){
-					console.error("'text' takes value{string} as argument or no arguments.");
+				if(!validArguments(arguments, "any")){
+					console.error("'text' takes value{any} as argument or no arguments.");
 					return this;
 				}
 				for (var i = 0; i < this.nodes.length; i++) {
@@ -178,13 +197,13 @@
 				}
 				return this;
 			},
-			/**
-			 * Sets the attribute of each elements in the list or
-			 * Gets the value of attribute of the first element if no arguments
-			 * @param {string} attr Attribute to be set
-			 * @param  {string} value Optional, the new attribute value
-			 * @return {mixed}        Query object for nesting or value if getter
-			 */
+		/**
+		 * Sets the attribute of each elements in the list or
+		 * Gets the value of attribute of the first element if no arguments
+		 * @param {string} attr Attribute to be set
+		 * @param  {string} value Optional, the new attribute value
+		 * @return {mixed}        Query object for nesting or value if getter
+		 */
 			attr: function(attr, value){
 				if(emptyNodeList(this.nodes)) {
 					console.error("No elements with selector: " + this.selector + ' for text');
@@ -202,8 +221,8 @@
 					return this.nodes[0].getAttribute(attr);
 				}
 
-				if(!validArguments(arguments, "string", "string")){
-					console.error("'attr' takes two attribute{string}, value{string} as setter");
+				if(!validArguments(arguments, "string", "any")){
+					console.error("'attr' takes two attribute{string}, value{any} as setter");
 					return this;
 				}
 				for (var i = 0; i < this.nodes.length; i++) {
@@ -211,12 +230,31 @@
 				}
 				return this;
 			},
-			/**
-			 * Sets the value of each elements in the list or
-			 * Gets the value of value of the first element if no arguments
-			 * @param  {string} val Optional, the new value value
-			 * @return {object}        Query object for nesting
-			 */
+		/**
+		 * Removes an attribute from each element in the list
+		 * @param  {string} attr Name of the attribute to be removed from the element
+		 * @return {object}        Query object for nesting
+		 */
+			removeAttr: function(attrName){
+				if(emptyNodeList(this.nodes)) {
+					console.error("No elements with selector: " + this.selector + ' for append');
+					return this;
+				}
+				if(!validArguments(arguments, "any")){
+					console.error("'append' takes string{any} as argument");
+					return this;
+				}
+				for (var i = 0; i < this.nodes.length; i++) {
+					this.nodes[i].removeAttribute(attrName);
+				}
+				return this;
+			},
+		/**
+		 * Sets the value of each elements in the list or
+		 * Gets the value of value of the first element if no arguments
+		 * @param  {string} val Optional, the new value value
+		 * @return {object}        Query object for nesting
+		 */
 			value: function(val){
 				if(emptyNodeList(this.nodes)) {
 					console.error("No inputs with selector: " + this.selector + ' for value');
@@ -225,7 +263,7 @@
 				if(emptyArguments(arguments)){
 					return this.nodes[0].value;
 				}
-				if(!validArguments(arguments, "string")){
+				if(!validArguments(arguments, "any")){
 					console.error("'value' takes value{string} as argument or no arguments.");
 					return this;
 				}
@@ -234,17 +272,17 @@
 				}
 				return this;
 			},
-			/**
-			 * Appends a string to each element in the list
-			 * @param  {string} value String to be apended
-			 * @return {object}        Query object for nesting
-			 */
+		/**
+		 * Appends a string to each element in the list
+		 * @param  {string} value String to be apended
+		 * @return {object}        Query object for nesting
+		 */
 			append: function(value){
 				if(emptyNodeList(this.nodes)) {
 					console.error("No elements with selector: " + this.selector + ' for append');
 					return this;
 				}
-				if(!validArguments(arguments, "string")){
+				if(!validArguments(arguments, "any")){
 					console.error("'append' takes string{string} as argument");
 					return this;
 				}
@@ -253,17 +291,17 @@
 				}
 				return this;
 			},
-			/**
-			 * Prepends a string to each element in the list
-			 * @param  {string} value String to be apended
-			 * @return {object}        Query object for nesting
-			 */
+		/**
+		 * Prepends a string to each element in the list
+		 * @param  {string} value String to be apended
+		 * @return {object}        Query object for nesting
+		 */
 			prepend: function(value){
 				if(emptyNodeList(this.nodes)) {
 					console.error("No elements with selector: " + this.selector + ' for prepend');
 					return this;
 				}
-				if(!validArguments(arguments, "string")){
+				if(!validArguments(arguments, "any")){
 					console.error("'prepend' takes string{string} as argument");
 					return this;
 				}
@@ -272,10 +310,10 @@
 				}
 				return this;
 			},
-			/**
-			 * Removes each element from the list of dom and itself
-			 * @return {object}        Query object for nesting
-			 */
+		/**
+		 * Removes each element from the page
+		 * @return {object}        Query object for nesting
+		 */
 			remove: function(){
 				for (var i = 0; i < this.nodes.length; i++) {
 					this.nodes[i].parentNode.removeChild(this.nodes[i]);

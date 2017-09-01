@@ -1,17 +1,17 @@
 # [sdf-query](https://github.com/eugenioenko/sdf-query#readme) *1.0.0*
 
-> Simple javascript library for traversing and modifying html elements
+> Simple javascript library for traversing and modifying html elements used by SDF Framework
 
 
 ### js/sdf-query.js
 
 
-#### query(selector, single) 
+#### query(selector, single)
 
 Query Function
 
-This function enables you to select elements from the DOM and modify their
-attributes, classes, values and styles. And  add event handlers.
+This function enables you to select html elements from the DOM and return an object which
+lets you modify their attributes, classes, values, styles and  add event handlers.
 
 
 
@@ -26,17 +26,41 @@ attributes, classes, values and styles. And  add event handlers.
 
 
 
+##### Examples
+
+```javascript
+// adds an event handler for a button of id #button_id
+sdf.$('#button_id', true).on('click', function(){});
+```
+```javascript
+// sets the attribute data-item to all the li of a page
+sdf.$('li').attr('data-item', 'value');
+```
+```javascript
+// removes class .active from all h2 of the page
+sdf.$('h2.active').removeClass('active');
+```
+```javascript
+// Iterates over all the ul of a page and appends an li and prepends li
+sdf.$('ul').append('<li>appended</li>').prepend('<li>prepended</li>');
+```
+```javascript
+ // Custom iterator
+ sdf.$('span').each(function(){ sdf.$(this).attr('data-active', 'false')});
+```
+
+
 ##### Returns
 
 
-- `object`  Will return an object with a list of elements and the methods for modifying them. The result could be chained and subsequent calls could be
-performed
+- `object`  Which contains the methods for dom manipulation.
 
 
 
-#### on(event, method) 
+#### on(event, method)
 
-Adds event listener to the elements in the query list
+Adds event listener to the selected elements
+this points to the current iterated element
 
 
 
@@ -51,6 +75,13 @@ Adds event listener to the elements in the query list
 
 
 
+##### Examples
+
+```javascript
+sdf.$('selector').on('click', function(){ //to do });
+```
+
+
 ##### Returns
 
 
@@ -58,9 +89,10 @@ Adds event listener to the elements in the query list
 
 
 
-#### each(method) 
+#### each(method)
 
-Iterates over the list of dom nodes
+Iterates over the list of  nodes and passes the iterated element
+as this to the function set in the argument
 
 
 
@@ -81,7 +113,7 @@ Iterates over the list of dom nodes
 
 
 
-#### html(value) 
+#### html(value)
 
 Sets the innerHTML of each elements in the list or
 Gets the value of innerHTML of the first element if no arguments
@@ -101,11 +133,11 @@ Gets the value of innerHTML of the first element if no arguments
 ##### Returns
 
 
-- `mixed`  Query object for nesting or value if getter
+- `object` `string`  Query object for nesting or value if getter
 
 
 
-#### text(value) 
+#### text(value)
 
 Sets the textContent of each elements in the list or
 Gets the value of textContent of the first element if no arguments
@@ -129,7 +161,7 @@ Gets the value of textContent of the first element if no arguments
 
 
 
-#### attr(attr, value) 
+#### attr(attr, value)
 
 Sets the attribute of each elements in the list or
 Gets the value of attribute of the first element if no arguments
@@ -154,7 +186,30 @@ Gets the value of attribute of the first element if no arguments
 
 
 
-#### value(val) 
+#### removeAttr(attr)
+
+Removes an attribute from each element in the list
+
+
+
+
+##### Parameters
+
+| Name | Type | Description |  |
+| ---- | ---- | ----------- | -------- |
+| attr | `string`  | Name of the attribute to be removed from the element | &nbsp; |
+
+
+
+
+##### Returns
+
+
+- `object`  Query object for nesting
+
+
+
+#### value(val)
 
 Sets the value of each elements in the list or
 Gets the value of value of the first element if no arguments
@@ -178,7 +233,7 @@ Gets the value of value of the first element if no arguments
 
 
 
-#### append(value) 
+#### append(value)
 
 Appends a string to each element in the list
 
@@ -201,7 +256,7 @@ Appends a string to each element in the list
 
 
 
-#### prepend(value) 
+#### prepend(value)
 
 Prepends a string to each element in the list
 
@@ -224,9 +279,9 @@ Prepends a string to each element in the list
 
 
 
-#### remove() 
+#### remove()
 
-Removes each element from the list of dom and itself
+Removes each element from the page
 
 
 
