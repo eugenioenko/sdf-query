@@ -39,7 +39,7 @@
  * lets you modify their attributes, classes, values, styles and  add event handlers.
  *
  * @param  {string|object} selector A string which is gonna be used to query elements or a Node element
- * @param {boolean}        single If set to True, will limit the result of the query
+ * @param {boolean|optional}        single If set to True, will limit the result of the query
  * to a single element by using querySelector instead of querySelectorAll.
  * @example
  * // adds an event handler for a button of id #button_id
@@ -74,6 +74,10 @@
 				if(arguments[i+1] === "any"){
 					// cast to string
 					args[i] = (args[i]).toString();
+				} else if(arguments[i+1] === "str|node"){
+					if(typeof args[i] !== "string" && typeof args[i] !== "object"){
+						args[i] = (args[i]).toString();
+					}
 				} else {
 					if(typeof args[i] !== arguments[i+1]) return false;
 				}
@@ -94,20 +98,24 @@
 
 		var single = (typeof single === "boolean") ? single : false;
 		var elements =  [];
-
-		if (typeof selector === "string"){
-			if(single){
-				elements.push(document.querySelector(selector));
-			} else {
-				elements = document.querySelectorAll(selector)
+		if (arguments.length) {
+			if (typeof selector === "string"){
+				if(single){
+					elements.push(document.querySelector(selector));
+				} else {
+					elements = document.querySelectorAll(selector)
+				}
+			} else if(typeof selector === "object" && selector instanceof Node){
+				elements.push(selector);
+				selector = false;
+			}else {
+				// selector is not a string nor a dom Node
+				console.error(selector + " is not a string, 'query' requires a string as selector");
+				selector = false;
 			}
-		} else if(typeof selector === "object" && selector instanceof Node){
-			elements.push(selector);
-			selector = false;
 		} else {
-			// selector is not a string nor a dom Node
-			console.error(selector + " is not a string, 'query' requires a string as selector");
-			selector = null;
+			// null selector used for create
+			selector = false;
 		}
 
 		return {
@@ -296,28 +304,68 @@
 				}
 				return this;
 			},
+
+			/**
+			 * Creates a html element to be later appended with append
+			 * @param  {string} type The type of element: div,li, button, a...
+			 * @param  {string} html Inner html of the element
+			 * @return {object}      Node element of DOM
+			 * @example
+			 * // creates a node and appends it
+			 * sdf.$('ul').append(sdf.$().create('li', 'list item A'));
+			 */
+			create: function(type, html){
+				if(!validArguments(arguments, "string", "string")){
+					console.error("'create' takes type{string} and html{string} as argument");
+					return this;
+				}
+				var element = document.createElement(type);
+				element.innerHTML = html;
+				return element;
+			},
 		/**
-		 * Appends a string to each element in the list
-		 * @param  {string} value String to be apended
+		 * Appends a string or Node to an element
+		 * If a string representing an html element is used, the function will iterate over
+		 * every element of the list from the selector. The append is gonna be done with innerHTML.
+		 * if a Node is used as argument, it will append it only to the first element of the list
+		 * with appendChild. Use 'each' if you want to iterate over every element
+		 * @param  {string|object} value String or Node to be appended
+		 * @example
+		 * // adds a '<i>!</i>' to every link
+		 * sdf.$('a').append('<i>!</i>');
+		 * // adds a '<span><i>!</i><i>!</i><i>!</i></span>' to the first link
+		 * sdf.$('a').append(sdf.$().create('span', '<i>!</i><i>!</i><i>!</i>'));
+		 * // same as above but for each element. Works the fastest most of the time;
+		 * sdf.$('a').each(function(){
+		 *   sdf.$(this).append(sdf.$().create('span', '<i>!</i><i>!</i><i>!</i>'));
+		 * });
 		 * @return {object}        Query object for nesting
 		 */
+
+
 			append: function(value){
 				if(emptyNodeList(this.nodes)) {
 					console.error("No elements with selector: " + this.selector + ' for append');
 					return this;
 				}
-				if(!validArguments(arguments, "any")){
-					console.error("'append' takes string{string} as argument");
+				if(!validArguments(arguments, "str|node")){
+					console.error("'append' takes value{string|node} as argument");
 					return this;
 				}
 				for (var i = 0; i < this.nodes.length; ++i) {
-					this.nodes[i].innerHTML += value;
+					if(typeof value === "string"){
+						for (var i = 0; i < this.nodes.length; ++i) {
+							this.nodes[i].innerHTML += value;
+						}
+					} else {
+						this.nodes[0].appendChild(value);
+					}
 				}
 				return this;
 			},
 		/**
 		 * Prepends a string to each element in the list
-		 * @param  {string} value String to be apended
+		 * @param  {string} value String to be prepended
 		 * @return {object}        Query object for nesting
 		 */
 			prepend: function(value){
@@ -325,7 +373,7 @@
 					console.error("No elements with selector: " + this.selector + ' for prepend');
 					return this;
 				}
-				if(!validArguments(arguments, "any")){
+				if(!validArguments(arguments, "string")){
 					console.error("'prepend' takes string{string} as argument");
 					return this;
 				}
