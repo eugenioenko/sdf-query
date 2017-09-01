@@ -1,4 +1,4 @@
-# [sdf-query](https://github.com/eugenioenko/sdf-query#readme) *1.0.0*
+# [sdf-query](https://github.com/eugenioenko/sdf-query#readme) *0.7.0*
 
 > Simple utility for selecting and modifying DOM elements used by SDF CSS Framework
 
@@ -125,7 +125,7 @@ sdf.$('button.active').each(function(){
 
 
 
-#### sdf.$('selector').sdf.$('selector').sdf.$('selector').sdf.$('selector').sdf.$('selector').html(value)
+#### sdf.$('selector').html(value)
 
 Sets the innerHTML of each elements in the list or
 Gets the value of innerHTML of the first element if no arguments
@@ -157,7 +157,7 @@ sdf.$('body', true).html('<h1>Hello, World!</h1>');
 
 
 
-#### sdf.$('selector').sdf.$('selector').sdf.$('selector').sdf.$('selector').text(value)
+#### sdf.$('selector').text(value)
 
 Sets the textContent of each elements in the list or
 Gets the value of textContent of the first element if no arguments
@@ -181,7 +181,7 @@ Gets the value of textContent of the first element if no arguments
 
 
 
-#### sdf.$('selector').sdf.$('selector').sdf.$('selector').attr(attr, value)
+#### sdf.$('selector').attr(attr, value)
 
 Sets the attribute of each elements in the list or
 Gets the value of attribute of the first element if no arguments
@@ -218,7 +218,7 @@ sdf.$('button').click(function(){
 
 
 
-#### sdf.$('selector').sdf.$('selector').removeAttr(attr)
+#### sdf.$('selector').removeAttr(attr)
 
 Removes an attribute from each element in the list
 
@@ -265,9 +265,10 @@ Gets the value of value of the first element if no arguments
 
 
 
-#### sdf.$('selector').sdf.$('selector').sdf.$('selector').create(type, html)
+#### sdf.$().create(type, html)
 
-Creates a html element to be later appended with append
+Creates a html element to be later appended with append.
+selector can be empty
 
 
 
@@ -297,7 +298,7 @@ sdf.$('ul').append(sdf.$().create('li', 'list item A'));
 
 
 
-#### sdf.$('selector').sdf.$('selector').append(value)
+#### sdf.$('selector').append(value)
 
 Appends a string or Node to an element
 If a string representing an html element is used, the function will iterate over
@@ -361,7 +362,7 @@ Prepends a string to each element in the list
 
 
 
-#### sdf.$('selector').sdf.$('selector').addClass(classList)
+#### sdf.$('selector').addClass(classList)
 
 Adds class to elements in the list
 
@@ -421,7 +422,7 @@ Removes classes from  elements in the list
 
 
 
-#### remove()
+#### sdf.$('selector').remove()
 
 Removes each element from the page
 
