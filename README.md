@@ -1,4 +1,4 @@
-# [sdf-query](https://github.com/eugenioenko/sdf-query#readme) *1.0.0*
+# [sdf-query](https://github.com/eugenioenko/sdf-query#readme) *0.8.0*
 
 > Simple utility for selecting and modifying DOM elements used by SDF CSS Framework
 
@@ -6,7 +6,7 @@
 ### js/sdf-query.js
 
 
-#### query(selector, single) 
+#### sdf.$('selector').query(selector, single)
 
 Query Function
 
@@ -59,7 +59,7 @@ sdf.$('ul').append('<li>appended</li>').prepend('<li>prepended</li>');
 
 
 
-#### on(event, method) 
+#### sdf.$('selector').on(event, method)
 
 Adds event listener to the selected elements
 this points to the current iterated element
@@ -91,7 +91,7 @@ sdf.$('selector').on('click', function(){ //to do });
 
 
 
-#### each(method) 
+#### sdf.$('selector').each(method)
 
 Iterates over the list of  nodes and passes the iterated element
 as this to the function set in the argument
@@ -125,7 +125,7 @@ sdf.$('button.active').each(function(){
 
 
 
-#### html(value) 
+#### sdf.$('selector').html(value)
 
 Sets the innerHTML of each elements in the list or
 Gets the value of innerHTML of the first element if no arguments
@@ -157,7 +157,7 @@ sdf.$('body', true).html('<h1>Hello, World!</h1>');
 
 
 
-#### text(value) 
+#### sdf.$('selector').text(value)
 
 Sets the textContent of each elements in the list or
 Gets the value of textContent of the first element if no arguments
@@ -181,7 +181,7 @@ Gets the value of textContent of the first element if no arguments
 
 
 
-#### attr(attr, value) 
+#### sdf.$('selector').attr(attr, value)
 
 Sets the attribute of each elements in the list or
 Gets the value of attribute of the first element if no arguments
@@ -218,7 +218,7 @@ sdf.$('button').click(function(){
 
 
 
-#### css(attr, value) 
+#### sdf.$('selector').css(attr, value)
 
 Sets the style of each elements in the list or
 Gets the value of style of the first element if no arguments
@@ -256,7 +256,7 @@ sdf.$('button').click(function(){
 
 
 
-#### removeAttr(attr) 
+#### sdf.$('selector').removeAttr(attr)
 
 Removes an attribute from each element in the list
 
@@ -279,7 +279,7 @@ Removes an attribute from each element in the list
 
 
 
-#### value(val) 
+#### sdf.$('selector').value(val)
 
 Sets the value of each elements in the list or
 Gets the value of value of the first element if no arguments
@@ -303,7 +303,7 @@ Gets the value of value of the first element if no arguments
 
 
 
-#### create(type, html) 
+#### sdf.$().create(type, html)
 
 Creates a html element to be later appended with append
 
@@ -335,7 +335,7 @@ sdf.$('ul').append(sdf.$().create('li', 'list item A'));
 
 
 
-#### element() 
+#### sdf.$('selector').element()
 
 Returns the first element in the list
 
@@ -351,7 +351,7 @@ Returns the first element in the list
 
 
 
-#### append(value) 
+#### sdf.$('selector').append(value)
 
 Appends a string or Node to an element
 If a string representing an html element is used, the function will iterate over
@@ -392,7 +392,7 @@ sdf.$('a').each(function(){
 
 
 
-#### prepend(value) 
+#### sdf.$('selector').prepend(value)
 
 Prepends a string to each element in the list
 
@@ -415,7 +415,7 @@ Prepends a string to each element in the list
 
 
 
-#### addClass(classList) 
+#### sdf.$('selector').addClass(classList)
 
 Adds class to elements in the list
 
@@ -452,7 +452,7 @@ sdf.$('li').addClass('class-1 class-2 class-3')
 
 
 
-#### removeClass(classList) 
+#### sdf.$('selector').removeClass(classList)
 
 Removes classes from  elements in the list
 
@@ -475,7 +475,7 @@ Removes classes from  elements in the list
 
 
 
-#### remove() 
+#### sdf.$('selector').remove()
 
 Removes each element from the page
 
