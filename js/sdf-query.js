@@ -74,7 +74,7 @@
                 if(arguments[i+1] === "any"){
                     // cast to string
                     args[i] = (args[i]).toString();
-                } else if(arguments[i+1] === "str|node"){
+                } else if(arguments[i+1] === "str|obj"){
                     if(typeof args[i] !== "string" && typeof args[i] !== "object"){
                         args[i] = (args[i]).toString();
                     }
@@ -136,13 +136,13 @@
                     console.error("No elements with selector: " + this.selector + ' for on method');
                     return this;
                 }
-                if(!validArguments(arguments, "string", "function")){
-                    console.error("'on' requires event{string} and method{function}");
-                    return this;
-                }
-                // adding event listeners
-                for (var i = 0; i < this.nodes.length; ++i) {
-                    this.nodes[i].addEventListener(event, method);
+                if(validArguments(arguments, "string", "function")){
+                    // adding event listeners
+                    for (var i = 0; i < this.nodes.length; ++i) {
+                        this.nodes[i].addEventListener(event, method);
+                    }
+                } else {
+                    throw new Error("'on' requires event {string} and method {function}");
                 }
                 return this;
             },
@@ -163,12 +163,12 @@
                     console.error("No elements with selector: " + this.selector + ' for each');
                     return this;
                 }
-                if(!validArguments(arguments, "function")){
+                if(validArguments(arguments, "function")){
+                    for (var i = 0; i < this.nodes.length; ++i) {
+                        method.call(this.nodes[i]);
+                    }
+                } else {
                     console.error(method + " is not a function, 'each' requires a function as argument");
-                    return this;
-                }
-                for (var i = 0; i < this.nodes.length; ++i) {
-                    method.call(this.nodes[i]);
                 }
                 return this;
             },
@@ -189,12 +189,12 @@
                 if(emptyArguments(arguments)){
                     return this.nodes[0].innerHTML;
                 }
-                if(!validArguments(arguments, "any")){
-                    console.error("'html' takes value{any} as argument or no arguments.");
-                    return this;
-                }
-                for (var i = 0; i < this.nodes.length; ++i) {
-                    this.nodes[i].innerHTML = value;
+                if(validArguments(arguments, "any")){
+                    for (var i = 0; i < this.nodes.length; ++i) {
+                        this.nodes[i].innerHTML = value;
+                    }
+                } else {
+                    console.error("'html' takes value {any} as argument or no arguments.");
                 }
                 return this;
             },
@@ -212,12 +212,12 @@
                 if(emptyArguments(arguments)){
                     return this.nodes[0].textContent;
                 }
-                if(!validArguments(arguments, "any")){
-                    console.error("'text' takes value{any} as argument or no arguments.");
-                    return this;
-                }
-                for (var i = 0; i < this.nodes.length; ++i) {
-                    this.nodes[i].textContent = value;
+                if(validArguments(arguments, "any")){
+                    for (var i = 0; i < this.nodes.length; ++i) {
+                        this.nodes[i].textContent = value;
+                    }
+                } else {
+                    console.error("'text' takes value {any} as argument or no arguments.");
                 }
                 return this;
             },
@@ -245,20 +245,71 @@
                     return this;
                 }
                 if(arguments.length == 1){
-                    if(!validArguments(arguments, "string")){
-                        console.error("'attr' takes attribute{string} as argument for getter");
+                    if(validArguments(arguments, "string")){
+                         return this.nodes[0].getAttribute(attr);
+                    } else {
+                        console.error("'attr' takes attribute {string} as argument for getter");
                         return this;
                     }
-                    return this.nodes[0].getAttribute(attr);
                 }
-
-                if(!validArguments(arguments, "string", "any")){
-                    console.error("'attr' takes two attribute{string}, value{any} as setter");
+                if(validArguments(arguments, "string", "any")){
+                    for (var i = 0; i < this.nodes.length; ++i) {
+                        this.nodes[i].setAttribute(attr, value);
+                    }
+                } else {
+                    console.error("'attr' takes two attribute {string}, value{any} as setter");
+                }
+                return this;
+            },
+        /**
+         * Sets the style of each elements in the list or
+         * Gets the value of style of the first element if no arguments
+         * @param {string} attr Attribute to be set
+         * @param  {string} value Optional, the new style value
+         * @example
+         * // reads the style data-date from a clicked button
+         * sdf.$('button').click(function(){
+         *   var opacity = sdf.$(this).css('opacity');
+         *   // to do
+         *   sdf.$(this).css('opacity', opacity);
+         *   sdf.$(this).css({opacity: 1, color: 'red'});
+         * });
+         * @return {mixed}        Query object for nesting or value if getter
+         */
+            css: function(style, value){
+                if(emptyNodeList(this.nodes)) {
+                    console.error("No elements with selector: " + this.selector + ' for text');
                     return this;
                 }
-                for (var i = 0; i < this.nodes.length; ++i) {
-                    this.nodes[i].setAttribute(attr, value);
+                if(emptyArguments(arguments)){
+                    console.error("'css' requires at least one argument as style {string}");
+                    return this;
                 }
+                if(arguments.length == 1){
+                    if(validArguments(arguments, "string")){
+                        // getter
+                         return this.nodes[0].style[style];
+                    } else if(validArguments(arguments, "object")){
+                        // setter with object param
+                        for(var key in value){
+                            if(!value.hasOwnProperty(key)) continue;
+                            this.nodes[i].style[key] = value[key];
+                        }
+                        return this;
+                    } else {
+                        console.error("'css' takes style {string} as argument for getter or object as setter");
+                        return this;
+                    }
+                }
+                if(validArguments(arguments, "string", "str|obj")){
+                    for (var i = 0; i < this.nodes.length; ++i) {
+                        this.nodes[i].style[style] = value;
+                    }
+                } else {
+                    console.error("'css' takes value {string|object} as argument");
+                    return this;
+                }
+
                 return this;
             },
         /**
@@ -294,34 +345,49 @@
                 if(emptyArguments(arguments)){
                     return this.nodes[0].value;
                 }
-                if(!validArguments(arguments, "any")){
-                    console.error("'value' takes value{string} as argument or no arguments.");
-                    return this;
-                }
-                for (var i = 0; i < this.nodes.length; ++i) {
-                    this.nodes[i].value = val;
+                if(validArguments(arguments, "any")){
+                    for (var i = 0; i < this.nodes.length; ++i) {
+                        this.nodes[i].value = val;
+                    }
+                } else {
+                    console.error("'value' takes value {string} as argument or no arguments.");
                 }
                 return this;
             },
 
-            /**
-             * Creates a html element to be later appended with append
-             * @param  {string} type The type of element: div,li, button, a...
-             * @param  {string} html Inner html of the element
-             * @return {object}      Node element of DOM
-             * @example
-             * // creates a node and appends it
-             * sdf.$('ul').append(sdf.$().create('li', 'list item A'));
-             */
+        /**
+         * Creates a html element to be later appended with append
+         * @param  {string} type The type of element: div,li, button, a...
+         * @param  {string} html Inner html of the element
+         * @return {object}      Node element of DOM
+         * @example
+         * // creates a node and appends it
+         * sdf.$('ul').append(sdf.$().create('li', 'list item A'));
+         */
             create: function(type, html){
-                if(!validArguments(arguments, "string", "string")){
+                if(validArguments(arguments, "string", "string")){
+                    var element = document.createElement(type);
+                    element.innerHTML = html;
+                    return element;
+                } else {
                     console.error("'create' takes type{string} and html{string} as argument");
                     return this;
                 }
-                var element = document.createElement(type);
-                element.innerHTML = html;
-                return element;
+
             },
+        /**
+         * Returns the first element in the list
+         * @return {object} Element
+         */
+            element: function(){
+                if(emptyNodeList(this.nodes)) {
+                    console.error("No elements with selector: " + this.selector + ' for value');
+                    return this;
+                }
+                return this.nodes[0];
+            },
+            first: function(){ return this.element() },
+
         /**
          * Appends a string or Node to an element
          * If a string representing an html element is used, the function will iterate over
@@ -340,24 +406,21 @@
          * });
          * @return {object}        Query object for nesting
          */
-
-
             append: function(value){
                 if(emptyNodeList(this.nodes)) {
                     console.error("No elements with selector: " + this.selector + ' for append');
                     return this;
                 }
-                if(!validArguments(arguments, "str|node")){
-                    console.error("'append' takes value{string|node} as argument");
-                    return this;
-                }
-
-                if(typeof value === "string"){
-                    for (var i = 0; i < this.nodes.length; ++i) {
-                        this.nodes[i].innerHTML += value;
+                if(validArguments(arguments, "str|obj")){
+                    if(typeof value === "string"){
+                        for (var i = 0; i < this.nodes.length; ++i) {
+                            this.nodes[i].innerHTML += value;
+                        }
+                    } else {
+                        this.nodes[0].appendChild(value);
                     }
                 } else {
-                    this.nodes[0].appendChild(value);
+                    console.error("'append' takes value{string|node} as argument");
                 }
                 return this;
             },
@@ -371,14 +434,15 @@
                     console.error("No elements with selector: " + this.selector + ' for prepend');
                     return this;
                 }
-                if(!validArguments(arguments, "string")){
+                if(validArguments(arguments, "string")){
+                    for (var i = 0; i < this.nodes.length; ++i) {
+                        this.nodes[i].innerHTML = value + this.nodes[i].innerHTML;
+                    }
+                } else {
                     console.error("'prepend' takes string{string} as argument");
-                    return this;
-                }
-                for (var i = 0; i < this.nodes.length; ++i) {
-                    this.nodes[i].innerHTML = value + this.nodes[i].innerHTML;
                 }
                 return this;
+
             },
         /**
          * Adds class to elements in the list

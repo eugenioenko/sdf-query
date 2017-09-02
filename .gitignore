@@ -31,3 +31,5 @@ scss/.sass-cache
 scss/.sass-cache/*
 .sass-cache
 .sass-cache/*
+.jasmine
+.jasmine/*
