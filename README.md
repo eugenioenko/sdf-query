@@ -1,4 +1,4 @@
-# [sdf-query](https://github.com/eugenioenko/sdf-query#readme) *0.7.0*
+# [sdf-query](https://github.com/eugenioenko/sdf-query#readme) *1.0.0*
 
 > Simple utility for selecting and modifying DOM elements used by SDF CSS Framework
 
@@ -6,7 +6,7 @@
 ### js/sdf-query.js
 
 
-#### sdf.$(selector, single)
+#### query(selector, single) 
 
 Query Function
 
@@ -59,7 +59,7 @@ sdf.$('ul').append('<li>appended</li>').prepend('<li>prepended</li>');
 
 
 
-#### sdf.$('selector').on(event, method)
+#### on(event, method) 
 
 Adds event listener to the selected elements
 this points to the current iterated element
@@ -91,7 +91,7 @@ sdf.$('selector').on('click', function(){ //to do });
 
 
 
-#### sdf.$('selector').each(method)
+#### each(method) 
 
 Iterates over the list of  nodes and passes the iterated element
 as this to the function set in the argument
@@ -125,7 +125,7 @@ sdf.$('button.active').each(function(){
 
 
 
-#### sdf.$('selector').html(value)
+#### html(value) 
 
 Sets the innerHTML of each elements in the list or
 Gets the value of innerHTML of the first element if no arguments
@@ -157,7 +157,7 @@ sdf.$('body', true).html('<h1>Hello, World!</h1>');
 
 
 
-#### sdf.$('selector').text(value)
+#### text(value) 
 
 Sets the textContent of each elements in the list or
 Gets the value of textContent of the first element if no arguments
@@ -181,7 +181,7 @@ Gets the value of textContent of the first element if no arguments
 
 
 
-#### sdf.$('selector').attr(attr, value)
+#### attr(attr, value) 
 
 Sets the attribute of each elements in the list or
 Gets the value of attribute of the first element if no arguments
@@ -218,7 +218,45 @@ sdf.$('button').click(function(){
 
 
 
-#### sdf.$('selector').removeAttr(attr)
+#### css(attr, value) 
+
+Sets the style of each elements in the list or
+Gets the value of style of the first element if no arguments
+
+
+
+
+##### Parameters
+
+| Name | Type | Description |  |
+| ---- | ---- | ----------- | -------- |
+| attr | `string`  | Attribute to be set | &nbsp; |
+| value | `string`  | Optional, the new style value | &nbsp; |
+
+
+
+
+##### Examples
+
+```javascript
+// reads the style data-date from a clicked button
+sdf.$('button').click(function(){
+  var opacity = sdf.$(this).css('opacity');
+  // to do
+  sdf.$(this).css('opacity', opacity);
+  sdf.$(this).css({opacity: 1, color: 'red'});
+});
+```
+
+
+##### Returns
+
+
+- `mixed`  Query object for nesting or value if getter
+
+
+
+#### removeAttr(attr) 
 
 Removes an attribute from each element in the list
 
@@ -241,7 +279,7 @@ Removes an attribute from each element in the list
 
 
 
-#### sdf.$('selector').value(val)
+#### value(val) 
 
 Sets the value of each elements in the list or
 Gets the value of value of the first element if no arguments
@@ -265,10 +303,9 @@ Gets the value of value of the first element if no arguments
 
 
 
-#### sdf.$().create(type, html)
+#### create(type, html) 
 
-Creates a html element to be later appended with append.
-selector can be empty
+Creates a html element to be later appended with append
 
 
 
@@ -298,7 +335,23 @@ sdf.$('ul').append(sdf.$().create('li', 'list item A'));
 
 
 
-#### sdf.$('selector').append(value)
+#### element() 
+
+Returns the first element in the list
+
+
+
+
+
+
+##### Returns
+
+
+- `object`  Element
+
+
+
+#### append(value) 
 
 Appends a string or Node to an element
 If a string representing an html element is used, the function will iterate over
@@ -339,7 +392,7 @@ sdf.$('a').each(function(){
 
 
 
-#### sdf.$('selector').prepend(value)
+#### prepend(value) 
 
 Prepends a string to each element in the list
 
@@ -362,7 +415,7 @@ Prepends a string to each element in the list
 
 
 
-#### sdf.$('selector').addClass(classList)
+#### addClass(classList) 
 
 Adds class to elements in the list
 
@@ -399,7 +452,7 @@ sdf.$('li').addClass('class-1 class-2 class-3')
 
 
 
-#### sdf.$('selector').removeClass(classList)
+#### removeClass(classList) 
 
 Removes classes from  elements in the list
 
@@ -422,7 +475,7 @@ Removes classes from  elements in the list
 
 
 
-#### sdf.$('selector').remove()
+#### remove() 
 
 Removes each element from the page
 
@@ -437,3 +490,14 @@ Removes each element from the page
 // destroys the body
 sdf.$('body', true).remove();
 ```
+
+
+##### Returns
+
+
+- `object`  Query object for nesting
+
+
+
+
+*Documentation generated with [doxdox](https://github.com/neogeek/doxdox).*
