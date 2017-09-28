@@ -6,7 +6,7 @@
 ### src/sdf-query.js
 
 
-#### sdf.$('selector').sdfQuery(selector, limit) 
+#### sdf.$(selector, limit) 
 
 Query Function
 
