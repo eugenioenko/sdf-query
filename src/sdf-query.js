@@ -158,6 +158,7 @@
          * as this to the function set in the argument
          * @param  {function} method A function to execute for each node,
          *   "this" is gonna be set to the current iterated element
+         * @this Current iterated element
          * @example
          * // Iterates over buttons with class active
          * sdf.$('button.active').each(function(){
