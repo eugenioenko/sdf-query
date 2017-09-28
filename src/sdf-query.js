@@ -4,9 +4,10 @@
  * @package SDF
  * @author  eugenioenko
  * @license http://opensource.org/licenses/MIT  MIT License
- * @link    https://github.com/eugenioenko/sdf-query
- * @since   Version 1.0.0
+ * @link    https://github.com/eugenioenko/sdf-css
+ * @since   Version 0.8.5
  */
+
 (function(){
 
 /**
@@ -16,8 +17,9 @@
  * lets you modify their attributes, classes, values, styles and  add event handlers.
  *
  * @param  {string|object} selector A string which is gonna be used to query elements or a Node element
- * @param {boolean|optional}        single If set to True, will limit the result of the query
- * to a single element by using querySelector instead of querySelectorAll.
+ * if selector starts with '#' getElementsById will be used limiting the result to 1
+ * @param {number|optional}        limit If set to a number, will limit the results of the query
+ * to the amount. If set to one, element will be selected by using querySelector instead of querySelectorAll.
  * @example
  * // adds an event handler for a button of id #button_id
  * sdf.$('#button_id', true).on('click', function(){});
@@ -38,7 +40,7 @@
  * @return {object} Which contains the methods for dom manipulation.
  *
  */
-    var query = function (selector, single){
+    function sdfQuery(selector, limit){
 
         var emptyNodeList = function(nodeList){
             return nodeList.length == 0;
@@ -72,25 +74,50 @@
             return classes;
         };
 
-        single = (typeof single === "boolean") ? single : false;
+        limit = (typeof limit === "undefined") ? -1 : limit;
         var elements =  [];
+        var element = {};
+        var method = '';
         if (arguments.length) {
             if (typeof selector === "string"){
-                if(single){
-                    elements.push(document.querySelector(selector));
+                selector = selector.trim();
+                if(selector.charAt(0) == '#'){
+                    method = 'getElementById';
+                    element = document.getElementById(selector.substring(1));
+                    if(element){
+                        elements.push(element);
+                    }
+                } else if(limit == 1){
+                    method = "querySelector";
+                    element = document.querySelector(selector);
+                    if(element){
+                        elements.push(element);
+                    }
                 } else {
-                    elements = document.querySelectorAll(selector);
+                    method = "querySelectorAll";
+                    var nodes = document.querySelectorAll(selector);
+                    if(limit == -1){
+                        limit = nodes.length;
+                    } else {
+                        limit = limit > nodes.length ? nodes.length : limit;
+                    }
+                    for(var i = 0; i < limit; ++i){
+                        elements.push(nodes[i]);
+                    }
                 }
             } else if(typeof selector === "object" && selector instanceof Node){
+                method = "element";
                 elements.push(selector);
                 selector = false;
             }else {
+                method = "error";
                 // selector is not a string nor a dom Node
                 console.error(selector + " is not a string, 'query' requires a string as selector");
                 selector = false;
             }
         } else {
-            // null selector used for create
+            method ="null";
+            // null selector used for create 
             selector = false;
         }
 
@@ -98,6 +125,7 @@
             selector: selector,
             nodes: elements,
             length: elements.length,
+            method: method,
 
         /**
          * Adds event listener to the selected elements
@@ -131,7 +159,7 @@
          * @example
          * // Iterates over buttons with class active
          * sdf.$('button.active').each(function(){
-         *   sdf.$(this).attr('data-active', false);
+         *   sdf.$(this).attr('data-active');
          * });
          * @return {object}        Query object for nesting
          */
@@ -254,12 +282,13 @@
          * @return {mixed}        Query object for nesting or value if getter
          */
             css: function(style, value){
+                var i = 0;
                 if(emptyNodeList(this.nodes)) {
                     console.error("No elements with selector: " + this.selector + ' for text');
                     return this;
                 }
                 if(emptyArguments(arguments)){
-                    console.error("'css' requires at least one argument as style {string}");
+                    console.error("'css' requires at least one argument as style getter {string} or {object} as setter");
                     return this;
                 }
                 if(arguments.length == 1){
@@ -267,10 +296,13 @@
                         // getter
                          return this.nodes[0].style[style];
                     } else if(validArguments(arguments, "object")){
+                        value = style;
                         // setter with object param
-                        for(var key in value){
-                            if(!value.hasOwnProperty(key)) continue;
-                            this.nodes[i].style[key] = value[key];
+                        for (i = 0; i < this.nodes.length; ++i) {
+                            for(var key in value){
+                                if(!value.hasOwnProperty(key)) continue;
+                                this.nodes[i].style[key] = value[key];
+                            }
                         }
                         return this;
                     } else {
@@ -279,7 +311,7 @@
                     }
                 }
                 if(validArguments(arguments, "string", "str|obj")){
-                    for (var i = 0; i < this.nodes.length; ++i) {
+                    for (i = 0; i < this.nodes.length; ++i) {
                         this.nodes[i].style[style] = value;
                     }
                 } else {
@@ -363,7 +395,9 @@
                 }
                 return this.nodes[0];
             },
-            first: function(){ return this.element() },
+            first: function(){
+                return this.element();
+            },
 
         /**
          * Appends a string or Node to an element
@@ -482,7 +516,7 @@
          * @return {object}        Query object for nesting
          * @example
          * // destroys the body
-         * sdf.$('body', true).remove();
+         * sdf.$('body', 1).remove();
          */
             remove: function(){
                 for (var i = 0; i < this.nodes.length; ++i) {
@@ -494,11 +528,11 @@
                 return this;
             }
         };
-    };
+    }
 
     if(typeof window.sdf === "undefined"){
         window.sdf = {
-            $: query
+            $: sdfQuery
         };
     }
 

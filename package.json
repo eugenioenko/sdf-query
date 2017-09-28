@@ -1,6 +1,6 @@
 {
   "name": "sdf-query",
-  "version": "1.0.0",
+  "version": "0.8.5",
   "description": "Simple utility for selecting and modifying DOM elements used by SDF CSS Framework",
   "main": "js/sdf-query.js",
   "scripts": {
@@ -25,5 +25,13 @@
   "bugs": {
     "url": "https://github.com/eugenioenko/sdf-query/issues"
   },
-  "homepage": "https://github.com/eugenioenko/sdf-query#readme"
+  "homepage": "https://github.com/eugenioenko/sdf-query#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-jshint": "^2.0.4",
+    "gulp-uglify": "^3.0.0",
+    "jshint": "^2.9.5",
+    "jshint-stylish": "^2.2.1"
+  },
+  "dependencies": {}
 }

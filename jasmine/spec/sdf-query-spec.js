@@ -8,9 +8,9 @@ describe("Sdf Query", function() {
 	});
 
 	it("Query an attribute from body element. Getter and Setter", function(){
-		expect(sdf.$('body',false).attr('data-body-attr')).toBeNull();
-		expect(sdf.$('body',false).attr('data-body-attr', 'value'));
-		expect(sdf.$('body',false).attr('data-body-attr')).toEqual('value');
+		expect(sdf.$('body', 1).attr('data-body-attr')).toBeNull();
+		expect(sdf.$('body', 1).attr('data-body-attr', 'value'));
+		expect(sdf.$('body', 1).attr('data-body-attr')).toEqual('value');
 	});
 
 	it("Should create an element", function(){
@@ -31,6 +31,12 @@ describe("Sdf Query", function() {
 		}).toThrow();
 	});
 
+	it("should return only 3 element", function(){
+		expect(sdf.$('div', 3).length).toEqual(3);
+	});
 
+	it("should return 0 elements with id #id_doesnt_exist", function(){
+		expect(sdf.$('#id_doesnt_exist').length).toEqual(0);
+	});
 
 });

@@ -33,3 +33,8 @@ scss/.sass-cache/*
 .sass-cache/*
 .jasmine
 .jasmine/*
+
+# Node modules
+node_modules/
+node_modules/*
+

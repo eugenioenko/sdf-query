@@ -1,12 +1,12 @@
-# [sdf-query](https://github.com/eugenioenko/sdf-query#readme) *0.8.0*
+# [sdf-query](https://github.com/eugenioenko/sdf-query#readme) *0.8.5*
 
 > Simple utility for selecting and modifying DOM elements used by SDF CSS Framework
 
 
-### js/sdf-query.js
+### src/sdf-query.js
 
 
-#### sdf.$('selector').query(selector, single)
+#### sdf.$(selector, limit) 
 
 Query Function
 
@@ -20,8 +20,8 @@ lets you modify their attributes, classes, values, styles and  add event handler
 
 | Name | Type | Description |  |
 | ---- | ---- | ----------- | -------- |
-| selector | `string` `object`  | A string which is gonna be used to query elements or a Node element | &nbsp; |
-| single | `boolean` `optional`  | If set to True, will limit the result of the query to a single element by using querySelector instead of querySelectorAll. | &nbsp; |
+| selector | `string` `object`  | A string which is gonna be used to query elements or a Node element if selector starts with '#' getElementsById will be used limiting the result to 1 | &nbsp; |
+| limit | `number` `optional`  | If set to a number, will limit the results of the query to the amount. If set to one, element will be selected by using querySelector instead of querySelectorAll. | &nbsp; |
 
 
 
@@ -59,7 +59,7 @@ sdf.$('ul').append('<li>appended</li>').prepend('<li>prepended</li>');
 
 
 
-#### sdf.$('selector').on(event, method)
+#### on(event, method) 
 
 Adds event listener to the selected elements
 this points to the current iterated element
@@ -91,7 +91,7 @@ sdf.$('selector').on('click', function(){ //to do });
 
 
 
-#### sdf.$('selector').each(method)
+#### each(method) 
 
 Iterates over the list of  nodes and passes the iterated element
 as this to the function set in the argument
@@ -113,7 +113,7 @@ as this to the function set in the argument
 ```javascript
 // Iterates over buttons with class active
 sdf.$('button.active').each(function(){
-  sdf.$(this).attr('data-active', false);
+  sdf.$(this).attr('data-active');
 });
 ```
 
@@ -125,7 +125,7 @@ sdf.$('button.active').each(function(){
 
 
 
-#### sdf.$('selector').html(value)
+#### html(value) 
 
 Sets the innerHTML of each elements in the list or
 Gets the value of innerHTML of the first element if no arguments
@@ -157,7 +157,7 @@ sdf.$('body', true).html('<h1>Hello, World!</h1>');
 
 
 
-#### sdf.$('selector').text(value)
+#### text(value) 
 
 Sets the textContent of each elements in the list or
 Gets the value of textContent of the first element if no arguments
@@ -181,7 +181,7 @@ Gets the value of textContent of the first element if no arguments
 
 
 
-#### sdf.$('selector').attr(attr, value)
+#### attr(attr, value) 
 
 Sets the attribute of each elements in the list or
 Gets the value of attribute of the first element if no arguments
@@ -218,7 +218,7 @@ sdf.$('button').click(function(){
 
 
 
-#### sdf.$('selector').css(attr, value)
+#### css(attr, value) 
 
 Sets the style of each elements in the list or
 Gets the value of style of the first element if no arguments
@@ -256,7 +256,7 @@ sdf.$('button').click(function(){
 
 
 
-#### sdf.$('selector').removeAttr(attr)
+#### removeAttr(attr) 
 
 Removes an attribute from each element in the list
 
@@ -279,7 +279,7 @@ Removes an attribute from each element in the list
 
 
 
-#### sdf.$('selector').value(val)
+#### value(val) 
 
 Sets the value of each elements in the list or
 Gets the value of value of the first element if no arguments
@@ -303,7 +303,7 @@ Gets the value of value of the first element if no arguments
 
 
 
-#### sdf.$().create(type, html)
+#### create(type, html) 
 
 Creates a html element to be later appended with append
 
@@ -335,7 +335,7 @@ sdf.$('ul').append(sdf.$().create('li', 'list item A'));
 
 
 
-#### sdf.$('selector').element()
+#### element() 
 
 Returns the first element in the list
 
@@ -351,7 +351,7 @@ Returns the first element in the list
 
 
 
-#### sdf.$('selector').append(value)
+#### append(value) 
 
 Appends a string or Node to an element
 If a string representing an html element is used, the function will iterate over
@@ -392,7 +392,7 @@ sdf.$('a').each(function(){
 
 
 
-#### sdf.$('selector').prepend(value)
+#### prepend(value) 
 
 Prepends a string to each element in the list
 
@@ -415,7 +415,7 @@ Prepends a string to each element in the list
 
 
 
-#### sdf.$('selector').addClass(classList)
+#### addClass(classList) 
 
 Adds class to elements in the list
 
@@ -452,7 +452,7 @@ sdf.$('li').addClass('class-1 class-2 class-3')
 
 
 
-#### sdf.$('selector').removeClass(classList)
+#### removeClass(classList) 
 
 Removes classes from  elements in the list
 
@@ -475,7 +475,7 @@ Removes classes from  elements in the list
 
 
 
-#### sdf.$('selector').remove()
+#### remove() 
 
 Removes each element from the page
 
@@ -488,7 +488,7 @@ Removes each element from the page
 
 ```javascript
 // destroys the body
-sdf.$('body', true).remove();
+sdf.$('body', 1).remove();
 ```
 
 
