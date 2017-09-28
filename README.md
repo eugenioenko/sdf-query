@@ -2,8 +2,8 @@
 
 > Simple utility for selecting and modifying DOM elements used by SDF CSS Framework
 
-## Live documentation
-[Documentation](https://eugenioenko.github.io/sdf-query/docs/)
+## Live documentation and examples
+[HERE](https://eugenioenko.github.io/sdf-query/docs/index.html)
 
 ### src/sdf-query.js
 
