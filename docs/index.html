@@ -3,10 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="initial-scale=1">
-<title>sdf-query 0.8.6 Simple utility for selecting and modifying DOM elements used by SDF CSS Framework</title>
+<title>sdf-query 0.8.6 &#8212; Simple utility for selecting and modifying DOM elements used by SDF CSS Framework</title>
 <meta name="description" content="Simple utility for selecting and modifying DOM elements used by SDF CSS Framework">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+<script src="../dist/sdf-query.js"></script>
 <style>
 
 input[type="search"]::-webkit-search-cancel-button {
@@ -149,6 +150,13 @@ input[type="search"]::-webkit-search-cancel-button {
     color: #777;
     text-align: center;
 }
+.tryout{
+    padding: 15px;
+    border: 1px solid #ccc;
+}
+.tryout >h4{
+    margin-bottom: 20px;
+}
 
 </style>
 </head>
@@ -191,7 +199,7 @@ input[type="search"]::-webkit-search-cancel-button {
 
 
                         <li class="method-link scope-public">
-                            <a href="#src-sdf-query.js-sdfquery" title="sdfQuery">sdfQuery</a>
+                            <a href="#src-sdf-query.js-sdfquery" title="sdf.$">sdf.$</a>
                         </li>
 
 
@@ -289,7 +297,7 @@ input[type="search"]::-webkit-search-cancel-button {
 
                         <h2 id="src-sdf-query.js-sdfquery">
                             <a href="#src-sdf-query.js-sdfquery" class="permalink">#</a>
-                            <span class="method-name" title="sdf.$(selector, limit)">sdf.$(selector, limit)</span>
+                            <span class="method-name" title="sdfQuery(selector, limit)">sdf.$(selector, limit)</span>
                         </h2>
 
                         <div class="description lead">
@@ -473,7 +481,15 @@ this points to the current iterated element</p>
 
                                 <pre><code class="hljs javascript">sdf.$(<span class="hljs-string">'selector'</span>).on(<span class="hljs-string">'click'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{ <span class="hljs-comment">//to do });</span></code></pre>
 
-
+                            <div class="tryout">
+                                <h4>Try it out!</h4>
+                                <button class="btn btn-primary" id="example_btn_click_1">Click me</button>
+                                <script>
+                                    sdf.$('#example_btn_click_1').on('click', function(){
+                                        alert('clicked');
+                                    });
+                                </script>
+                            </div>
                         </section>
 
 
@@ -555,9 +571,12 @@ as this to the function set in the argument</p>
                             <h3>Examples</h3>
 
 
-                                <pre><code class="hljs javascript"><span class="hljs-comment">// Iterates over buttons with class active</span>
+                                <pre><code class="hljs javascript"><span class="hljs-comment">// Iterates over buttons with class active, gets the attribute data-state, </span>
+does something and <span class="hljs-keyword">finally</span> sets it to <span class="hljs-literal">false</span>
 sdf.$(<span class="hljs-string">'button.active'</span>).each(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
-  sdf.$(<span class="hljs-keyword">this</span>).attr(<span class="hljs-string">'data-active'</span>);
+  <span class="hljs-keyword">var</span> state = sdf.$(<span class="hljs-keyword">this</span>).attr(<span class="hljs-string">'data-state'</span>);
+  <span class="hljs-comment">// to do </span>
+  sdf.$(<span class="hljs-keyword">this</span>).attr(<span class="hljs-string">'data-state'</span>, <span class="hljs-string">'false'</span>);   
 });</code></pre>
 
 
@@ -643,7 +662,9 @@ Gets the value of innerHTML of the first element if no arguments</p>
 
 
                                 <pre><code class="hljs javascript"><span class="hljs-comment">// sets inner conent of body</span>
-sdf.$(<span class="hljs-string">'body'</span>).html(<span class="hljs-string">'&lt;h1&gt;Hello, World!&lt;/h1&gt;'</span>);</code></pre>
+sdf.$(<span class="hljs-string">'body'</span>, <span class="hljs-number">1</span>).html(<span class="hljs-string">'&lt;h1&gt;Hello, World!&lt;/h1&gt;'</span>);
+<span class="hljs-comment">// gets the html of the body</span>
+<span class="hljs-keyword">var</span> body = sdf.$(<span class="hljs-string">'body'</span>, <span class="hljs-number">1</span>).html();</code></pre>
 
 
                         </section>
@@ -721,6 +742,20 @@ Gets the value of textContent of the first element if no arguments</p>
                         </section>
 
 
+
+
+                        <section class="examples">
+
+                            <h3>Examples</h3>
+
+
+                                <pre><code class="hljs javascript"><span class="hljs-comment">// gets the textContent of the element with id #element</span>
+<span class="hljs-keyword">var</span> text = sdf.$(<span class="hljs-string">'#element'</span>).text();
+<span class="hljs-comment">// sets the textContent of all the first 3 li of ul#list</span>
+sdf.$(<span class="hljs-string">'ul#list&gt;li'</span>, <span class="hljs-number">3</span>).text(<span class="hljs-string">'Hello, World!'</span>);</code></pre>
+
+
+                        </section>
 
 
                         <section class="returns">
@@ -914,6 +949,7 @@ Gets the value of style of the first element if no arguments</p>
 sdf.$(<span class="hljs-string">'button'</span>).click(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
   <span class="hljs-keyword">var</span> opacity = sdf.$(<span class="hljs-keyword">this</span>).css(<span class="hljs-string">'opacity'</span>);
   <span class="hljs-comment">// to do</span>
+  opacity -= <span class="hljs-number">0.3</span>;
   sdf.$(<span class="hljs-keyword">this</span>).css(<span class="hljs-string">'opacity'</span>, opacity);
   sdf.$(<span class="hljs-keyword">this</span>).css({<span class="hljs-attr">opacity</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">color</span>: <span class="hljs-string">'red'</span>});
 });</code></pre>
@@ -994,6 +1030,18 @@ sdf.$(<span class="hljs-string">'button'</span>).click(<span class="hljs-functio
 
 
 
+                        <section class="examples">
+
+                            <h3>Examples</h3>
+
+
+                                <pre><code class="hljs javascript"><span class="hljs-comment">// removes the attribute 'data-active' from all the div with data-active="false"</span>
+sdf.$(<span class="hljs-string">'div[data-active="false"]'</span>).removeAttr(<span class="hljs-string">'data-active'</span>);</code></pre>
+
+
+                        </section>
+
+
                         <section class="returns">
 
                             <h3>Returns</h3>
@@ -1065,6 +1113,18 @@ Gets the value of value of the first element if no arguments</p>
                         </section>
 
 
+
+
+                        <section class="examples">
+
+                            <h3>Examples</h3>
+
+
+                                <pre><code class="hljs javascript"><span class="hljs-comment">// gets the value of the input with id #input_1</span>
+<span class="hljs-keyword">var</span> val = sdf.$(<span class="hljs-string">'input#input_1'</span>).value();</code></pre>
+
+
+                        </section>
 
 
                         <section class="returns">
@@ -1525,6 +1585,18 @@ sdf.$(<span class="hljs-string">'li'</span>).addClass(<span class="hljs-string">
                         </section>
 
 
+
+
+                        <section class="examples">
+
+                            <h3>Examples</h3>
+
+
+                                <pre><code class="hljs javascript"> <span class="hljs-comment">// removes the classes ".class-1, .class-2" from the first 10 elements with class .class-0</span>
+ sdf.$(<span class="hljs-string">'.class-0'</span>).removeclass(<span class="hljs-string">'class-1 class-2'</span>);</code></pre>
+
+
+                        </section>
 
 
                         <section class="returns">

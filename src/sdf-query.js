@@ -160,9 +160,12 @@
          *   "this" is gonna be set to the current iterated element
          * @this Current iterated element
          * @example
-         * // Iterates over buttons with class active
+         * // Iterates over buttons with class active, gets the attribute data-state, 
+         * does something and finally sets it to false
          * sdf.$('button.active').each(function(){
-         *   sdf.$(this).attr('data-active');
+         *   var state = sdf.$(this).attr('data-state');
+         *   // to do 
+         *   sdf.$(this).attr('data-state', 'false');   
          * });
          * @return {object}        Query object for nesting
          */
@@ -186,7 +189,9 @@
          * @param  {string} value Optional, the new innerHTML value
          * @example
          * // sets inner conent of body
-         * sdf.$('body').html('<h1>Hello, World!</h1>');
+         * sdf.$('body', 1).html('<h1>Hello, World!</h1>');
+         * // gets the html of the body
+         * var body = sdf.$('body', 1).html();
          * @return {object|string}        Query object for nesting or value if getter
          */
             html: function(value){
@@ -210,6 +215,11 @@
          * Sets the textContent of each elements in the list or
          * Gets the value of textContent of the first element if no arguments
          * @param  {string} value Optional, the new textContent value
+         * @example
+         * // gets the textContent of the element with id #element
+         * var text = sdf.$('#element').text();
+         * // sets the textContent of all the first 3 li of ul#list
+         * sdf.$('ul#list>li', 3).text('Hello, World!');
          * @return {mixed}        Query object for nesting or value if getter
          */
             text: function(value){
@@ -279,6 +289,7 @@
          * sdf.$('button').click(function(){
          *   var opacity = sdf.$(this).css('opacity');
          *   // to do
+         *   opacity -= 0.3;
          *   sdf.$(this).css('opacity', opacity);
          *   sdf.$(this).css({opacity: 1, color: 'red'});
          * });
@@ -327,6 +338,9 @@
         /**
          * Removes an attribute from each element in the list
          * @param  {string} attr Name of the attribute to be removed from the element
+         * @example
+         * // removes the attribute 'data-active' from all the div with data-active="false"
+         * sdf.$('div[data-active="false"]').removeAttr('data-active');
          * @return {object}        Query object for nesting
          */
             removeAttr: function(attrName){
@@ -347,6 +361,9 @@
          * Sets the value of each elements in the list or
          * Gets the value of value of the first element if no arguments
          * @param  {string} val Optional, the new value value
+         * @example
+         * // gets the value of the input with id #input_1
+         * var val = sdf.$('input#input_1').value();
          * @return {object}        Query object for nesting
          */
             value: function(val){
@@ -493,6 +510,9 @@
         /**
          * Removes classes from  elements in the list
          * @param  {string} classList List of classes separated by space
+         * @example
+         *  // removes the classes ".class-1, .class-2" from the first 10 elements with class .class-0
+         *  sdf.$('.class-0').removeclass('class-1 class-2');
          * @return {object}        Query object for nesting
          */
             removeClass: function(classList){
