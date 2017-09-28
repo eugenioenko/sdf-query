@@ -1,6 +1,6 @@
 {
   "name": "sdf-query",
-  "version": "0.8.5",
+  "version": "0.8.6",
   "description": "Simple utility for selecting and modifying DOM elements used by SDF CSS Framework",
   "main": "js/sdf-query.js",
   "scripts": {

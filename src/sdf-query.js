@@ -5,7 +5,7 @@
  * @author  eugenioenko
  * @license http://opensource.org/licenses/MIT  MIT License
  * @link    https://github.com/eugenioenko/sdf-css
- * @since   Version 0.8.5
+ * @version 0.8.6
  */
 
 (function(){
@@ -22,13 +22,15 @@
  * to the amount. If set to one, element will be selected by using querySelector instead of querySelectorAll.
  * @example
  * // adds an event handler for a button of id #button_id
- * sdf.$('#button_id', true).on('click', function(){});
+ * sdf.$('#button_id').on('click', function(){});
  * @example
  * // sets the attribute data-item to all the li of a page
  * sdf.$('li').attr('data-item', 'value');
  * @example
  * // removes class .active from all h2 of the page
  * sdf.$('h2.active').removeClass('active');
+ * // removes class .active from 3 of h2 of the page
+ * sdf.$('h2.active', 3).removeClass('active');
  * @example
  * // Iterates over all the ul of a page and appends an li and prepends li
  * sdf.$('ul').append('<li>appended</li>').prepend('<li>prepended</li>');
@@ -183,7 +185,7 @@
          * @param  {string} value Optional, the new innerHTML value
          * @example
          * // sets inner conent of body
-         * sdf.$('body', true).html('<h1>Hello, World!</h1>');
+         * sdf.$('body').html('<h1>Hello, World!</h1>');
          * @return {object|string}        Query object for nesting or value if getter
          */
             html: function(value){
@@ -539,7 +541,7 @@
 })();
 
  /**
- *
+ * @license
  * This content is released under the MIT License (MIT)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
