@@ -39,4 +39,15 @@ describe("Sdf Query", function() {
 		expect(sdf.$('#id_doesnt_exist').length).toEqual(0);
 	});
 
+	it("body of the page should be #eee and only 1 element returned", function(){
+		expect((sdf.$('body').css({backgroundColor: '#eee'})).length).toEqual(1);
+	});
+
+	it("should return the innerHTML of the body of the page", function(){
+		expect(sdf.$('body',1).html()).toEqual(document.body.innerHTML);
+	});
+
+	it("should return the textContent of the body of the page", function(){
+		expect(sdf.$('body',1).text()).toEqual(document.body.textContent);
+	});
 });

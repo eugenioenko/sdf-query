@@ -5,7 +5,7 @@
  * @author  eugenioenko
  * @license http://opensource.org/licenses/MIT  MIT License
  * @link    https://github.com/eugenioenko/sdf-css
- * @version 0.8.6
+ * @version 0.8.7
  */
 
 (function(){
@@ -43,14 +43,25 @@
  *
  */
     function sdfQuery(selector, limit){
+        limit = (typeof limit === "undefined") ? -1 : limit;
+        var elements =  [];
+        var element = {};
+        var method = '';
 
-        var emptyNodeList = function(nodeList){
+        var isNodeListEmpty = function(nodeList){
             return nodeList.length == 0;
         };
-        var validArguments = function(args){
+
+        var isArgumentListEmpty = function(args){
+            return args.length == 0;
+        };
+     
+        var validateArgumentsByType = function(args){
+            // the number of arguments passed should be the same as required ones
             if(args.length != (arguments.length-1)){
                 return false;
             }
+            // each argument type should be the same as type required
             for(var i = 0; i < args.length; ++i){
                 if(arguments[i+1] === "any"){
                     // cast to string
@@ -65,9 +76,7 @@
             }
             return true;
         };
-        var emptyArguments = function(args){
-            return args.length == 0;
-        };
+        
         var createClassList = function(classList){
             var classes = classList.split(' ');
             for (var i = 0; i < classes.length; ++i){
@@ -76,50 +85,70 @@
             return classes;
         };
 
-        limit = (typeof limit === "undefined") ? -1 : limit;
-        var elements =  [];
-        var element = {};
-        var method = '';
+        var parseAndQueryItemById = function(){
+            method = 'getElementById';
+            element = document.getElementById(selector.substring(1));
+            if(element){
+                elements.push(element);
+            }
+        };
+
+        var parseAndQuerySingleItem = function(){
+            method = "querySelector";
+            element = document.querySelector(selector);
+            if(element){
+                elements.push(element);
+            }
+        };
+
+        var parseAndQueryAll = function(){
+            method = "querySelectorAll";
+            var nodes = document.querySelectorAll(selector);
+            if(limit == -1){
+                limit = nodes.length;
+            } else {
+                limit = limit > nodes.length ? nodes.length : limit;
+            }
+            for(var i = 0; i < limit; ++i){
+                elements.push(nodes[i]);
+            }    
+        };
+
+        var parseStringSelector = function(){
+            selector = selector.trim();
+            if(selector.charAt(0) == '#'){
+                parseAndQueryItemById();
+            } else if(limit == 1){
+                parseAndQuerySingleItem();
+            } else {
+                parseAndQueryAll();
+            }
+        };
+
+        var parseNodeSelector = function(){
+            method = "element";
+            elements.push(selector);
+            selector = false;
+        };
+
+        var parseErrorMessage = function(){
+            method = "error";
+            // selector is not a string nor a dom Node Object
+            console.error(selector + " is not a string, 'query' requires a string as selector");
+            selector = false;   
+        };
+        
         if (arguments.length) {
             if (typeof selector === "string"){
-                selector = selector.trim();
-                if(selector.charAt(0) == '#'){
-                    method = 'getElementById';
-                    element = document.getElementById(selector.substring(1));
-                    if(element){
-                        elements.push(element);
-                    }
-                } else if(limit == 1){
-                    method = "querySelector";
-                    element = document.querySelector(selector);
-                    if(element){
-                        elements.push(element);
-                    }
-                } else {
-                    method = "querySelectorAll";
-                    var nodes = document.querySelectorAll(selector);
-                    if(limit == -1){
-                        limit = nodes.length;
-                    } else {
-                        limit = limit > nodes.length ? nodes.length : limit;
-                    }
-                    for(var i = 0; i < limit; ++i){
-                        elements.push(nodes[i]);
-                    }
-                }
+               parseStringSelector();
             } else if(typeof selector === "object" && selector instanceof Node){
-                method = "element";
-                elements.push(selector);
-                selector = false;
+                parseNodeSelector();
             }else {
-                method = "error";
-                // selector is not a string nor a dom Node
-                console.error(selector + " is not a string, 'query' requires a string as selector");
-                selector = false;
+               parseErrorMessage(); 
             }
         } else {
             method ="null";
-            // null selector used for create 
+            // null selector used for create
             selector = false;
         }
 
@@ -139,11 +168,11 @@
          * @return {object}   Query object for nesting
          */
             on: function(event, method){
-                if(emptyNodeList(this.nodes)) {
+                if(isNodeListEmpty(this.nodes)) {
                     console.error("No elements with selector: " + this.selector + ' for on method');
                     return this;
                 }
-                if(validArguments(arguments, "string", "function")){
+                if(validateArgumentsByType(arguments, "string", "function")){
                     // adding event listeners
                     for (var i = 0; i < this.nodes.length; ++i) {
                         this.nodes[i].addEventListener(event, method);
@@ -160,21 +189,21 @@
          *   "this" is gonna be set to the current iterated element
          * @this Current iterated element
          * @example
-         * // Iterates over buttons with class active, gets the attribute data-state, 
+         * // Iterates over buttons with class active, gets the attribute data-state,
          * does something and finally sets it to false
          * sdf.$('button.active').each(function(){
          *   var state = sdf.$(this).attr('data-state');
-         *   // to do 
-         *   sdf.$(this).attr('data-state', 'false');   
+         *   // to do
+         *   sdf.$(this).attr('data-state', 'false');
          * });
          * @return {object}        Query object for nesting
          */
             each: function(method){
-                if(emptyNodeList(this.nodes)) {
+                if(isNodeListEmpty(this.nodes)) {
                     console.error("No elements with selector: " + this.selector + ' for each');
                     return this;
                 }
-                if(validArguments(arguments, "function")){
+                if(validateArgumentsByType(arguments, "function")){
                     for (var i = 0; i < this.nodes.length; ++i) {
                         method.call(this.nodes[i]);
                     }
@@ -195,14 +224,14 @@
          * @return {object|string}        Query object for nesting or value if getter
          */
             html: function(value){
-                if(emptyNodeList(this.nodes)) {
+                if(isNodeListEmpty(this.nodes)) {
                     console.error("No elements with selector: " + this.selector + ' for html');
                     return this;
                 }
-                if(emptyArguments(arguments)){
+                if(isArgumentListEmpty(arguments)){
                     return this.nodes[0].innerHTML;
                 }
-                if(validArguments(arguments, "any")){
+                if(validateArgumentsByType(arguments, "any")){
                     for (var i = 0; i < this.nodes.length; ++i) {
                         this.nodes[i].innerHTML = value;
                     }
@@ -223,14 +252,14 @@
          * @return {mixed}        Query object for nesting or value if getter
          */
             text: function(value){
-                if(emptyNodeList(this.nodes)) {
+                if(isNodeListEmpty(this.nodes)) {
                     console.error("No elements with selector: " + this.selector + ' for text');
                     return this;
                 }
-                if(emptyArguments(arguments)){
+                if(isArgumentListEmpty(arguments)){
                     return this.nodes[0].textContent;
                 }
-                if(validArguments(arguments, "any")){
+                if(validateArgumentsByType(arguments, "any")){
                     for (var i = 0; i < this.nodes.length; ++i) {
                         this.nodes[i].textContent = value;
                     }
@@ -254,23 +283,23 @@
          * @return {mixed}        Query object for nesting or value if getter
          */
             attr: function(attr, value){
-                if(emptyNodeList(this.nodes)) {
+                if(isNodeListEmpty(this.nodes)) {
                     console.error("No elements with selector: " + this.selector + ' for text');
                     return this;
                 }
-                if(emptyArguments(arguments)){
+                if(isArgumentListEmpty(arguments)){
                     console.error("'attr' requires at least one argument as attribute{string}");
                     return this;
                 }
                 if(arguments.length == 1){
-                    if(validArguments(arguments, "string")){
+                    if(validateArgumentsByType(arguments, "string")){
                          return this.nodes[0].getAttribute(attr);
                     } else {
                         console.error("'attr' takes attribute {string} as argument for getter");
                         return this;
                     }
                 }
-                if(validArguments(arguments, "string", "any")){
+                if(validateArgumentsByType(arguments, "string", "any")){
                     for (var i = 0; i < this.nodes.length; ++i) {
                         this.nodes[i].setAttribute(attr, value);
                     }
@@ -297,19 +326,19 @@
          */
             css: function(style, value){
                 var i = 0;
-                if(emptyNodeList(this.nodes)) {
+                if(isNodeListEmpty(this.nodes)) {
                     console.error("No elements with selector: " + this.selector + ' for text');
                     return this;
                 }
-                if(emptyArguments(arguments)){
+                if(isArgumentListEmpty(arguments)){
                     console.error("'css' requires at least one argument as style getter {string} or {object} as setter");
                     return this;
                 }
                 if(arguments.length == 1){
-                    if(validArguments(arguments, "string")){
+                    if(validateArgumentsByType(arguments, "string")){
                         // getter
                          return this.nodes[0].style[style];
-                    } else if(validArguments(arguments, "object")){
+                    } else if(validateArgumentsByType(arguments, "object")){
                         value = style;
                         // setter with object param
                         for (i = 0; i < this.nodes.length; ++i) {
@@ -324,7 +353,7 @@
                         return this;
                     }
                 }
-                if(validArguments(arguments, "string", "str|obj")){
+                if(validateArgumentsByType(arguments, "string", "str|obj")){
                     for (i = 0; i < this.nodes.length; ++i) {
                         this.nodes[i].style[style] = value;
                     }
@@ -344,11 +373,11 @@
          * @return {object}        Query object for nesting
          */
             removeAttr: function(attrName){
-                if(emptyNodeList(this.nodes)) {
+                if(isNodeListEmpty(this.nodes)) {
                     console.error("No elements with selector: " + this.selector + ' for append');
                     return this;
                 }
-                if(!validArguments(arguments, "any")){
+                if(!validateArgumentsByType(arguments, "any")){
                     console.error("'append' takes string{any} as argument");
                     return this;
                 }
@@ -367,14 +396,14 @@
          * @return {object}        Query object for nesting
          */
             value: function(val){
-                if(emptyNodeList(this.nodes)) {
+                if(isNodeListEmpty(this.nodes)) {
                     console.error("No inputs with selector: " + this.selector + ' for value');
                     return this;
                 }
-                if(emptyArguments(arguments)){
+                if(isArgumentListEmpty(arguments)){
                     return this.nodes[0].value;
                 }
-                if(validArguments(arguments, "any")){
+                if(validateArgumentsByType(arguments, "any")){
                     for (var i = 0; i < this.nodes.length; ++i) {
                         this.nodes[i].value = val;
                     }
@@ -394,7 +423,7 @@
          * sdf.$('ul').append(sdf.$().create('li', 'list item A'));
          */
             create: function(type, html){
-                if(validArguments(arguments, "string", "string")){
+                if(validateArgumentsByType(arguments, "string", "string")){
                     var element = document.createElement(type);
                     element.innerHTML = html;
                     return element;
@@ -409,7 +438,7 @@
          * @return {object} Element
          */
             element: function(){
-                if(emptyNodeList(this.nodes)) {
+                if(isNodeListEmpty(this.nodes)) {
                     console.error("No elements with selector: " + this.selector + ' for value');
                     return this;
                 }
@@ -438,11 +467,11 @@
          * @return {object}        Query object for nesting
          */
             append: function(value){
-                if(emptyNodeList(this.nodes)) {
+                if(isNodeListEmpty(this.nodes)) {
                     console.error("No elements with selector: " + this.selector + ' for append');
                     return this;
                 }
-                if(validArguments(arguments, "str|obj")){
+                if(validateArgumentsByType(arguments, "str|obj")){
                     if(typeof value === "string"){
                         for (var i = 0; i < this.nodes.length; ++i) {
                             this.nodes[i].innerHTML += value;
@@ -461,11 +490,11 @@
          * @return {object}        Query object for nesting
          */
             prepend: function(value){
-                if(emptyNodeList(this.nodes)) {
+                if(isNodeListEmpty(this.nodes)) {
                     console.error("No elements with selector: " + this.selector + ' for prepend');
                     return this;
                 }
-                if(validArguments(arguments, "string")){
+                if(validateArgumentsByType(arguments, "string")){
                     for (var i = 0; i < this.nodes.length; ++i) {
                         this.nodes[i].innerHTML = value + this.nodes[i].innerHTML;
                     }
@@ -489,11 +518,11 @@
          * sdf.$('li').addClass('class-1 class-2 class-3')
          */
             addClass: function(classList){
-                if(emptyNodeList(this.nodes)) {
+                if(isNodeListEmpty(this.nodes)) {
                     console.error("No elements with selector: " + this.selector + ' for addClass');
                     return this;
                 }
-                if(!validArguments(arguments, "string")){
+                if(!validateArgumentsByType(arguments, "string")){
                     console.error("'addClass' takes classList{string} as argument");
                     return this;
                 }
@@ -516,11 +545,11 @@
          * @return {object}        Query object for nesting
          */
             removeClass: function(classList){
-                if(emptyNodeList(this.nodes)) {
+                if(isNodeListEmpty(this.nodes)) {
                     console.error("No elements with selector: " + this.selector + ' for removeClass');
                     return this;
                 }
-                if(!validArguments(arguments, "string")){
+                if(!validateArgumentsByType(arguments, "string")){
                     console.error("'removeClass' takes classList{string} as argument");
                     return this;
                 }
@@ -552,6 +581,7 @@
             }
         };
     }
+
 
     if(typeof window.sdf === "undefined"){
         window.sdf = {
