@@ -7,6 +7,7 @@
 
 ### Instalation
 > npm install sdf-query
+
 Include the script
 ><script src="path_to_js/js/sdf-query.min.js"></script>
 
