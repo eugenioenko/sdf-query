@@ -2,6 +2,7 @@ const jshint = require('gulp-jshint');
 const gulp   = require('gulp');
 const gutil  = require('gulp-util');
 const uglify = require('gulp-uglify');
+var rename = require("gulp-rename");
 
 
 
@@ -20,7 +21,8 @@ gulp.task('lint', function() {
 gulp.task('compress', function () {
   return gulp.src('src/sdf-query.js')
     .pipe(uglify())
-    .pipe(gulp.dest('dist'));
+    .pipe(rename({ suffix: '.min' }))
+    .pipe(gulp.dest('js'));
 });
 
 gulp.watch('src/*.js', ['lint', 'compress']);

@@ -55,7 +55,7 @@
         var isArgumentListEmpty = function(args){
             return args.length == 0;
         };
-     
+
         var validateArgumentsByType = function(args){
             // the number of arguments passed should be the same as required ones
             if(args.length != (arguments.length-1)){
@@ -76,7 +76,7 @@
             }
             return true;
         };
-        
+
         var createClassList = function(classList){
             var classes = classList.split(' ');
             for (var i = 0; i < classes.length; ++i){
@@ -111,7 +111,7 @@
             }
             for(var i = 0; i < limit; ++i){
                 elements.push(nodes[i]);
-            }    
+            }
         };
 
         var parseStringSelector = function(){
@@ -135,16 +135,16 @@
             method = "error";
             // selector is not a string nor a dom Node Object
             console.error(selector + " is not a string, 'query' requires a string as selector");
-            selector = false;   
+            selector = false;
         };
-        
+
         if (arguments.length) {
             if (typeof selector === "string"){
                parseStringSelector();
             } else if(typeof selector === "object" && selector instanceof Node){
                 parseNodeSelector();
             }else {
-               parseErrorMessage(); 
+               parseErrorMessage();
             }
         } else {
             method ="null";
@@ -535,6 +535,23 @@
                     }
                 }
                 return this;
+            },
+        /**
+         * Returns true if a class is present in the elements class list
+         * @param  {string} className Name of the class without "."
+         * @return {bool}        If the classname is present in the list
+         */
+            hasClass: function(className){
+                if(isNodeListEmpty(this.nodes)) {
+                    console.error("No elements with selector: " + this.selector + ' for hasClass');
+                    return this;
+                }
+                if(!validateArgumentsByType(arguments, "string")){
+                    console.error("'hasClass' takes classList{string} as argument");
+                    return this;
+                }
+                className = className.trim();
+                return this.nodes[0].className.split(' ').indexOf(className) != -1;
             },
         /**
          * Removes classes from  elements in the list
