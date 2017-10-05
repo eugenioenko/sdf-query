@@ -1,4 +1,4 @@
-# [sdf-query](https://github.com/eugenioenko/sdf-query#readme) *0.9.0*
+# [sdf-query](https://github.com/eugenioenko/sdf-query#readme) *0.9.1*
 
 > Simple library for selecting and modifying DOM elements used by SDF CSS Framework. Compact jQuery alternative compatible with IE 11 onwards.
 
