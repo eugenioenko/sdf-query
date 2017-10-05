@@ -3,11 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="initial-scale=1">
-<title>sdf-query 0.8.6 &#8212; Simple utility for selecting and modifying DOM elements used by SDF CSS Framework</title>
-<meta name="description" content="Simple utility for selecting and modifying DOM elements used by SDF CSS Framework">
+<title>sdf-query 0.9.1 &#8212; Simple utility for selecting and modifying DOM elements used by SDF CSS Framework. Alternative to jQuery compatible with ie11+</title>
+<meta name="description" content="Simple utility for selecting and modifying DOM elements used by SDF CSS Framework. Alternative to jQuery compatible with ie11+">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
-<script src="../dist/sdf-query.js"></script>
 <style>
 
 input[type="search"]::-webkit-search-cancel-button {
@@ -150,13 +149,6 @@ input[type="search"]::-webkit-search-cancel-button {
     color: #777;
     text-align: center;
 }
-.tryout{
-    padding: 15px;
-    border: 1px solid #ccc;
-}
-.tryout >h4{
-    margin-bottom: 20px;
-}
 
 </style>
 </head>
@@ -171,10 +163,10 @@ input[type="search"]::-webkit-search-cancel-button {
 
         <h1>
                 <a href="https://github.com/eugenioenko/sdf-query#readme">sdf-query</a>
-            <small>0.8.6</small>
+            <small>0.9.1</small>
         </h1>
 
-        <p>Simple utility for selecting and modifying DOM elements used by SDF CSS Framework</p>
+        <p>Simple utility for selecting and modifying DOM elements used by SDF CSS Framework. Alternative to jQuery compatible with ie11+</p>
 
     </div>
 
@@ -194,87 +186,97 @@ input[type="search"]::-webkit-search-cancel-button {
 
 
                     <li>
-                        <a href="#src/sdf-query.js" class="file"><b>src/sdf-query.js</b></a>
+                        <a href="#js/sdf-query.js" class="file"><b>js/sdf-query.js</b></a>
                         <ul>
 
 
                         <li class="method-link scope-public">
-                            <a href="#src-sdf-query.js-sdfquery" title="sdf.$">sdf.$</a>
+                            <a href="#js-sdf-query.js-sdfquery" title="sdfQuery">sdfQuery</a>
                         </li>
 
 
                         <li class="method-link scope-public">
-                            <a href="#src-sdf-query.js-on" title="on">on</a>
+                            <a href="#js-sdf-query.js-on" title="on">on</a>
                         </li>
 
 
                         <li class="method-link scope-public">
-                            <a href="#src-sdf-query.js-each" title="each">each</a>
+                            <a href="#js-sdf-query.js-each" title="each">each</a>
                         </li>
 
 
                         <li class="method-link scope-public">
-                            <a href="#src-sdf-query.js-html" title="html">html</a>
+                            <a href="#js-sdf-query.js-html" title="html">html</a>
                         </li>
 
 
                         <li class="method-link scope-public">
-                            <a href="#src-sdf-query.js-text" title="text">text</a>
+                            <a href="#js-sdf-query.js-text" title="text">text</a>
                         </li>
 
 
                         <li class="method-link scope-public">
-                            <a href="#src-sdf-query.js-attr" title="attr">attr</a>
+                            <a href="#js-sdf-query.js-attr" title="attr">attr</a>
                         </li>
 
 
                         <li class="method-link scope-public">
-                            <a href="#src-sdf-query.js-css" title="css">css</a>
+                            <a href="#js-sdf-query.js-css" title="css">css</a>
                         </li>
 
 
                         <li class="method-link scope-public">
-                            <a href="#src-sdf-query.js-removeattr" title="removeAttr">removeAttr</a>
+                            <a href="#js-sdf-query.js-removeattr" title="removeAttr">removeAttr</a>
                         </li>
 
 
                         <li class="method-link scope-public">
-                            <a href="#src-sdf-query.js-value" title="value">value</a>
+                            <a href="#js-sdf-query.js-value" title="value">value</a>
                         </li>
 
 
                         <li class="method-link scope-public">
-                            <a href="#src-sdf-query.js-create" title="create">create</a>
+                            <a href="#js-sdf-query.js-create" title="create">create</a>
                         </li>
 
 
                         <li class="method-link scope-public">
-                            <a href="#src-sdf-query.js-element" title="element">element</a>
+                            <a href="#js-sdf-query.js-element" title="element">element</a>
                         </li>
 
 
                         <li class="method-link scope-public">
-                            <a href="#src-sdf-query.js-append" title="append">append</a>
+                            <a href="#js-sdf-query.js-first" title="first">first</a>
                         </li>
 
 
                         <li class="method-link scope-public">
-                            <a href="#src-sdf-query.js-prepend" title="prepend">prepend</a>
+                            <a href="#js-sdf-query.js-append" title="append">append</a>
                         </li>
 
 
                         <li class="method-link scope-public">
-                            <a href="#src-sdf-query.js-addclass" title="addClass">addClass</a>
+                            <a href="#js-sdf-query.js-prepend" title="prepend">prepend</a>
                         </li>
 
 
                         <li class="method-link scope-public">
-                            <a href="#src-sdf-query.js-removeclass" title="removeClass">removeClass</a>
+                            <a href="#js-sdf-query.js-addclass" title="addClass">addClass</a>
                         </li>
 
 
                         <li class="method-link scope-public">
-                            <a href="#src-sdf-query.js-remove" title="remove">remove</a>
+                            <a href="#js-sdf-query.js-hasclass" title="hasClass">hasClass</a>
+                        </li>
+
+
+                        <li class="method-link scope-public">
+                            <a href="#js-sdf-query.js-removeclass" title="removeClass">removeClass</a>
+                        </li>
+
+
+                        <li class="method-link scope-public">
+                            <a href="#js-sdf-query.js-remove" title="remove">remove</a>
                         </li>
 
 
@@ -290,21 +292,21 @@ input[type="search"]::-webkit-search-cancel-button {
             <div class="col-md-9">
 
 
-                <a id="src/sdf-query.js"></a>
+                <a id="js/sdf-query.js"></a>
 
 
                     <div class="method scope-public">
 
-                        <h2 id="src-sdf-query.js-sdfquery">
-                            <a href="#src-sdf-query.js-sdfquery" class="permalink">#</a>
-                            <span class="method-name" title="sdfQuery(selector, limit)">sdf.$(selector, limit)</span>
+                        <h2 id="js-sdf-query.js-sdfquery">
+                            <a href="#js-sdf-query.js-sdfquery" class="permalink">#</a>
+                            <span class="method-name" title="sdf.$(selector, limit)">sdf.$(selector, limit)</span>
                         </h2>
 
                         <div class="description lead">
 
                             <p>Query Function</p>
 <p>This function enables you to select html elements from the DOM and return an object which
-lets you modify their attributes, classes, values, styles and  add event handlers.</p>
+lets you modify their attributes, classes, values, styles and add event handlers.</p>
 
 
                         </div>
@@ -333,7 +335,7 @@ lets you modify their attributes, classes, values, styles and  add event handler
                                             <code>string</code>
                                             <code>object</code>
                                         </td>
-                                        <td><p>A string which is gonna be used to query elements or a Node element if selector starts with '#' getElementsById will be used limiting the result to 1</p>
+                                        <td><p>A string which is gonna be used to query elements or a Node element. If selector starts with '#' getElementsById will be used limiting the result to 1.</p>
 </td>
                                         <td>
                                         </td>
@@ -368,11 +370,11 @@ lets you modify their attributes, classes, values, styles and  add event handler
 sdf.$(<span class="hljs-string">'#button_id'</span>).on(<span class="hljs-string">'click'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{});</code></pre>
 
 
-                                <pre><code class="hljs javascript"><span class="hljs-comment">// sets the attribute data-item to all the li of a page</span>
-sdf.$(<span class="hljs-string">'li'</span>).attr(<span class="hljs-string">'data-item'</span>, <span class="hljs-string">'value'</span>);</code></pre>
+                                <pre><code class="hljs javascript"><span class="hljs-comment">// sets the attribute data-item to all the li with class '.active'</span>
+sdf.$(<span class="hljs-string">'li.active'</span>).attr(<span class="hljs-string">'data-item'</span>, <span class="hljs-string">'value'</span>);</code></pre>
 
 
-                                <pre><code class="hljs javascript"><span class="hljs-comment">// removes class .active from all h2 of the page</span>
+                                <pre><code class="hljs javascript"><span class="hljs-comment">// removes class .active from all h2 with class '.active' of the page</span>
 sdf.$(<span class="hljs-string">'h2.active'</span>).removeClass(<span class="hljs-string">'active'</span>);
 <span class="hljs-comment">// removes class .active from 3 of h2 of the page</span>
 sdf.$(<span class="hljs-string">'h2.active'</span>, <span class="hljs-number">3</span>).removeClass(<span class="hljs-string">'active'</span>);</code></pre>
@@ -383,7 +385,9 @@ sdf.$(<span class="hljs-string">'ul'</span>).append(<span class="hljs-string">'&
 
 
                                 <pre><code class="hljs javascript"> <span class="hljs-comment">// Custom iterator</span>
- sdf.$(<span class="hljs-string">'span'</span>).each(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{ sdf.$(<span class="hljs-keyword">this</span>).attr(<span class="hljs-string">'data-active'</span>, <span class="hljs-string">'false'</span>)});
+ sdf.$(<span class="hljs-string">'span'</span>).each(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{ 
+     sdf.$(<span class="hljs-keyword">this</span>).attr(<span class="hljs-string">'data-active'</span>, <span class="hljs-string">'false'</span>);
+ });
  <span class="hljs-comment">// Chaining</span>
  sdf.$(<span class="hljs-string">'span[data-attr="value"]'</span>).prepend(<span class="hljs-string">'&lt;br&gt;'</span>).append(<span class="hljs-string">'!'</span>);</code></pre>
 
@@ -413,15 +417,15 @@ sdf.$(<span class="hljs-string">'ul'</span>).append(<span class="hljs-string">'&
 
                     <div class="method scope-public">
 
-                        <h2 id="src-sdf-query.js-on">
-                            <a href="#src-sdf-query.js-on" class="permalink">#</a>
+                        <h2 id="js-sdf-query.js-on">
+                            <a href="#js-sdf-query.js-on" class="permalink">#</a>
                             <span class="method-name" title="on(event, method)">on(event, method)</span>
                         </h2>
 
                         <div class="description lead">
 
-                            <p>Adds event listener to the selected elements
-this points to the current iterated element</p>
+                            <p>Adds event listener to the selected elements.
+Sets &quot;this&quot; to the currently iterated element.</p>
 
 
                         </div>
@@ -479,104 +483,12 @@ this points to the current iterated element</p>
                             <h3>Examples</h3>
 
 
-                                <pre><code class="hljs javascript">sdf.$(<span class="hljs-string">'selector'</span>).on(<span class="hljs-string">'click'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{ <span class="hljs-comment">//to do });</span></code></pre>
-
-                            <div class="tryout">
-                                <h4>Try it out!</h4>
-                                <button class="btn btn-primary" id="example_btn_click_1">Click me</button>
-                                <script>
-                                    sdf.$('#example_btn_click_1').on('click', function(){
-                                        alert('clicked');
-                                    });
-                                </script>
-                            </div>
-                        </section>
-
-
-                        <section class="returns">
-
-                            <h3>Returns</h3>
-
-
-
-                                    <p>
-                                            <code>object</code>
-                                    </p>
-
-                                    <p>Query object for nesting</p>
-
-
-
-
-                        </section>
-
-                    </div>
-
-
-                    <div class="method scope-public">
-
-                        <h2 id="src-sdf-query.js-each">
-                            <a href="#src-sdf-query.js-each" class="permalink">#</a>
-                            <span class="method-name" title="each(method)">each(method)</span>
-                        </h2>
-
-                        <div class="description lead">
-
-                            <p>Iterates over the list of  nodes and passes the iterated element
-as this to the function set in the argument</p>
-
-
-                        </div>
-
-
-                        <section class="parameters">
-
-                            <h3>Parameters</h3>
-
-                            <div class="table-responsive">
-                                <table class="table">
-
-                                    <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Type</th>
-                                            <th>Description</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-
-                                    <tbody>
-                                    <tr>
-                                        <td>method</td>
-                                        <td>
-                                            <code>function</code>
-                                        </td>
-                                        <td><p>A function to execute for each node,   &quot;this&quot; is gonna be set to the current iterated element</p>
-</td>
-                                        <td>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-
-                                </table>
-                            </div>
-
-                        </section>
-
-
-
-
-                        <section class="examples">
-
-                            <h3>Examples</h3>
-
-
-                                <pre><code class="hljs javascript"><span class="hljs-comment">// Iterates over buttons with class active, gets the attribute data-state, </span>
-does something and <span class="hljs-keyword">finally</span> sets it to <span class="hljs-literal">false</span>
-sdf.$(<span class="hljs-string">'button.active'</span>).each(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
-  <span class="hljs-keyword">var</span> state = sdf.$(<span class="hljs-keyword">this</span>).attr(<span class="hljs-string">'data-state'</span>);
-  <span class="hljs-comment">// to do </span>
-  sdf.$(<span class="hljs-keyword">this</span>).attr(<span class="hljs-string">'data-state'</span>, <span class="hljs-string">'false'</span>);   
+                                <pre><code class="hljs javascript">sdf.$(<span class="hljs-string">'selector'</span>).on(<span class="hljs-string">'click'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+    <span class="hljs-comment">//to do </span>
+});
+sdf.$(<span class="hljs-string">'input[type="text"]'</span>).on(<span class="hljs-string">'change'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+    <span class="hljs-keyword">var</span> value = sdf.$(<span class="hljs-keyword">this</span>).value();
+    alert(value);
 });</code></pre>
 
 
@@ -605,15 +517,105 @@ sdf.$(<span class="hljs-string">'button.active'</span>).each(<span class="hljs-f
 
                     <div class="method scope-public">
 
-                        <h2 id="src-sdf-query.js-html">
-                            <a href="#src-sdf-query.js-html" class="permalink">#</a>
+                        <h2 id="js-sdf-query.js-each">
+                            <a href="#js-sdf-query.js-each" class="permalink">#</a>
+                            <span class="method-name" title="each(method)">each(method)</span>
+                        </h2>
+
+                        <div class="description lead">
+
+                            <p>Iterates over every item from the selected element list.
+Sets &quot;this&quot; to the currently iterated element.</p>
+
+
+                        </div>
+
+
+                        <section class="parameters">
+
+                            <h3>Parameters</h3>
+
+                            <div class="table-responsive">
+                                <table class="table">
+
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Type</th>
+                                            <th>Description</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    <tr>
+                                        <td>method</td>
+                                        <td>
+                                            <code>function</code>
+                                        </td>
+                                        <td><p>A function to execute for each node</p>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+
+                        </section>
+
+
+
+
+                        <section class="examples">
+
+                            <h3>Examples</h3>
+
+
+                                <pre><code class="hljs javascript"><span class="hljs-comment">// Iterates over buttons with class active, gets the attribute data-state,</span>
+does something and <span class="hljs-keyword">finally</span> sets data-state to <span class="hljs-literal">false</span>
+sdf.$(<span class="hljs-string">'button.active'</span>).each(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+  <span class="hljs-keyword">var</span> state = sdf.$(<span class="hljs-keyword">this</span>).attr(<span class="hljs-string">'data-state'</span>);
+  <span class="hljs-comment">// to do</span>
+  sdf.$(<span class="hljs-keyword">this</span>).attr(<span class="hljs-string">'data-state'</span>, <span class="hljs-string">'false'</span>);
+});</code></pre>
+
+
+                        </section>
+
+
+                        <section class="returns">
+
+                            <h3>Returns</h3>
+
+
+
+                                    <p>
+                                            <code>object</code>
+                                    </p>
+
+                                    <p>Query object for nesting</p>
+
+
+
+
+                        </section>
+
+                    </div>
+
+
+                    <div class="method scope-public">
+
+                        <h2 id="js-sdf-query.js-html">
+                            <a href="#js-sdf-query.js-html" class="permalink">#</a>
                             <span class="method-name" title="html(value)">html(value)</span>
                         </h2>
 
                         <div class="description lead">
 
-                            <p>Sets the innerHTML of each elements in the list or
-Gets the value of innerHTML of the first element if no arguments</p>
+                            <p>Sets the innerHTML of each element in the list or,
+Gets the innerHTML of the first element on the list</p>
 
 
                         </div>
@@ -693,8 +695,8 @@ sdf.$(<span class="hljs-string">'body'</span>, <span class="hljs-number">1</span
 
                     <div class="method scope-public">
 
-                        <h2 id="src-sdf-query.js-text">
-                            <a href="#src-sdf-query.js-text" class="permalink">#</a>
+                        <h2 id="js-sdf-query.js-text">
+                            <a href="#js-sdf-query.js-text" class="permalink">#</a>
                             <span class="method-name" title="text(value)">text(value)</span>
                         </h2>
 
@@ -780,14 +782,14 @@ sdf.$(<span class="hljs-string">'ul#list&gt;li'</span>, <span class="hljs-number
 
                     <div class="method scope-public">
 
-                        <h2 id="src-sdf-query.js-attr">
-                            <a href="#src-sdf-query.js-attr" class="permalink">#</a>
+                        <h2 id="js-sdf-query.js-attr">
+                            <a href="#js-sdf-query.js-attr" class="permalink">#</a>
                             <span class="method-name" title="attr(attr, value)">attr(attr, value)</span>
                         </h2>
 
                         <div class="description lead">
 
-                            <p>Sets the attribute of each elements in the list or
+                            <p>Sets the attribute of each elements in the list or,
 Gets the value of attribute of the first element if no arguments</p>
 
 
@@ -879,14 +881,14 @@ sdf.$(<span class="hljs-string">'button'</span>).click(<span class="hljs-functio
 
                     <div class="method scope-public">
 
-                        <h2 id="src-sdf-query.js-css">
-                            <a href="#src-sdf-query.js-css" class="permalink">#</a>
+                        <h2 id="js-sdf-query.js-css">
+                            <a href="#js-sdf-query.js-css" class="permalink">#</a>
                             <span class="method-name" title="css(attr, value)">css(attr, value)</span>
                         </h2>
 
                         <div class="description lead">
 
-                            <p>Sets the style of each elements in the list or
+                            <p>Sets the style of each elements in the list or,
 Gets the value of style of the first element if no arguments</p>
 
 
@@ -980,8 +982,8 @@ sdf.$(<span class="hljs-string">'button'</span>).click(<span class="hljs-functio
 
                     <div class="method scope-public">
 
-                        <h2 id="src-sdf-query.js-removeattr">
-                            <a href="#src-sdf-query.js-removeattr" class="permalink">#</a>
+                        <h2 id="js-sdf-query.js-removeattr">
+                            <a href="#js-sdf-query.js-removeattr" class="permalink">#</a>
                             <span class="method-name" title="removeAttr(attr)">removeAttr(attr)</span>
                         </h2>
 
@@ -1064,15 +1066,15 @@ sdf.$(<span class="hljs-string">'div[data-active="false"]'</span>).removeAttr(<s
 
                     <div class="method scope-public">
 
-                        <h2 id="src-sdf-query.js-value">
-                            <a href="#src-sdf-query.js-value" class="permalink">#</a>
+                        <h2 id="js-sdf-query.js-value">
+                            <a href="#js-sdf-query.js-value" class="permalink">#</a>
                             <span class="method-name" title="value(val)">value(val)</span>
                         </h2>
 
                         <div class="description lead">
 
                             <p>Sets the value of each elements in the list or
-Gets the value of value of the first element if no arguments</p>
+Gets the value of the first element if no arguments</p>
 
 
                         </div>
@@ -1149,14 +1151,14 @@ Gets the value of value of the first element if no arguments</p>
 
                     <div class="method scope-public">
 
-                        <h2 id="src-sdf-query.js-create">
-                            <a href="#src-sdf-query.js-create" class="permalink">#</a>
+                        <h2 id="js-sdf-query.js-create">
+                            <a href="#js-sdf-query.js-create" class="permalink">#</a>
                             <span class="method-name" title="create(type, html)">create(type, html)</span>
                         </h2>
 
                         <div class="description lead">
 
-                            <p>Creates a html element to be later appended with append</p>
+                            <p>Creates an html element to be later appended with append</p>
 
 
                         </div>
@@ -1243,14 +1245,65 @@ sdf.$(<span class="hljs-string">'ul'</span>).append(sdf.$().create(<span class="
 
                     <div class="method scope-public">
 
-                        <h2 id="src-sdf-query.js-element">
-                            <a href="#src-sdf-query.js-element" class="permalink">#</a>
+                        <h2 id="js-sdf-query.js-element">
+                            <a href="#js-sdf-query.js-element" class="permalink">#</a>
                             <span class="method-name" title="element()">element()</span>
                         </h2>
 
                         <div class="description lead">
 
-                            <p>Returns the first element in the list</p>
+                            <p>Gets the first element in the selected list of nodes</p>
+
+
+                        </div>
+
+
+
+
+                        <section class="examples">
+
+                            <h3>Examples</h3>
+
+
+                                <pre><code class="hljs javascript"><span class="hljs-keyword">var</span> element = sdf.$(<span class="hljs-string">'div.class-name'</span>).element();
+element.style.display = <span class="hljs-string">'block'</span>;
+sdf.$(element).css({<span class="hljs-attr">display</span>: <span class="hljs-string">'block'</span>, <span class="hljs-attr">opacity</span>: <span class="hljs-string">'0.5'</span>});</code></pre>
+
+
+                        </section>
+
+
+                        <section class="returns">
+
+                            <h3>Returns</h3>
+
+
+
+                                    <p>
+                                            <code>object</code>
+                                    </p>
+
+                                    <p>First element in the list</p>
+
+
+
+
+                        </section>
+
+                    </div>
+
+
+                    <div class="method scope-public">
+
+                        <h2 id="js-sdf-query.js-first">
+                            <a href="#js-sdf-query.js-first" class="permalink">#</a>
+                            <span class="method-name" title="first()">first()</span>
+                        </h2>
+
+                        <div class="description lead">
+
+                            <p>Returns the first element in the list
+Alias to element()</p>
 
 
                         </div>
@@ -1280,18 +1333,18 @@ sdf.$(<span class="hljs-string">'ul'</span>).append(sdf.$().create(<span class="
 
                     <div class="method scope-public">
 
-                        <h2 id="src-sdf-query.js-append">
-                            <a href="#src-sdf-query.js-append" class="permalink">#</a>
+                        <h2 id="js-sdf-query.js-append">
+                            <a href="#js-sdf-query.js-append" class="permalink">#</a>
                             <span class="method-name" title="append(value)">append(value)</span>
                         </h2>
 
                         <div class="description lead">
 
-                            <p>Appends a string or Node to an element
-If a string representing an html element is used, the function will iterate over
-every element of the list from the selector. The append is gonna be done with innerHTML.
-if a Node is used as argument, it will append it only to the first element of the list
-with appendChild. Use 'each' if you want to iterate over every element</p>
+                            <p>Appends a string or Node to an element.
+If a string representing an html element is passed as argument, apend() will iterate over
+every element of the list and add to theirs innerHTML.
+If a Node is used as argument, it will append the node only to the first element of the list with appendChild.
+Use 'each' if you want to iterate over every element and append a dom object.</p>
 
 
                         </div>
@@ -1375,8 +1428,8 @@ sdf.$(<span class="hljs-string">'a'</span>).each(<span class="hljs-function"><sp
 
                     <div class="method scope-public">
 
-                        <h2 id="src-sdf-query.js-prepend">
-                            <a href="#src-sdf-query.js-prepend" class="permalink">#</a>
+                        <h2 id="js-sdf-query.js-prepend">
+                            <a href="#js-sdf-query.js-prepend" class="permalink">#</a>
                             <span class="method-name" title="prepend(value)">prepend(value)</span>
                         </h2>
 
@@ -1447,14 +1500,14 @@ sdf.$(<span class="hljs-string">'a'</span>).each(<span class="hljs-function"><sp
 
                     <div class="method scope-public">
 
-                        <h2 id="src-sdf-query.js-addclass">
-                            <a href="#src-sdf-query.js-addclass" class="permalink">#</a>
+                        <h2 id="js-sdf-query.js-addclass">
+                            <a href="#js-sdf-query.js-addclass" class="permalink">#</a>
                             <span class="method-name" title="addClass(classList)">addClass(classList)</span>
                         </h2>
 
                         <div class="description lead">
 
-                            <p>Adds class to elements in the list</p>
+                            <p>Adds classnames to the elements in the node list</p>
 
 
                         </div>
@@ -1482,7 +1535,7 @@ sdf.$(<span class="hljs-string">'a'</span>).each(<span class="hljs-function"><sp
                                         <td>
                                             <code>string</code>
                                         </td>
-                                        <td><p>List of classes separated by space</p>
+                                        <td><p>List of classes separated by space or a signle classname</p>
 </td>
                                         <td>
                                         </td>
@@ -1537,8 +1590,102 @@ sdf.$(<span class="hljs-string">'li'</span>).addClass(<span class="hljs-string">
 
                     <div class="method scope-public">
 
-                        <h2 id="src-sdf-query.js-removeclass">
-                            <a href="#src-sdf-query.js-removeclass" class="permalink">#</a>
+                        <h2 id="js-sdf-query.js-hasclass">
+                            <a href="#js-sdf-query.js-hasclass" class="permalink">#</a>
+                            <span class="method-name" title="hasClass(className)">hasClass(className)</span>
+                        </h2>
+
+                        <div class="description lead">
+
+                            <p>Returns true if a class is present in the first element class list</p>
+
+
+                        </div>
+
+
+                        <section class="parameters">
+
+                            <h3>Parameters</h3>
+
+                            <div class="table-responsive">
+                                <table class="table">
+
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Type</th>
+                                            <th>Description</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    <tr>
+                                        <td>className</td>
+                                        <td>
+                                            <code>string</code>
+                                        </td>
+                                        <td><p>Name of the class without &quot;.&quot;</p>
+</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+
+                        </section>
+
+
+
+
+                        <section class="examples">
+
+                            <h3>Examples</h3>
+
+
+                                <pre><code class="hljs javascript"><span class="hljs-keyword">if</span>(sdf.$(<span class="hljs-string">'#element'</span>).hasClass(<span class="hljs-string">'class-name'</span>)){ 
+    <span class="hljs-comment">// to do</span>
+}</code></pre>
+
+
+                                <pre><code class="hljs javascript"><span class="hljs-comment">// checks if element is active on click, does stuff, removes class active.</span>
+sdf.$(<span class="hljs-string">'#element_id'</span>).on(<span class="hljs-string">'click'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+    <span class="hljs-keyword">if</span>(sdf.$(<span class="hljs-keyword">this</span>).hasClass(<span class="hljs-string">'active'</span>)){
+        <span class="hljs-comment">// to do</span>
+        sdf.$(<span class="hljs-keyword">this</span>).removeClass(<span class="hljs-string">'active'</span>);
+    }
+});</code></pre>
+
+
+                        </section>
+
+
+                        <section class="returns">
+
+                            <h3>Returns</h3>
+
+
+
+                                    <p>
+                                            <code>bool</code>
+                                    </p>
+
+                                    <p>If the classname is present in the list</p>
+
+
+
+
+                        </section>
+
+                    </div>
+
+
+                    <div class="method scope-public">
+
+                        <h2 id="js-sdf-query.js-removeclass">
+                            <a href="#js-sdf-query.js-removeclass" class="permalink">#</a>
                             <span class="method-name" title="removeClass(classList)">removeClass(classList)</span>
                         </h2>
 
@@ -1621,14 +1768,14 @@ sdf.$(<span class="hljs-string">'li'</span>).addClass(<span class="hljs-string">
 
                     <div class="method scope-public">
 
-                        <h2 id="src-sdf-query.js-remove">
-                            <a href="#src-sdf-query.js-remove" class="permalink">#</a>
+                        <h2 id="js-sdf-query.js-remove">
+                            <a href="#js-sdf-query.js-remove" class="permalink">#</a>
                             <span class="method-name" title="remove()">remove()</span>
                         </h2>
 
                         <div class="description lead">
 
-                            <p>Removes each element from the page</p>
+                            <p>Removes each selected element from the page</p>
 
 
                         </div>

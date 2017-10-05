@@ -1,6 +1,7 @@
 /**
  * SDF Query
- * Simple utility for selecting and modifying DOM elements used by SDF CSS Framework
+ * Simple utility for selecting and modifying DOM elements used by SDF CSS Framework.
+ * A compact alternative to the basics of jQuery compatible with ie11+.
  * @package SDF
  * @author  eugenioenko
  * @license http://opensource.org/licenses/MIT  MIT License
@@ -20,33 +21,41 @@
  * Query Function
  *
  * This function enables you to select html elements from the DOM and return an object which
- * lets you modify their attributes, classes, values, styles and  add event handlers.
+ * lets you modify their attributes, classes, values, styles and add event handlers.
  *
- * @param  {string|object} selector A string which is gonna be used to query elements or a Node element
- * if selector starts with '#' getElementsById will be used limiting the result to 1
+ * @param  {string|object} selector A string which is gonna be used to query elements or a Node element.
+ * If selector starts with '#' getElementsById will be used limiting the result to 1.
  * @param {number|optional}        limit If set to a number, will limit the results of the query
  * to the amount. If set to one, element will be selected by using querySelector instead of querySelectorAll.
+ *
+ * @return {object} Which contains the methods for dom manipulation.
+ * 
  * @example
  * // adds an event handler for a button of id #button_id
  * sdf.$('#button_id').on('click', function(){});
+ * 
  * @example
- * // sets the attribute data-item to all the li of a page
- * sdf.$('li').attr('data-item', 'value');
+ * // sets the attribute data-item to all the li with class '.active'
+ * sdf.$('li.active').attr('data-item', 'value');
+ * 
  * @example
- * // removes class .active from all h2 of the page
+ * // removes class .active from all h2 with class '.active' of the page
  * sdf.$('h2.active').removeClass('active');
  * // removes class .active from 3 of h2 of the page
  * sdf.$('h2.active', 3).removeClass('active');
+ * 
  * @example
  * // Iterates over all the ul of a page and appends an li and prepends li
  * sdf.$('ul').append('<li>appended</li>').prepend('<li>prepended</li>');
+ * 
  * @example
  *  // Custom iterator
- *  sdf.$('span').each(function(){ sdf.$(this).attr('data-active', 'false')});
+ *  sdf.$('span').each(function(){ 
+ *      sdf.$(this).attr('data-active', 'false');
+ *  });
  *  // Chaining
  *  sdf.$('span[data-attr="value"]').prepend('<br>').append('!');
- * @return {object} Which contains the methods for dom manipulation.
- *
+ *  
  */
     function sdfQuery(selector, limit){
         limit = (typeof limit === "undefined") ? -1 : limit;
@@ -165,13 +174,23 @@
             method: method,
 
         /**
-         * Adds event listener to the selected elements
-         * this points to the current iterated element
+         * Adds event listener to the selected elements. 
+         * Sets "this" to the currently iterated element. 
+         * 
          * @param  {string}   event  Type of the event to listen to
          * @param  {function} method Method to execute on the event
+         * @this points to the currently iterated element
+         *
+         * @return {object} Query object for nesting
+         * 
          * @example
-         * sdf.$('selector').on('click', function(){ //to do });
-         * @return {object}   Query object for nesting
+         * sdf.$('selector').on('click', function(){
+         *     //to do 
+         * });
+         * sdf.$('input[type="text"]').on('change', function(){
+         *     var value = sdf.$(this).value();
+         *     alert(value);
+         * });
          */
             on: function(event, method){
                 if(isNodeListEmpty(this.nodes)) {
@@ -189,20 +208,22 @@
                 return this;
             },
         /**
-         * Iterates over the list of  nodes and passes the iterated element
-         * as this to the function set in the argument
-         * @param  {function} method A function to execute for each node,
-         *   "this" is gonna be set to the current iterated element
-         * @this Current iterated element
+         * Iterates over every item from the selected element list.
+         * Sets "this" to the currently iterated element.
+         * 
+         * @param  {function} method A function to execute for each node
+         * @this Currently iterated element
+         *
+         * @return {object} Query object for nesting
+         * 
          * @example
          * // Iterates over buttons with class active, gets the attribute data-state,
-         * does something and finally sets it to false
+         * does something and finally sets data-state to false
          * sdf.$('button.active').each(function(){
          *   var state = sdf.$(this).attr('data-state');
          *   // to do
          *   sdf.$(this).attr('data-state', 'false');
          * });
-         * @return {object}        Query object for nesting
          */
             each: function(method){
                 if(isNodeListEmpty(this.nodes)) {
@@ -219,15 +240,18 @@
                 return this;
             },
         /**
-         * Sets the innerHTML of each elements in the list or
-         * Gets the value of innerHTML of the first element if no arguments
+         * Sets the innerHTML of each element in the list or,
+         * Gets the innerHTML of the first element on the list
+         * 
          * @param  {string} value Optional, the new innerHTML value
+         * 
+         * @return {object|string} Query object for nesting or value if getter
+         * 
          * @example
          * // sets inner conent of body
          * sdf.$('body', 1).html('<h1>Hello, World!</h1>');
          * // gets the html of the body
          * var body = sdf.$('body', 1).html();
-         * @return {object|string}        Query object for nesting or value if getter
          */
             html: function(value){
                 if(isNodeListEmpty(this.nodes)) {
@@ -249,13 +273,16 @@
         /**
          * Sets the textContent of each elements in the list or
          * Gets the value of textContent of the first element if no arguments
+         * 
          * @param  {string} value Optional, the new textContent value
+         *
+         * @return {mixed} Query object for nesting or value if getter
+         * 
          * @example
          * // gets the textContent of the element with id #element
          * var text = sdf.$('#element').text();
          * // sets the textContent of all the first 3 li of ul#list
          * sdf.$('ul#list>li', 3).text('Hello, World!');
-         * @return {mixed}        Query object for nesting or value if getter
          */
             text: function(value){
                 if(isNodeListEmpty(this.nodes)) {
@@ -275,10 +302,14 @@
                 return this;
             },
         /**
-         * Sets the attribute of each elements in the list or
+         * Sets the attribute of each elements in the list or, 
          * Gets the value of attribute of the first element if no arguments
+         * 
          * @param {string} attr Attribute to be set
          * @param  {string} value Optional, the new attribute value
+         *
+         * @return {mixed} Query object for nesting or value if getter
+         * 
          * @example
          * // reads the attribute data-date from a clicked button
          * sdf.$('button').click(function(){
@@ -286,7 +317,6 @@
          *   // to do
          *   sdf.$(this).attr('data-date', date);
          * });
-         * @return {mixed}        Query object for nesting or value if getter
          */
             attr: function(attr, value){
                 if(isNodeListEmpty(this.nodes)) {
@@ -315,10 +345,14 @@
                 return this;
             },
         /**
-         * Sets the style of each elements in the list or
+         * Sets the style of each elements in the list or, 
          * Gets the value of style of the first element if no arguments
+         * 
          * @param {string} attr Attribute to be set
          * @param  {string} value Optional, the new style value
+         *
+         * @return {mixed} Query object for nesting or value if getter
+         * 
          * @example
          * // reads the style data-date from a clicked button
          * sdf.$('button').click(function(){
@@ -328,7 +362,6 @@
          *   sdf.$(this).css('opacity', opacity);
          *   sdf.$(this).css({opacity: 1, color: 'red'});
          * });
-         * @return {mixed}        Query object for nesting or value if getter
          */
             css: function(style, value){
                 var i = 0;
@@ -372,11 +405,14 @@
             },
         /**
          * Removes an attribute from each element in the list
+         * 
          * @param  {string} attr Name of the attribute to be removed from the element
+         * 
+         * @return {object} Query object for nesting
+         * 
          * @example
          * // removes the attribute 'data-active' from all the div with data-active="false"
          * sdf.$('div[data-active="false"]').removeAttr('data-active');
-         * @return {object}        Query object for nesting
          */
             removeAttr: function(attrName){
                 if(isNodeListEmpty(this.nodes)) {
@@ -394,12 +430,15 @@
             },
         /**
          * Sets the value of each elements in the list or
-         * Gets the value of value of the first element if no arguments
+         * Gets the value of the first element if no arguments
+         * 
          * @param  {string} val Optional, the new value value
+         *
+         * @return {object} Query object for nesting
+         * 
          * @example
          * // gets the value of the input with id #input_1
          * var val = sdf.$('input#input_1').value();
-         * @return {object}        Query object for nesting
          */
             value: function(val){
                 if(isNodeListEmpty(this.nodes)) {
@@ -420,10 +459,13 @@
             },
 
         /**
-         * Creates a html element to be later appended with append
+         * Creates an html element to be later appended with append
+         * 
          * @param  {string} type The type of element: div,li, button, a...
          * @param  {string} html Inner html of the element
+         * 
          * @return {object}      Node element of DOM
+         * 
          * @example
          * // creates a node and appends it
          * sdf.$('ul').append(sdf.$().create('li', 'list item A'));
@@ -440,8 +482,14 @@
 
             },
         /**
-         * Returns the first element in the list
-         * @return {object} Element
+         * Gets the first element in the selected list of nodes
+         * 
+         * @return {object} First element in the list
+         *
+         * @example
+         * var element = sdf.$('div.class-name').element();
+         * element.style.display = 'block';
+         * sdf.$(element).css({display: 'block', opacity: '0.5'});
          */
             element: function(){
                 if(isNodeListEmpty(this.nodes)) {
@@ -450,17 +498,26 @@
                 }
                 return this.nodes[0];
             },
+        /**
+         * Returns the first element in the list
+         * Alias to element()
+         * @return {object} Element
+         */
             first: function(){
                 return this.element();
             },
 
         /**
-         * Appends a string or Node to an element
-         * If a string representing an html element is used, the function will iterate over
-         * every element of the list from the selector. The append is gonna be done with innerHTML.
-         * if a Node is used as argument, it will append it only to the first element of the list
-         * with appendChild. Use 'each' if you want to iterate over every element
+         * Appends a string or Node to an element.
+         * If a string representing an html element is passed as argument, apend() will iterate over
+         * every element of the list and add to theirs innerHTML.
+         * If a Node is used as argument, it will append the node only to the first element of the list with appendChild.
+         * Use 'each' if you want to iterate over every element and append a dom object.
+         * 
          * @param  {string|object} value String or Node to be appended
+         *
+         * @return {object} Query object for nesting
+         * 
          * @example
          * // adds a '<i>!</i>' to every link
          * sdf.$('a').append('<i>!</i>');
@@ -470,7 +527,6 @@
          * sdf.$('a').each(function(){
          *   sdf.$(this).append(sdf.$().create('span', '<i>!</i><i>!</i><i>!</i>'));
          * });
-         * @return {object}        Query object for nesting
          */
             append: function(value){
                 if(isNodeListEmpty(this.nodes)) {
@@ -492,8 +548,10 @@
             },
         /**
          * Prepends a string to each element in the list
+         * 
          * @param  {string} value String to be prepended
-         * @return {object}        Query object for nesting
+         *
+         * @return {object} Query object for nesting
          */
             prepend: function(value){
                 if(isNodeListEmpty(this.nodes)) {
@@ -511,14 +569,18 @@
 
             },
         /**
-         * Adds class to elements in the list
-         * @param  {string} classList List of classes separated by space
-         * @return {object}        Query object for nesting
+         * Adds classnames to the elements in the node list
+         * 
+         * @param  {string} classList List of classes separated by space or a signle classname
+         * 
+         * @return {object} Query object for nesting
+         * 
          * @example
          * // adds classes through custom iterator
          * sdf.$('li').each(function(){
          *   sdf.$(this).addClass('class-1 class-2 class-3');
          * });
+         * 
          * @example
          * // adds classes through method
          * sdf.$('li').addClass('class-1 class-2 class-3')
@@ -543,9 +605,25 @@
                 return this;
             },
         /**
-         * Returns true if a class is present in the elements class list
+         * Returns true if a class is present in the first element class list
+         * 
          * @param  {string} className Name of the class without "."
-         * @return {bool}        If the classname is present in the list
+         * 
+         * @return {bool} If the classname is present in the list
+         *
+         * @example
+         * if(sdf.$('#element').hasClass('class-name')){ 
+         *     // to do
+         * }
+         *
+         * @example
+         * // checks if element is active on click, does stuff, removes class active.
+         * sdf.$('#element_id').on('click', function(){
+         *     if(sdf.$(this).hasClass('active')){
+         *         // to do
+         *         sdf.$(this).removeClass('active');
+         *     }
+         * });
          */
             hasClass: function(className){
                 if(isNodeListEmpty(this.nodes)) {
@@ -561,11 +639,14 @@
             },
         /**
          * Removes classes from  elements in the list
+         * 
          * @param  {string} classList List of classes separated by space
+         *
+         * @return {object} Query object for nesting
+         * 
          * @example
          *  // removes the classes ".class-1, .class-2" from the first 10 elements with class .class-0
          *  sdf.$('.class-0').removeclass('class-1 class-2');
-         * @return {object}        Query object for nesting
          */
             removeClass: function(classList){
                 if(isNodeListEmpty(this.nodes)) {
@@ -587,8 +668,10 @@
                 return this;
             },
         /**
-         * Removes each element from the page
-         * @return {object}        Query object for nesting
+         * Removes each selected element from the page
+         * 
+         * @return {object} Query object for nesting
+         * 
          * @example
          * // destroys the body
          * sdf.$('body', 1).remove();
