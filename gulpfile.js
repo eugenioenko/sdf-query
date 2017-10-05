@@ -12,17 +12,17 @@ gulp.task('default', function() {
 
 
 gulp.task('lint', function() {
-  return gulp.src('src/sdf-query.js')
+  return gulp.src('js/sdf-query.js')
   .pipe(jshint())
   .pipe(jshint.reporter('jshint-stylish'));
 });
 
 
 gulp.task('compress', function () {
-  return gulp.src('src/sdf-query.js')
+  return gulp.src('js/sdf-query.js')
     .pipe(uglify())
     .pipe(rename({ suffix: '.min' }))
     .pipe(gulp.dest('js'));
 });
 
-gulp.watch('src/*.js', ['lint', 'compress']);
+gulp.watch('js/sdf-query.js', ['lint', 'compress']);

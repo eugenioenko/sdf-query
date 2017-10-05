@@ -1,7 +1,7 @@
 {
   "name": "sdf-query",
-  "version": "0.8.6",
-  "description": "Simple utility for selecting and modifying DOM elements used by SDF CSS Framework",
+  "version": "0.9.0",
+  "description": "Simple utility for selecting and modifying DOM elements used by SDF CSS Framework. Alternative to jQuery compatible with ie11+",
   "main": "js/sdf-query.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

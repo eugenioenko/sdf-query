@@ -4,11 +4,17 @@
  * @package SDF
  * @author  eugenioenko
  * @license http://opensource.org/licenses/MIT  MIT License
+ * @tutorial https://eugenioenko.github.io/sdf-query/docs/index.html
  * @link    https://github.com/eugenioenko/sdf-css
- * @version 0.8.7
+ * @version 0.9.0
  */
 
 (function(){
+    "use strict";
+
+    if(typeof window === "undefined" || typeof document === "undefined"){
+        throw new Error("sdf-query requires a browser");
+    }
 
 /**
  * Query Function
