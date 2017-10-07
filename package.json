@@ -4,7 +4,7 @@
   "description": "Simple utility for selecting and modifying DOM elements used by SDF CSS Framework. Lightweight alternative to some escentials of jQuery compatible with modern browser and ie11+",
   "main": "js/sdf-query.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "karma start"
   },
   "repository": {
     "type": "git",
@@ -32,8 +32,15 @@
     "gulp-jshint": "^2.0.4",
     "gulp-rename": "^1.2.2",
     "gulp-uglify": "^3.0.0",
+    "jasmine-core": "^2.8.0",
     "jshint": "^2.9.5",
-    "jshint-stylish": "^2.2.1"
+    "jshint-stylish": "^2.2.1",
+    "karma": "^1.7.1",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-cli": "^1.0.1",
+    "karma-jasmine": "^1.1.0",
+    "karma-jasmine-html-reporter": "^0.2.2",
+    "karma-phantomjs-launcher": "^1.0.4"
   },
   "dependencies": {},
   "jshintConfig": {

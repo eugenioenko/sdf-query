@@ -96,7 +96,7 @@ describe("sdf.$().addClass", function() {
         expect(sdf.$('body', 1).hasClass('body-two  ')).toBe(true);
         expect(sdf.$('body', 1).hasClass(' body-three')).toBe(true);
     });
-    
+
 });
 describe("sdf.$().create", function() {
 
@@ -175,7 +175,7 @@ describe("sdf.$().each", function() {
 
     it("Should execute once per each li on page", function(){
        var counter = 0;
-       var length = 0; 
+       var length = 0;
        expect((function(){
             length = sdf.$('li').each(function(){
                 counter++;
@@ -222,7 +222,7 @@ describe("sdf.$().on", function() {
             sdf.$('div', 1).on();
         }).toThrow();
     });
-    
+
     it("Should pass", function(){
        expect(function(){
             sdf.$('div', 1).on('click', function(){});

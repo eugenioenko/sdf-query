@@ -162,11 +162,11 @@
                 if(item === type[j]){
                     valid = true;
                     break;
-                } 
+                }
             }
             if(!valid){
                 return false;
-            }   
+            }
             return true;
         }*/
 
@@ -180,7 +180,7 @@
              } else {
                  if(typeof args[i] !== types[i]){
                      return false;
-                 } 
+                 }
              }
         }
         return true;
@@ -294,7 +294,7 @@
             for (var i = 0; i < this.nodes.length; ++i) {
                 this.nodes[i].setAttribute(attr, value);
             }
-        } else { 
+        } else {
             console.error("'attr' requires attr{string} for getter and value{any} as setter");
         }
         return this;
@@ -538,9 +538,9 @@
     };
     /**
     * Removes each selected element from the page
-    * 
+    *
     * @return {object} Query object for nesting
-    * 
+    *
     * @example
     * // destroys the body
     * sdf.$('body', 1).remove();
