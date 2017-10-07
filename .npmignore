@@ -26,14 +26,16 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-# Ignore docs files
-scss/.sass-cache
-scss/.sass-cache/*
-.sass-cache
-.sass-cache/*
 
-
-# Node modules
+jasmine
+jasmine/*
+docs
+docs/*
 node_modules/
 node_modules/*
-package-lock.json
+gulpfile.js
+src
+src/*
+specs
+specs/*
+

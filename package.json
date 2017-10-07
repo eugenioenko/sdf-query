@@ -1,7 +1,7 @@
 {
   "name": "sdf-query",
-  "version": "0.9.1",
-  "description": "Simple utility for selecting and modifying DOM elements used by SDF CSS Framework. Alternative to jQuery compatible with ie11+",
+  "version": "0.9.5",
+  "description": "Simple utility for selecting and modifying DOM elements used by SDF CSS Framework. Lightweight alternative to some jQuery compatible with modern browser and ie11+",
   "main": "js/sdf-query.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -28,11 +28,21 @@
   "homepage": "https://github.com/eugenioenko/sdf-query#readme",
   "devDependencies": {
     "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
     "gulp-jshint": "^2.0.4",
     "gulp-rename": "^1.2.2",
     "gulp-uglify": "^3.0.0",
     "jshint": "^2.9.5",
     "jshint-stylish": "^2.2.1"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "jshintConfig": {
+    "browser": true,
+    "esnext": true,
+    "globals": {},
+    "globalstrict": true,
+    "quotmark": true,
+    "undef": true,
+    "unused": true
+  }
 }

@@ -1,6 +1,6 @@
-# [sdf-query](https://github.com/eugenioenko/sdf-query#readme) *0.9.1*
+# [sdf-query](https://github.com/eugenioenko/sdf-query#readme) *0.9.5*
 
-> Simple utility for selecting and modifying DOM elements used by SDF CSS Framework. Alternative to jQuery compatible with ie11+
+> Simple utility for selecting and modifying DOM elements used by SDF CSS Framework. Alternative to jQuery compatible with modern browser and ie11+
 
 ### Live documentation and examples
 [Live docs and examples](https://eugenioenko.github.io/sdf-query/docs/index.html)
@@ -13,13 +13,16 @@ Include the script
 <script src="path_to_js/js/sdf-query.min.js"></script>
 ```
 
+### js/sdf-query.js
 
-#### sdf.$(selector, limit)
+
+#### sdf.$(selector, limit) 
 
 Query Function
 
 This function enables you to select html elements from the DOM and return an object which
 lets you modify their attributes, classes, values, styles and add event handlers.
+
 
 
 
@@ -55,7 +58,7 @@ sdf.$('ul').append('<li>appended</li>').prepend('<li>prepended</li>');
 ```
 ```javascript
  // Custom iterator
- sdf.$('span').each(function(){ 
+ sdf.$('span').each(function(){
      sdf.$(this).attr('data-active', 'false');
  });
  // Chaining
@@ -70,48 +73,13 @@ sdf.$('ul').append('<li>appended</li>').prepend('<li>prepended</li>');
 
 
 
-#### sdf.$(selector, limit).on(event, method) 
+#### sdf.$(selector, limit).append(value) 
 
-Adds event listener to the selected elements. 
-Sets "this" to the currently iterated element. 
-
-
-
-
-##### Parameters
-
-| Name | Type | Description |  |
-| ---- | ---- | ----------- | -------- |
-| event | `string`  | Type of the event to listen to | &nbsp; |
-| method | `function`  | Method to execute on the event | &nbsp; |
-
-
-
-
-##### Examples
-
-```javascript
-sdf.$('selector').on('click', function(){
-    //to do 
-});
-sdf.$('input[type="text"]').on('change', function(){
-    var value = sdf.$(this).value();
-    alert(value);
-});
-```
-
-
-##### Returns
-
-
-- `object`  Query object for nesting
-
-
-
-#### sdf.$(selector, limit).each(method) 
-
-Iterates over every item from the selected element list.
-Sets "this" to the currently iterated element.
+Appends a string or Node to an element.
+If a string representing an html element is passed as argument, apend() will iterate over
+every element of the list and add to theirs innerHTML.
+If a Node is used as argument, it will append the node only to the first element of the list with appendChild.
+Use 'each' if you want to iterate over every element and append a dom object.
 
 
 
@@ -120,7 +88,7 @@ Sets "this" to the currently iterated element.
 
 | Name | Type | Description |  |
 | ---- | ---- | ----------- | -------- |
-| method | `function`  | A function to execute for each node | &nbsp; |
+| value | `string` `object`  | String or Node to be appended | &nbsp; |
 
 
 
@@ -128,12 +96,13 @@ Sets "this" to the currently iterated element.
 ##### Examples
 
 ```javascript
-// Iterates over buttons with class active, gets the attribute data-state,
-does something and finally sets data-state to false
-sdf.$('button.active').each(function(){
-  var state = sdf.$(this).attr('data-state');
-  // to do
-  sdf.$(this).attr('data-state', 'false');
+// adds a '<i>!</i>' to every link
+sdf.$('a').append('<i>!</i>');
+// adds a '<span><i>!</i><i>!</i><i>!</i></span>' to the first link
+sdf.$('a').append(sdf.$().create('span', '<i>!</i><i>!</i><i>!</i>'));
+// same as above but for each element. Works the fastest most of the time;
+sdf.$('a').each(function(){
+  sdf.$(this).append(sdf.$().create('span', '<i>!</i><i>!</i><i>!</i>'));
 });
 ```
 
@@ -142,80 +111,12 @@ sdf.$('button.active').each(function(){
 
 
 - `object`  Query object for nesting
-
-
-
-#### sdf.$(selector, limit).html(value) 
-
-Sets the innerHTML of each element in the list or,
-Gets the innerHTML of the first element on the list
-
-
-
-
-##### Parameters
-
-| Name | Type | Description |  |
-| ---- | ---- | ----------- | -------- |
-| value | `string`  | Optional, the new innerHTML value | &nbsp; |
-
-
-
-
-##### Examples
-
-```javascript
-// sets inner conent of body
-sdf.$('body', 1).html('<h1>Hello, World!</h1>');
-// gets the html of the body
-var body = sdf.$('body', 1).html();
-```
-
-
-##### Returns
-
-
-- `object` `string`  Query object for nesting or value if getter
-
-
-
-#### sdf.$(selector, limit).text(value) 
-
-Sets the textContent of each elements in the list or
-Gets the value of textContent of the first element if no arguments
-
-
-
-
-##### Parameters
-
-| Name | Type | Description |  |
-| ---- | ---- | ----------- | -------- |
-| value | `string`  | Optional, the new textContent value | &nbsp; |
-
-
-
-
-##### Examples
-
-```javascript
-// gets the textContent of the element with id #element
-var text = sdf.$('#element').text();
-// sets the textContent of all the first 3 li of ul#list
-sdf.$('ul#list>li', 3).text('Hello, World!');
-```
-
-
-##### Returns
-
-
-- `mixed`  Query object for nesting or value if getter
 
 
 
 #### sdf.$(selector, limit).attr(attr, value) 
 
-Sets the attribute of each elements in the list or, 
+Sets the attribute of each elements in the list or,
 Gets the value of attribute of the first element if no arguments
 
 
@@ -250,10 +151,9 @@ sdf.$('button').click(function(){
 
 
 
-#### sdf.$(selector, limit).css(attr, value) 
+#### sdf.$(selector, limit).addClass(classList) 
 
-Sets the style of each elements in the list or, 
-Gets the value of style of the first element if no arguments
+Adds classnames to the elements in the node list
 
 
 
@@ -262,8 +162,7 @@ Gets the value of style of the first element if no arguments
 
 | Name | Type | Description |  |
 | ---- | ---- | ----------- | -------- |
-| attr | `string`  | Attribute to be set | &nbsp; |
-| value | `string`  | Optional, the new style value | &nbsp; |
+| classList | `string`  | List of classes separated by space or a signle classname | &nbsp; |
 
 
 
@@ -271,77 +170,14 @@ Gets the value of style of the first element if no arguments
 ##### Examples
 
 ```javascript
-// reads the style data-date from a clicked button
-sdf.$('button').click(function(){
-  var opacity = sdf.$(this).css('opacity');
-  // to do
-  opacity -= 0.3;
-  sdf.$(this).css('opacity', opacity);
-  sdf.$(this).css({opacity: 1, color: 'red'});
+// adds classes through custom iterator
+sdf.$('li').each(function(){
+  sdf.$(this).addClass('class-1 class-2 class-3');
 });
 ```
-
-
-##### Returns
-
-
-- `mixed`  Query object for nesting or value if getter
-
-
-
-#### sdf.$(selector, limit).removeAttr(attr) 
-
-Removes an attribute from each element in the list
-
-
-
-
-##### Parameters
-
-| Name | Type | Description |  |
-| ---- | ---- | ----------- | -------- |
-| attr | `string`  | Name of the attribute to be removed from the element | &nbsp; |
-
-
-
-
-##### Examples
-
 ```javascript
-// removes the attribute 'data-active' from all the div with data-active="false"
-sdf.$('div[data-active="false"]').removeAttr('data-active');
-```
-
-
-##### Returns
-
-
-- `object`  Query object for nesting
-
-
-
-#### sdf.$(selector, limit).value(val) 
-
-Sets the value of each elements in the list or
-Gets the value of the first element if no arguments
-
-
-
-
-##### Parameters
-
-| Name | Type | Description |  |
-| ---- | ---- | ----------- | -------- |
-| val | `string`  | Optional, the new value value | &nbsp; |
-
-
-
-
-##### Examples
-
-```javascript
-// gets the value of the input with id #input_1
-var val = sdf.$('input#input_1').value();
+// adds classes through method
+sdf.$('li').addClass('class-1 class-2 class-3')
 ```
 
 
@@ -381,6 +217,82 @@ sdf.$('ul').append(sdf.$().create('li', 'list item A'));
 
 
 - `object`  Node element of DOM
+
+
+
+#### sdf.$(selector, limit).css(attr, value) 
+
+Sets the style of each elements in the list or,
+Gets the value of style of the first element if no arguments
+
+
+
+
+##### Parameters
+
+| Name | Type | Description |  |
+| ---- | ---- | ----------- | -------- |
+| attr | `string`  | Attribute to be set | &nbsp; |
+| value | `string`  | Optional, the new style value | &nbsp; |
+
+
+
+
+##### Examples
+
+```javascript
+// reads the style data-date from a clicked button
+sdf.$('button').click(function(){
+  var opacity = sdf.$(this).css('opacity');
+  // to do
+  opacity -= 0.3;
+  sdf.$(this).css('opacity', opacity);
+  sdf.$(this).css({opacity: 1, color: 'red'});
+});
+```
+
+
+##### Returns
+
+
+- `mixed`  Query object for nesting or value if getter
+
+
+
+#### sdf.$(selector, limit).each(method) 
+
+Iterates over every item from the selected element list.
+Sets "this" to the currently iterated element.
+
+
+
+
+##### Parameters
+
+| Name | Type | Description |  |
+| ---- | ---- | ----------- | -------- |
+| method | `function`  | A function to execute for each node | &nbsp; |
+
+
+
+
+##### Examples
+
+```javascript
+// Iterates over buttons with class active, gets the attribute data-state,
+does something and finally sets data-state to false
+sdf.$('button.active').each(function(){
+  var state = sdf.$(this).attr('data-state');
+  // to do
+  sdf.$(this).attr('data-state', 'false');
+});
+```
+
+
+##### Returns
+
+
+- `object`  Query object for nesting
 
 
 
@@ -426,13 +338,9 @@ Alias to element()
 
 
 
-#### sdf.$(selector, limit).append(value) 
+#### sdf.$(selector, limit).find(selector) 
 
-Appends a string or Node to an element.
-If a string representing an html element is passed as argument, apend() will iterate over
-every element of the list and add to theirs innerHTML.
-If a Node is used as argument, it will append the node only to the first element of the list with appendChild.
-Use 'each' if you want to iterate over every element and append a dom object.
+Returns a list of decendent elements from the selected element.
 
 
 
@@ -441,7 +349,30 @@ Use 'each' if you want to iterate over every element and append a dom object.
 
 | Name | Type | Description |  |
 | ---- | ---- | ----------- | -------- |
-| value | `string` `object`  | String or Node to be appended | &nbsp; |
+| selector | `string`  |  | &nbsp; |
+
+
+
+
+##### Returns
+
+
+-  Query object for nesting and dom modification
+
+
+
+#### sdf.$(selector, limit).hasClass(className) 
+
+Returns true if a class is present in the first element class list
+
+
+
+
+##### Parameters
+
+| Name | Type | Description |  |
+| ---- | ---- | ----------- | -------- |
+| className | `string`  | Name of the class without "." | &nbsp; |
 
 
 
@@ -449,13 +380,89 @@ Use 'each' if you want to iterate over every element and append a dom object.
 ##### Examples
 
 ```javascript
-// adds a '<i>!</i>' to every link
-sdf.$('a').append('<i>!</i>');
-// adds a '<span><i>!</i><i>!</i><i>!</i></span>' to the first link
-sdf.$('a').append(sdf.$().create('span', '<i>!</i><i>!</i><i>!</i>'));
-// same as above but for each element. Works the fastest most of the time;
-sdf.$('a').each(function(){
-  sdf.$(this).append(sdf.$().create('span', '<i>!</i><i>!</i><i>!</i>'));
+if(sdf.$('#element').hasClass('class-name')){
+    // to do
+}
+```
+```javascript
+// checks if element is active on click, does stuff, removes class active.
+sdf.$('#element_id').on('click', function(){
+    if(sdf.$(this).hasClass('active')){
+        // to do
+        sdf.$(this).removeClass('active');
+    }
+});
+```
+
+
+##### Returns
+
+
+- `bool`  If the classname is present in the list
+
+
+
+#### sdf.$(selector, limit).html(value) 
+
+Sets the innerHTML of each element in the list or,
+Gets the innerHTML of the first element on the list
+
+
+
+
+##### Parameters
+
+| Name | Type | Description |  |
+| ---- | ---- | ----------- | -------- |
+| value | `string`  | Optional, the new innerHTML value | &nbsp; |
+
+
+
+
+##### Examples
+
+```javascript
+// sets inner conent of body
+sdf.$('body', 1).html('<h1>Hello, World!</h1>');
+// gets the html of the body
+var body = sdf.$('body', 1).html();
+```
+
+
+##### Returns
+
+
+- `object` `string`  Query object for nesting or value if getter
+
+
+
+#### sdf.$(selector, limit).on(event, method) 
+
+Adds event listener to the selected elements.
+Sets "this" to the currently iterated element.
+
+
+
+
+##### Parameters
+
+| Name | Type | Description |  |
+| ---- | ---- | ----------- | -------- |
+| event | `string`  | Type of the event to listen to | &nbsp; |
+| method | `function`  | Method to execute on the event | &nbsp; |
+
+
+
+
+##### Examples
+
+```javascript
+sdf.$('selector').on('click', function(){
+    //to do
+});
+sdf.$('input[type="text"]').on('change', function(){
+    var value = sdf.$(this).value();
+    alert(value);
 });
 ```
 
@@ -490,18 +497,11 @@ Prepends a string to each element in the list
 
 
 
-#### sdf.$(selector, limit).addClass(classList) 
+#### sdf.$(selector, limit).remove() 
 
-Adds classnames to the elements in the node list
-
-
+Removes each selected element from the page
 
 
-##### Parameters
-
-| Name | Type | Description |  |
-| ---- | ---- | ----------- | -------- |
-| classList | `string`  | List of classes separated by space or a signle classname | &nbsp; |
 
 
 
@@ -509,14 +509,8 @@ Adds classnames to the elements in the node list
 ##### Examples
 
 ```javascript
-// adds classes through custom iterator
-sdf.$('li').each(function(){
-  sdf.$(this).addClass('class-1 class-2 class-3');
-});
-```
-```javascript
-// adds classes through method
-sdf.$('li').addClass('class-1 class-2 class-3')
+// destroys the body
+sdf.$('body', 1).remove();
 ```
 
 
@@ -527,9 +521,9 @@ sdf.$('li').addClass('class-1 class-2 class-3')
 
 
 
-#### sdf.$(selector, limit).hasClass(className) 
+#### sdf.$(selector, limit).removeAttr(attr) 
 
-Returns true if a class is present in the first element class list
+Removes an attribute from each element in the list
 
 
 
@@ -538,7 +532,7 @@ Returns true if a class is present in the first element class list
 
 | Name | Type | Description |  |
 | ---- | ---- | ----------- | -------- |
-| className | `string`  | Name of the class without "." | &nbsp; |
+| attr | `string`  | Name of the attribute to be removed from the element | &nbsp; |
 
 
 
@@ -546,25 +540,15 @@ Returns true if a class is present in the first element class list
 ##### Examples
 
 ```javascript
-if(sdf.$('#element').hasClass('class-name')){ 
-    // to do
-}
-```
-```javascript
-// checks if element is active on click, does stuff, removes class active.
-sdf.$('#element_id').on('click', function(){
-    if(sdf.$(this).hasClass('active')){
-        // to do
-        sdf.$(this).removeClass('active');
-    }
-});
+// removes the attribute 'data-active' from all the div with data-active="false"
+sdf.$('div[data-active="false"]').removeAttr('data-active');
 ```
 
 
 ##### Returns
 
 
-- `bool`  If the classname is present in the list
+- `object`  Query object for nesting
 
 
 
@@ -599,11 +583,19 @@ Removes classes from  elements in the list
 
 
 
-#### sdf.$(selector, limit).remove() 
+#### sdf.$(selector, limit).value(val) 
 
-Removes each selected element from the page
+Sets the value of each elements in the list or
+Gets the value of the first element if no arguments
 
 
+
+
+##### Parameters
+
+| Name | Type | Description |  |
+| ---- | ---- | ----------- | -------- |
+| val | `string`  | Optional, the new value value | &nbsp; |
 
 
 
@@ -611,8 +603,8 @@ Removes each selected element from the page
 ##### Examples
 
 ```javascript
-// destroys the body
-sdf.$('body', 1).remove();
+// gets the value of the input with id #input_1
+var val = sdf.$('input#input_1').value();
 ```
 
 
@@ -620,6 +612,40 @@ sdf.$('body', 1).remove();
 
 
 - `object`  Query object for nesting
+
+
+
+#### sdf.$(selector, limit).text(value) 
+
+Sets the textContent of each elements in the list or
+Gets the value of textContent of the first element if no arguments
+
+
+
+
+##### Parameters
+
+| Name | Type | Description |  |
+| ---- | ---- | ----------- | -------- |
+| value | `string`  | Optional, the new textContent value | &nbsp; |
+
+
+
+
+##### Examples
+
+```javascript
+// gets the textContent of the element with id #element
+var text = sdf.$('#element').text();
+// sets the textContent of all the first 3 li of ul#list
+sdf.$('ul#list>li', 3).text('Hello, World!');
+```
+
+
+##### Returns
+
+
+- `mixed`  Query object for nesting or value if getter
 
 
 
