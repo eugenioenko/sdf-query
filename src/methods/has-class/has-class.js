@@ -21,8 +21,7 @@
 */
 SdfDom.prototype.hasClass = function(className){
     if(!sdf.utils.validateArgTypes(arguments, ["string"])){
-        console.error("'hasClass' takes classList{string} as argument");
-        return this;
+        throw new Error("'hasClass' takes className{string} as argument");
     }
     className = className.trim();
     return this.nodes[0].classList.contains(className);

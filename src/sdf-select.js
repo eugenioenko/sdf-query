@@ -1,7 +1,7 @@
 /**
  * SDF Query
  * Simple utility for selecting and modifying DOM elements used by SDF CSS Framework.
- * A compact alternative to the basics of jQuery compatible with modern browsers and ie11+.
+ * Lightweight alternative to some escentials of jQuery compatible with modern browser and ie11+
  * @package SDF
  * @author  eugenioenko
  * @license http://opensource.org/licenses/MIT  MIT License

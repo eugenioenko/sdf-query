@@ -1,3 +1,40 @@
+describe("sdf.$", function() {
+
+	it("Should be defined sdf.$", function(){
+	    expect(sdf.$).toBeDefined();
+	});
+
+    it("Should get elements", function(){
+        expect(sdf.$('*').length).toBeGreaterThan(0);
+    });
+
+    it("Should get maximum of 3 elements", function(){
+        expect(sdf.$('*', 3).length).toBeLessThanOrEqual(3);
+    });
+
+    it("Should use the querySelector method", function(){
+        expect(sdf.$('body',1 ).method).toEqual('querySelector');
+    });
+
+    it("Should use the querySelectorAll method", function(){
+        expect(sdf.$('body').method).toEqual('querySelectorAll');
+    });
+
+    it("Should use getElementById method", function(){
+        expect(sdf.$('#element_id').method).toEqual('getElementById');
+    });
+
+    it("Should use element selector method", function(){
+        expect(sdf.$(document.body).method).toEqual('element');
+    });
+
+    it("Should not find any element with id #not_id_in_this_doc", function(){
+        expect(sdf.$('#not_id_in_this_doc').length).toEqual(0);
+    });
+
+
+});
+
 describe("sdf.utils.validateArgTypes", function() {
 
 	it("true == ['string']:[string]", function(){
@@ -49,12 +86,52 @@ describe("sdf.utils.validateArgTypes", function() {
 	});
 });
 
+describe("sdf.$().addClass", function() {
+
+    it("Should add class .body-test to the body", function(){
+        sdf.$('body', 1).addClass('body-test');
+        expect(sdf.$('body', 1).hasClass('body-test')).toBe(true);
+    });
+
+    it("Should add multiple classes to the body", function(){
+        sdf.$('body').addClass('body-one body-two body-three  ');
+        expect(sdf.$('body', 1).hasClass('body-one')).toBe(true);
+        expect(sdf.$('body', 1).hasClass('body-two  ')).toBe(true);
+        expect(sdf.$('body', 1).hasClass(' body-three')).toBe(true);
+    });
+    
+});
 describe("sdf.$().append", function() {
 
     it("Should create an element", function(){
         var element1 = document.createElement('div');
         var element2 = sdf.$().create('div', '');
         expect(typeof element1).toEqual(typeof element2);
+    });
+
+});
+
+describe("sdf.$().create", function() {
+
+    it("Should create a div element", function(){
+        var element1 = document.createElement('div');
+        var element2 = sdf.$().create('div', '');
+        expect(typeof element1).toEqual(typeof element2);
+    });
+
+    it("Should create a div element with text 'test text'", function(){
+        var element = sdf.$().create('div', 'test text');
+        expect(
+            sdf.$(element).html()
+        ).toEqual('test text');
+    });
+
+    it("Should create nested elements", function(){
+        var element = sdf.$().create('div', '<div id="created_nested_element_id"></div>');
+        sdf.$('body', 1).append(element);
+        expect(
+            sdf.$('#created_nested_element_id').length
+        ).toEqual(1);
     });
 
 });
@@ -79,46 +156,6 @@ describe("sdf.$().attr", function() {
         expect(
             sdf.$('body', 1).attr('data-body-attr')
         ).toBeNull();
-    });
-
-});
-
-describe("sdf.$().addClass", function() {
-
-    it("Should add class .body-test to the body", function(){
-        sdf.$('body', 1).addClass('body-test');
-        expect(sdf.$('body', 1).hasClass('body-test')).toBe(true);
-    });
-
-    it("Should add multiple classes to the body", function(){
-        sdf.$('body').addClass('body-one body-two body-three  ');
-        expect(sdf.$('body', 1).hasClass('body-one')).toBe(true);
-        expect(sdf.$('body', 1).hasClass('body-two  ')).toBe(true);
-        expect(sdf.$('body', 1).hasClass(' body-three')).toBe(true);
-    });
-
-});
-describe("sdf.$().create", function() {
-
-    it("Should create a div element", function(){
-        var element1 = document.createElement('div');
-        var element2 = sdf.$().create('div', '');
-        expect(typeof element1).toEqual(typeof element2);
-    });
-
-    it("Should create a div element with text 'test text'", function(){
-        var element = sdf.$().create('div', 'test text');
-        expect(
-            sdf.$(element).html()
-        ).toEqual('test text');
-    });
-
-    it("Should create nested elements", function(){
-        var element = sdf.$().create('div', '<div id="created_nested_element_id"></div>');
-        sdf.$('body', 1).append(element);
-        expect(
-            sdf.$('#created_nested_element_id').length
-        ).toEqual(1);
     });
 
 });
@@ -175,13 +212,20 @@ describe("sdf.$().each", function() {
 
     it("Should execute once per each li on page", function(){
        var counter = 0;
-       var length = 0;
+       var length = 0; 
        expect((function(){
             length = sdf.$('li').each(function(){
                 counter++;
             }).length;
             return counter;
         })()).toEqual(length);
+    });
+
+});
+describe("sdf.$().element", function() {
+
+    it("Should return the body element", function(){
+       expect(sdf.$('body').element()).toEqual(document.body);
     });
 
 });
@@ -193,7 +237,24 @@ describe("sdf.$().hasClass", function() {
 
     it("Should find a class '.body-class' in the body", function(){
         sdf.$('body',1 ).addClass('body-class');
+        sdf.$('body', 1).addClass('other-class');
         expect(sdf.$('body',1).hasClass('body-class')).toBe(true);
+    });
+
+    it("Should throw an error, classname should be string", function(){
+    	expect(
+            function(){
+                return sdf.$('div', 1).hasClass(1);
+            }
+        ).toThrow();
+    });
+
+    it("Should throw an error, classname should be string", function(){
+    	expect(
+            function(){
+                return sdf.$('div', 1).hasClass(1);
+            }
+        ).toThrow();
     });
 
 });
@@ -222,7 +283,7 @@ describe("sdf.$().on", function() {
             sdf.$('div', 1).on();
         }).toThrow();
     });
-
+    
     it("Should pass", function(){
        expect(function(){
             sdf.$('div', 1).on('click', function(){});
