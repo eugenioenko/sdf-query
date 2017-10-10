@@ -1,35 +1,49 @@
 describe("sdf.$", function() {
 
-	it("Should be defined sdf.$", function(){
-	    expect(sdf.$).toBeDefined();
-	});
+    it("Should be defined sdf.$", function(){
+        expect(sdf.$).toBeDefined();
+    });
 
     it("Should get elements", function(){
-        expect(sdf.$('*').length).toBeGreaterThan(0);
+        expect(
+            sdf.$('*').length
+        ).toBeGreaterThan(0);
     });
 
     it("Should get maximum of 3 elements", function(){
-        expect(sdf.$('*', 3).length).toBeLessThanOrEqual(3);
+        expect(
+            sdf.$('*', 3).length
+        ).toBeLessThanOrEqual(3);
     });
 
     it("Should use the querySelector method", function(){
-        expect(sdf.$('body',1 ).method).toEqual('querySelector');
+        expect(
+            sdf.$('body',1 ).method
+        ).toEqual('querySelector');
     });
 
     it("Should use the querySelectorAll method", function(){
-        expect(sdf.$('body').method).toEqual('querySelectorAll');
+        expect(
+            sdf.$('body').method
+        ).toEqual('querySelectorAll');
     });
 
     it("Should use getElementById method", function(){
-        expect(sdf.$('#element_id').method).toEqual('getElementById');
+        expect(
+            sdf.$('#element_id').method
+        ).toEqual('getElementById');
     });
 
     it("Should use element selector method", function(){
-        expect(sdf.$(document.body).method).toEqual('element');
+        expect(
+            sdf.$(document.body).method
+        ).toEqual('element');
     });
 
     it("Should not find any element with id #not_id_in_this_doc", function(){
-        expect(sdf.$('#not_id_in_this_doc').length).toEqual(0);
+        expect(
+            sdf.$('#not_id_in_this_doc').length
+        ).toEqual(0);
     });
 
 
@@ -37,101 +51,76 @@ describe("sdf.$", function() {
 
 describe("sdf.utils.validateArgTypes", function() {
 
-	it("true == ['string']:[string]", function(){
-	    expect(sdf.utils.validateArgTypes(['string'], ["string"])).toBe(true);
-	});
+    it("true == ['string']:[string]", function(){
+        expect(
+            sdf.utils.validateArgTypes(['string'], ["string"])
+        ).toBe(true);
+    });
 
-	it("true == ['string']:[any]", function(){
-	    expect(sdf.utils.validateArgTypes(["string"], ["any"])).toBe(true);
-	});
+    it("true == ['string']:[any]", function(){
+        expect(
+            sdf.utils.validateArgTypes(["string"], ["any"])
+        ).toBe(true);
+    });
 
-	it("true == [{},{}]:[object, any]", function(){
-	    expect(sdf.utils.validateArgTypes([{}, {}], ["object", "any"])).toBe(true);
-	});
+    it("true == [{},{}]:[object, any]", function(){
+        expect(
+            sdf.utils.validateArgTypes([{}, {}], ["object", "any"])
+        ).toBe(true);
+    });
 
     it("true == [1,2,3]:[three numbers]", function(){
-        expect(sdf.utils.validateArgTypes([1,2,3], ["number", "number", "number"])).toBe(true);
+        expect(
+            sdf.utils.validateArgTypes([1,2,3], ["number", "number", "number"])
+        ).toBe(true);
     });
 
     it("true == [1,2,3]:[number, number, any]", function(){
-        expect(sdf.utils.validateArgTypes([1,2,3], ["number", "number", "any"])).toBe(true);
+        expect(
+            sdf.utils.validateArgTypes([1,2,3], ["number", "number", "any"])
+        ).toBe(true);
     });
 
     it("true == [function(){}]:[any]", function(){
-        expect(sdf.utils.validateArgTypes([function(){}], ["any"])).toBe(true);
+        expect(
+            sdf.utils.validateArgTypes([function(){}], ["any"])
+        ).toBe(true);
     });
 
     it("true == [function(){}]:[function]", function(){
-        expect(sdf.utils.validateArgTypes([function(){}], ["function"])).toBe(true);
+        expect(
+            sdf.utils.validateArgTypes([function(){}], ["function"])
+        ).toBe(true);
     });
 
     it("false == ['not_number',2,3]:[number, number, any]", function(){
-        expect(sdf.utils.validateArgTypes(["string",2,3], ["number", "number", "any"])).toBe(false);
+        expect(
+            sdf.utils.validateArgTypes(["string",2,3], ["number", "number", "any"])
+        ).toBe(false);
     });
 
     it("false == [2,3]:[number, number, any]", function(){
-        expect(sdf.utils.validateArgTypes([2,3], ["number", "number", "any"])).toBe(false);
+        expect(
+            sdf.utils.validateArgTypes([2,3], ["number", "number", "any"])
+        ).toBe(false);
     });
 
     it("false == [{},{}]:[object]", function(){
-	    expect(sdf.utils.validateArgTypes([{}, {}], ["object"])).toBe(false);
-	});
-
-	it("false == [(function(){})()]:[function]", function(){
-	    expect(sdf.utils.validateArgTypes([(function(){})()], ["function"])).toBe(false);
-	});
-
-	it("false == [(function(){return 0;})()]:[function]", function(){
-	    expect(sdf.utils.validateArgTypes([(function(){return 0;})()], ["string"])).toBe(false);
-	});
-});
-
-describe("sdf.$().addClass", function() {
-
-    it("Should add class .body-test to the body", function(){
-        sdf.$('body', 1).addClass('body-test');
-        expect(sdf.$('body', 1).hasClass('body-test')).toBe(true);
-    });
-
-    it("Should add multiple classes to the body", function(){
-        sdf.$('body').addClass('body-one body-two body-three  ');
-        expect(sdf.$('body', 1).hasClass('body-one')).toBe(true);
-        expect(sdf.$('body', 1).hasClass('body-two  ')).toBe(true);
-        expect(sdf.$('body', 1).hasClass(' body-three')).toBe(true);
-    });
-    
-});
-describe("sdf.$().append", function() {
-
-    it("Should create an element", function(){
-        var element1 = document.createElement('div');
-        var element2 = sdf.$().create('div', '');
-        expect(typeof element1).toEqual(typeof element2);
-    });
-
-});
-
-describe("sdf.$().create", function() {
-
-    it("Should create a div element", function(){
-        var element1 = document.createElement('div');
-        var element2 = sdf.$().create('div', '');
-        expect(typeof element1).toEqual(typeof element2);
-    });
-
-    it("Should create a div element with text 'test text'", function(){
-        var element = sdf.$().create('div', 'test text');
         expect(
-            sdf.$(element).html()
-        ).toEqual('test text');
+            sdf.utils.validateArgTypes([{}, {}], ["object"])
+        ).toBe(false);
     });
 
-    it("Should create nested elements", function(){
-        var element = sdf.$().create('div', '<div id="created_nested_element_id"></div>');
-        sdf.$('body', 1).append(element);
+    it("false == [(function(){})()]:[function]", function(){
         expect(
-            sdf.$('#created_nested_element_id').length
-        ).toEqual(1);
+            sdf.utils.validateArgTypes([(function(){})()], ["function"])
+        ).toBe(false);
+    });
+
+    it("false == [(function(){return 0;})()]:[function]", function(){
+        expect(
+            sdf.utils.validateArgTypes([(function(){return 0;})()], ["string"])
+        ).toBe(false);
     });
 
 });
@@ -156,6 +145,56 @@ describe("sdf.$().attr", function() {
         expect(
             sdf.$('body', 1).attr('data-body-attr')
         ).toBeNull();
+    });
+
+});
+
+describe("sdf.$().append", function() {
+
+    it("Should create an element", function(){
+        var element1 = document.createElement('div');
+        var element2 = sdf.$().create('div', '');
+        expect(typeof element1).toEqual(typeof element2);
+    });
+
+});
+
+describe("sdf.$().addClass", function() {
+
+    it("Should add class .body-test to the body", function(){
+        sdf.$('body', 1).addClass('body-test');
+        expect(sdf.$('body', 1).hasClass('body-test')).toBe(true);
+    });
+
+    it("Should add multiple classes to the body", function(){
+        sdf.$('body').addClass('body-one body-two body-three  ');
+        expect(sdf.$('body', 1).hasClass('body-one')).toBe(true);
+        expect(sdf.$('body', 1).hasClass('body-two  ')).toBe(true);
+        expect(sdf.$('body', 1).hasClass(' body-three')).toBe(true);
+    });
+    
+});
+describe("sdf.$().create", function() {
+
+    it("Should create a div element", function(){
+        var element1 = document.createElement('div');
+        var element2 = sdf.$().create('div', '');
+        expect(typeof element1).toEqual(typeof element2);
+    });
+
+    it("Should create a div element with text 'test text'", function(){
+        var element = sdf.$().create('div', 'test text');
+        expect(
+            sdf.$(element).html()
+        ).toEqual('test text');
+    });
+
+    it("Should create nested elements", function(){
+        var element = sdf.$().create('div', '<div id="created_nested_element_id"></div>');
+        sdf.$('body', 1).append(element);
+        expect(
+            sdf.$('#created_nested_element_id').length
+        ).toEqual(1);
     });
 
 });
@@ -258,6 +297,22 @@ describe("sdf.$().hasClass", function() {
     });
 
 });
+describe("sdf.$().html", function() {
+
+    it("Should return the innerHTML of body", function(){
+       expect(sdf.$('body', 1).html()).toEqual(document.body.innerHTML); 
+    });
+
+    it("Should set the innerHTML of a created element", function(){
+        var element = sdf.$().create('div', '<b>oldText</b>');
+        sdf.$(element).html('<b>newText</b>');
+        expect(
+            sdf.$(element).html()
+        ).toEqual('<b>newText</b>');
+    });
+
+});
+
 describe("sdf.$().on", function() {
 
     it("Should throw invalid argument for no callback", function(){

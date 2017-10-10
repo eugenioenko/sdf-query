@@ -6,28 +6,9 @@ SdfUtils.prototype.validateArgTypes = function(args, types){
     if(args.length != (types.length)){
         return false;
     }
-    /*
-    function valideTypeInArray(item, type){
-        var valid = false;
-        for(var j = 0; j < type.length; ++j){
-            if(item === type[j]){
-                valid = true;
-                break;
-            } 
-        }
-        if(!valid){
-            return false;
-        }   
-        return true;
-    }*/
-
     for(var i = 0; i < args.length; ++i){
-         if(types[i] == "any"){
+         if(types[i] === "any"){
              args[i] = (args[i]).toString();
-         /*}else if(types[i].constructor === Array){
-            if(!valideTypeInArray(args[i], types[i])){
-                return false;
-            }*/
          } else {
              if(typeof args[i] !== types[i]){
                  return false;

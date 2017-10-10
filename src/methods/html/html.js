@@ -16,12 +16,11 @@ SdfDom.prototype.html = function(value){
 	if(arguments.length == 0){
 	    return this.nodes[0].innerHTML;
 	}
-    if(sdf.utils.validateArgTypes(arguments, ["any"])){
-        for (var i = 0; i < this.nodes.length; ++i) {
-            this.nodes[i].innerHTML = value;
-        }
-    } else {
-        console.error("'html' takes value {any} as argument or no arguments.");
+    if(!sdf.utils.validateArgTypes(arguments, ["any"])){
+        throw new Error("'html' takes value {any} as argument or no arguments.");
+    }
+    for (var i = 0; i < this.nodes.length; ++i) {
+        this.nodes[i].innerHTML = value;
     }
     return this;
 };

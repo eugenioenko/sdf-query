@@ -9,6 +9,7 @@
  * @link    https://github.com/eugenioenko/sdf-css
  * @version 0.9.5
  */
+
 (function(){
 "use strict";
 
@@ -153,32 +154,13 @@ SdfUtils.prototype.validateArgTypes = function(args, types){
     if(args.length != (types.length)){
         return false;
     }
-    /*
-    function valideTypeInArray(item, type){
-        var valid = false;
-        for(var j = 0; j < type.length; ++j){
-            if(item === type[j]){
-                valid = true;
-                break;
-            }
-        }
-        if(!valid){
-            return false;
-        }
-        return true;
-    }*/
-
     for(var i = 0; i < args.length; ++i){
-         if(types[i] == "any"){
+         if(types[i] === "any"){
              args[i] = (args[i]).toString();
-         /*}else if(types[i].constructor === Array){
-            if(!valideTypeInArray(args[i], types[i])){
-                return false;
-            }*/
          } else {
              if(typeof args[i] !== types[i]){
                  return false;
-             }
+             } 
          }
     }
     return true;
@@ -203,39 +185,6 @@ function SdfDom(selector, nodes, length, method){
     this.method = method;
     this.utils = new SdfUtils();
 }
-/**
-* Appends a string or Node to an element.
-* If a string representing an html element is passed as argument, apend() will iterate over
-* every element of the list and add to theirs innerHTML.
-* If a Node is used as argument, it will append the node only to the first element of the list with appendChild.
-* Use 'each' if you want to iterate over every element and append a dom object.
-*
-* @param  {string|object} value String or Node to be appended
-*
-* @return {object} Query object for nesting
-*
-* @example
-* // adds a '<i>!</i>' to every link
-* sdf.$('a').append('<i>!</i>');
-* // adds a '<span><i>!</i><i>!</i><i>!</i></span>' to the first link
-* sdf.$('a').append(sdf.$().create('span', '<i>!</i><i>!</i><i>!</i>'));
-* // same as above but for each element. Works the fastest most of the time;
-* sdf.$('a').each(function(){
-*   sdf.$(this).append(sdf.$().create('span', '<i>!</i><i>!</i><i>!</i>'));
-* });
-*/
-SdfDom.prototype.append = function(value){
-    if(sdf.utils.validateArgTypes(arguments, ["string"])){
-        for (var i = 0; i < this.nodes.length; ++i) {
-            this.nodes[i].innerHTML += value;
-        }
-    } else if(sdf.utils.validateArgTypes(arguments, ["object"]) && value instanceof Node){
-        this.nodes[0].appendChild(value);
-    } else {
-        console.error("'append' takes value{string|node} as argument");
-    }
-    return this;
-};
 /**
 * Adds classnames to the elements in the node list
 *
@@ -292,7 +241,7 @@ SdfDom.prototype.attr = function(attr, value){
         for (var i = 0; i < this.nodes.length; ++i) {
             this.nodes[i].setAttribute(attr, value);
         }
-    } else {
+    } else { 
         console.error("'attr' requires attr{string} for getter and value{any} as setter");
     }
     return this;
@@ -364,6 +313,39 @@ SdfDom.prototype.css = function(style, value){
         throw new Error("'css' takes style{string} and value{string|object} as arguments");
     }
 
+    return this;
+};
+/**
+* Appends a string or Node to an element.
+* If a string representing an html element is passed as argument, apend() will iterate over
+* every element of the list and add to theirs innerHTML.
+* If a Node is used as argument, it will append the node only to the first element of the list with appendChild.
+* Use 'each' if you want to iterate over every element and append a dom object.
+*
+* @param  {string|object} value String or Node to be appended
+*
+* @return {object} Query object for nesting
+*
+* @example
+* // adds a '<i>!</i>' to every link
+* sdf.$('a').append('<i>!</i>');
+* // adds a '<span><i>!</i><i>!</i><i>!</i></span>' to the first link
+* sdf.$('a').append(sdf.$().create('span', '<i>!</i><i>!</i><i>!</i>'));
+* // same as above but for each element. Works the fastest most of the time;
+* sdf.$('a').each(function(){
+*   sdf.$(this).append(sdf.$().create('span', '<i>!</i><i>!</i><i>!</i>'));
+* });
+*/
+SdfDom.prototype.append = function(value){
+    if(sdf.utils.validateArgTypes(arguments, ["string"])){
+        for (var i = 0; i < this.nodes.length; ++i) {
+            this.nodes[i].innerHTML += value;
+        }
+    } else if(sdf.utils.validateArgTypes(arguments, ["object"]) && value instanceof Node){
+        this.nodes[0].appendChild(value);
+    } else {
+        console.error("'append' takes value{string|node} as argument");
+    }
     return this;
 };
 /**
@@ -477,12 +459,11 @@ SdfDom.prototype.html = function(value){
 	if(arguments.length == 0){
 	    return this.nodes[0].innerHTML;
 	}
-    if(sdf.utils.validateArgTypes(arguments, ["any"])){
-        for (var i = 0; i < this.nodes.length; ++i) {
-            this.nodes[i].innerHTML = value;
-        }
-    } else {
-        console.error("'html' takes value {any} as argument or no arguments.");
+    if(!sdf.utils.validateArgTypes(arguments, ["any"])){
+        throw new Error("'html' takes value {any} as argument or no arguments.");
+    }
+    for (var i = 0; i < this.nodes.length; ++i) {
+        this.nodes[i].innerHTML = value;
     }
     return this;
 };
@@ -535,9 +516,9 @@ SdfDom.prototype.prepend = function(value){
 };
 /**
 * Removes each selected element from the page
-*
+* 
 * @return {object} Query object for nesting
-*
+* 
 * @example
 * // destroys the body
 * sdf.$('body', 1).remove();
@@ -650,6 +631,7 @@ SdfDom.prototype.value = function(val){
     }
     return this;
 };
+
 })();
  /**
  * @license
