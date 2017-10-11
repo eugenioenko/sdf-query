@@ -3,6 +3,14 @@
 > Simple utility for selecting and modifying DOM elements used by SDF CSS Framework. Lightweight alternative to some escentials of jQuery compatible with modern browser and ie11+
 
 
+## Instalation
+> npm install sdf-query
+
+Include the script
+```
+<script src="path_to_js/js/sdf-query.min.js"></script>
+```
+
 ### js/sdf-query.js
 
 
