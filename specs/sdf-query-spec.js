@@ -125,6 +125,31 @@ describe("sdf.utils.validateArgTypes", function() {
 
 });
 
+describe("sdf.$().addClass", function() {
+
+    it("Should add class .body-test to the body", function(){
+        sdf.$('body', 1).addClass('body-test');
+        expect(sdf.$('body', 1).hasClass('body-test')).toBe(true);
+    });
+
+    it("Should add multiple classes to the body", function(){
+        sdf.$('body').addClass('body-one body-two body-three  ');
+        expect(sdf.$('body', 1).hasClass('body-one')).toBe(true);
+        expect(sdf.$('body', 1).hasClass('body-two  ')).toBe(true);
+        expect(sdf.$('body', 1).hasClass(' body-three')).toBe(true);
+    });
+    
+});
+describe("sdf.$().append", function() {
+
+    it("Should create an element", function(){
+        var element1 = document.createElement('div');
+        var element2 = sdf.$().create('div', '');
+        expect(typeof element1).toEqual(typeof element2);
+    });
+
+});
+
 describe("sdf.$().attr", function() {
 
     it("Should not find [data-body-attr] in body", function(){
@@ -149,31 +174,6 @@ describe("sdf.$().attr", function() {
 
 });
 
-describe("sdf.$().append", function() {
-
-    it("Should create an element", function(){
-        var element1 = document.createElement('div');
-        var element2 = sdf.$().create('div', '');
-        expect(typeof element1).toEqual(typeof element2);
-    });
-
-});
-
-describe("sdf.$().addClass", function() {
-
-    it("Should add class .body-test to the body", function(){
-        sdf.$('body', 1).addClass('body-test');
-        expect(sdf.$('body', 1).hasClass('body-test')).toBe(true);
-    });
-
-    it("Should add multiple classes to the body", function(){
-        sdf.$('body').addClass('body-one body-two body-three  ');
-        expect(sdf.$('body', 1).hasClass('body-one')).toBe(true);
-        expect(sdf.$('body', 1).hasClass('body-two  ')).toBe(true);
-        expect(sdf.$('body', 1).hasClass(' body-three')).toBe(true);
-    });
-    
-});
 describe("sdf.$().create", function() {
 
     it("Should create a div element", function(){
@@ -297,22 +297,6 @@ describe("sdf.$().hasClass", function() {
     });
 
 });
-describe("sdf.$().html", function() {
-
-    it("Should return the innerHTML of body", function(){
-       expect(sdf.$('body', 1).html()).toEqual(document.body.innerHTML); 
-    });
-
-    it("Should set the innerHTML of a created element", function(){
-        var element = sdf.$().create('div', '<b>oldText</b>');
-        sdf.$(element).html('<b>newText</b>');
-        expect(
-            sdf.$(element).html()
-        ).toEqual('<b>newText</b>');
-    });
-
-});
-
 describe("sdf.$().on", function() {
 
     it("Should throw invalid argument for no callback", function(){

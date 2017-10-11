@@ -7,7 +7,7 @@
  * @license http://opensource.org/licenses/MIT  MIT License
  * @tutorial https://eugenioenko.github.io/sdf-query/docs/index.html
  * @link    https://github.com/eugenioenko/sdf-css
- * @version 0.9.5
+ * @version 0.9.7
  */
 
 //"use strict";

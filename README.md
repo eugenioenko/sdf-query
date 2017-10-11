@@ -1,19 +1,7 @@
-# [sdf-query](https://github.com/eugenioenko/sdf-query#readme) *0.9.6*
-
-[![Build Status](https://travis-ci.org/eugenioenko/sdf-query.svg?branch=master)](https://travis-ci.org/eugenioenko/sdf-query)
+# [sdf-query](https://github.com/eugenioenko/sdf-query#readme) *0.9.7*
 
 > Simple utility for selecting and modifying DOM elements used by SDF CSS Framework. Lightweight alternative to some escentials of jQuery compatible with modern browser and ie11+
 
-### Live documentation and examples
-[Live docs and examples](https://eugenioenko.github.io/sdf-query/docs/index.html)
-
-### Instalation
-> npm install sdf-query
-
-Include the script
-```
-<script src="path_to_js/js/sdf-query.min.js"></script>
-```
 
 ### js/sdf-query.js
 
@@ -75,13 +63,9 @@ sdf.$('ul').append('<li>appended</li>').prepend('<li>prepended</li>');
 
 
 
-#### sdf.$(selector, limit).append(value)
+#### sdf.$(selector, limit).addClass(classList)
 
-Appends a string or Node to an element.
-If a string representing an html element is passed as argument, apend() will iterate over
-every element of the list and add to theirs innerHTML.
-If a Node is used as argument, it will append the node only to the first element of the list with appendChild.
-Use 'each' if you want to iterate over every element and append a dom object.
+Adds classnames to the elements in the node list
 
 
 
@@ -90,7 +74,7 @@ Use 'each' if you want to iterate over every element and append a dom object.
 
 | Name | Type | Description |  |
 | ---- | ---- | ----------- | -------- |
-| value | `string` `object`  | String or Node to be appended | &nbsp; |
+| classList | `string`  | List of classes separated by space or a signle classname | &nbsp; |
 
 
 
@@ -98,14 +82,57 @@ Use 'each' if you want to iterate over every element and append a dom object.
 ##### Examples
 
 ```javascript
-// adds a '<i>!</i>' to every link
-sdf.$('a').append('<i>!</i>');
-// adds a '<span><i>!</i><i>!</i><i>!</i></span>' to the first link
-sdf.$('a').append(sdf.$().create('span', '<i>!</i><i>!</i><i>!</i>'));
-// same as above but for each element. Works the fastest most of the time;
-sdf.$('a').each(function(){
-  sdf.$(this).append(sdf.$().create('span', '<i>!</i><i>!</i><i>!</i>'));
+// adds classes through custom iterator
+sdf.$('li').each(function(){
+  sdf.$(this).addClass('class-1 class-2 class-3');
 });
+```
+```javascript
+// adds classes through method
+sdf.$('li').addClass('class-1 class-2 class-3')
+```
+
+
+##### Returns
+
+
+- `object`  Query object for nesting
+
+
+
+#### sdf.$(selector, limit).after(value)
+
+Inserts content after each element of the list.
+If content is a string parses the specified text as HTML
+and inserts the resulting nodes.
+
+
+
+
+##### Parameters
+
+| Name | Type | Description |  |
+| ---- | ---- | ----------- | -------- |
+| value | `string` `node`  | String or Node to be inserted | &nbsp; |
+
+
+
+
+##### Examples
+
+```javascript
+cheat sheet
+<!-- before -->
+<element>
+  <!-- prepend -->
+  {{element's content}}
+  <!-- append -->
+</element>
+<!-- after -->
+```
+```javascript
+// after a div in the div#first
+sdf.$('li#first').after('<li id="second"></li>');
 ```
 
 
@@ -153,9 +180,11 @@ sdf.$('button').click(function(){
 
 
 
-#### sdf.$(selector, limit).addClass(classList)
+#### sdf.$(selector, limit).append(value)
 
-Adds classnames to the elements in the node list
+Appends content to each element of the list.
+If content is a string parses the specified text as HTML
+and inserts the resulting nodes.
 
 
 
@@ -164,7 +193,7 @@ Adds classnames to the elements in the node list
 
 | Name | Type | Description |  |
 | ---- | ---- | ----------- | -------- |
-| classList | `string`  | List of classes separated by space or a signle classname | &nbsp; |
+| value | `string` `node`  | String or Node to be inserted | &nbsp; |
 
 
 
@@ -172,14 +201,61 @@ Adds classnames to the elements in the node list
 ##### Examples
 
 ```javascript
-// adds classes through custom iterator
-sdf.$('li').each(function(){
-  sdf.$(this).addClass('class-1 class-2 class-3');
-});
+cheat sheet
+<!-- before -->
+<element>
+  <!-- prepend -->
+  {{element's content}}
+  <!-- append -->
+</element>
+<!-- after -->
 ```
 ```javascript
-// adds classes through method
-sdf.$('li').addClass('class-1 class-2 class-3')
+// appends a div in the div#first
+sdf.$('div#first_element').append('<div></div>');
+```
+
+
+##### Returns
+
+
+- `object`  Query object for nesting
+
+
+
+#### sdf.$(selector, limit).before(value)
+
+Inserts content before each element of the list.
+If content is a string, 'prepend' parses the specified text as HTML
+and inserts the resulting nodes.
+
+
+
+
+##### Parameters
+
+| Name | Type | Description |  |
+| ---- | ---- | ----------- | -------- |
+| value | `string` `node`  | String or Node to be inserted | &nbsp; |
+
+
+
+
+##### Examples
+
+```javascript
+cheat sheet
+<!-- before -->
+<element>
+  <!-- prepend -->
+  {{element's content}}
+  <!-- append -->
+</element>
+<!-- after -->
+```
+```javascript
+// inserts a div before the div#first
+sdf.$('div#first').before('<div id="before_first"></div>');
 ```
 
 
@@ -438,6 +514,50 @@ var body = sdf.$('body', 1).html();
 
 
 
+#### sdf.$(selector, limit).insert(position, value)
+
+Inserts content to each element of the list.
+If content is a string, parses the specified text as HTML
+and inserts the resulting nodes.
+
+
+
+
+##### Parameters
+
+| Name | Type | Description |  |
+| ---- | ---- | ----------- | -------- |
+| position | `string`  | Location relative to the element where to be inserted | &nbsp; |
+| value | `string` `node`  | String or Node to be inserted | &nbsp; |
+
+
+
+
+##### Examples
+
+```javascript
+cheat sheet
+<!-- beforebegin -->
+<element>
+  <!-- afterbegin -->
+  {{element's content}}
+  <!-- beforeend -->
+</element>
+<!-- afterend -->
+```
+```javascript
+// inserts a div before the div#first
+sdf.$('div#first').insert('<div id="before_first"></div>', 'beforebegin');
+```
+
+
+##### Returns
+
+
+- `object`  Query object for nesting
+
+
+
 #### sdf.$(selector, limit).on(event, method)
 
 Adds event listener to the selected elements.
@@ -478,7 +598,9 @@ sdf.$('input[type="text"]').on('change', function(){
 
 #### sdf.$(selector, limit).prepend(value)
 
-Prepends a string to each element in the list
+Prepends content to each element of the list.
+If content is a string parses the specified text as HTML
+and inserts the resulting nodes.
 
 
 
@@ -487,9 +609,27 @@ Prepends a string to each element in the list
 
 | Name | Type | Description |  |
 | ---- | ---- | ----------- | -------- |
-| value | `string`  | String to be prepended | &nbsp; |
+| value | `string` `node`  | String or Node to be inserted | &nbsp; |
 
 
+
+
+##### Examples
+
+```javascript
+cheat sheet
+<!-- before -->
+<element>
+  <!-- prepend -->
+  {{element's content}}
+  <!-- append -->
+</element>
+<!-- after -->
+```
+```javascript
+// prepends a div in the div#first
+sdf.$('div#first').prepend('<div id="start_of_first"></div>');
+```
 
 
 ##### Returns
@@ -585,38 +725,6 @@ Removes classes from  elements in the list
 
 
 
-#### sdf.$(selector, limit).value(val)
-
-Sets the value of each elements in the list or
-Gets the value of the first element if no arguments
-
-
-
-
-##### Parameters
-
-| Name | Type | Description |  |
-| ---- | ---- | ----------- | -------- |
-| val | `string`  | Optional, the new value value | &nbsp; |
-
-
-
-
-##### Examples
-
-```javascript
-// gets the value of the input with id #input_1
-var val = sdf.$('input#input_1').value();
-```
-
-
-##### Returns
-
-
-- `object`  Query object for nesting
-
-
-
 #### sdf.$(selector, limit).text(value)
 
 Sets the textContent of each elements in the list or
@@ -648,6 +756,38 @@ sdf.$('ul#list>li', 3).text('Hello, World!');
 
 
 - `mixed`  Query object for nesting or value if getter
+
+
+
+#### sdf.$(selector, limit).value(val)
+
+Sets the value of each elements in the list or
+Gets the value of the first element if no arguments
+
+
+
+
+##### Parameters
+
+| Name | Type | Description |  |
+| ---- | ---- | ----------- | -------- |
+| val | `string`  | Optional, the new value value | &nbsp; |
+
+
+
+
+##### Examples
+
+```javascript
+// gets the value of the input with id #input_1
+var val = sdf.$('input#input_1').value();
+```
+
+
+##### Returns
+
+
+- `object`  Query object for nesting
 
 
 

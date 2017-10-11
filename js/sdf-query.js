@@ -7,9 +7,8 @@
  * @license http://opensource.org/licenses/MIT  MIT License
  * @tutorial https://eugenioenko.github.io/sdf-query/docs/index.html
  * @link    https://github.com/eugenioenko/sdf-css
- * @version 0.9.6
+ * @version 0.9.7
  */
-
 (function(){
 "use strict";
 
@@ -218,6 +217,33 @@ SdfDom.prototype.addClass = function(classList){
     return this;
 };
 /**
+* Inserts content after each element of the list.
+* If content is a string parses the specified text as HTML
+* and inserts the resulting nodes.
+*
+* @param  {string|node} value String or Node to be inserted
+*
+* @example
+* cheat sheet
+* <!-- before -->
+* <element>
+*   <!-- prepend -->
+*   {{element's content}}
+*   <!-- append -->
+* </element>
+* <!-- after -->
+*
+* @example
+* // after a div in the div#first
+* sdf.$('li#first').after('<li id="second"></li>');
+*
+* @return {object} Query object for nesting
+*/
+SdfDom.prototype.after = function(content){
+    this.insert('afterend', content);
+    return this;
+};
+/**
 * Sets the attribute of each elements in the list or,
 * Gets the value of attribute of the first element if no arguments
 *
@@ -244,6 +270,60 @@ SdfDom.prototype.attr = function(attr, value){
     } else {
         console.error("'attr' requires attr{string} for getter and value{any} as setter");
     }
+    return this;
+};
+/**
+* Appends content to each element of the list.
+* If content is a string parses the specified text as HTML
+* and inserts the resulting nodes.
+*
+* @param  {string|node} value String or Node to be inserted
+*
+* @example
+* cheat sheet
+* <!-- before -->
+* <element>
+*   <!-- prepend -->
+*   {{element's content}}
+*   <!-- append -->
+* </element>
+* <!-- after -->
+*
+* @example
+* // appends a div in the div#first
+* sdf.$('div#first_element').append('<div></div>');
+*
+* @return {object} Query object for nesting
+*/
+SdfDom.prototype.append = function(content){
+    this.insert('beforeend', content);
+    return this;
+};
+/**
+* Inserts content before each element of the list.
+* If content is a string, 'prepend' parses the specified text as HTML
+* and inserts the resulting nodes.
+*
+* @param  {string|node} value String or Node to be inserted
+*
+* @example
+* cheat sheet
+* <!-- before -->
+* <element>
+*   <!-- prepend -->
+*   {{element's content}}
+*   <!-- append -->
+* </element>
+* <!-- after -->
+*
+* @example
+* // inserts a div before the div#first
+* sdf.$('div#first').before('<div id="before_first"></div>');
+*
+* @return {object} Query object for nesting
+*/
+SdfDom.prototype.before = function(content){
+    this.insert('beforebegin', content);
     return this;
 };
 /**
@@ -313,39 +393,6 @@ SdfDom.prototype.css = function(style, value){
         throw new Error("'css' takes style{string} and value{string|object} as arguments");
     }
 
-    return this;
-};
-/**
-* Appends a string or Node to an element.
-* If a string representing an html element is passed as argument, apend() will iterate over
-* every element of the list and add to theirs innerHTML.
-* If a Node is used as argument, it will append the node only to the first element of the list with appendChild.
-* Use 'each' if you want to iterate over every element and append a dom object.
-*
-* @param  {string|object} value String or Node to be appended
-*
-* @return {object} Query object for nesting
-*
-* @example
-* // adds a '<i>!</i>' to every link
-* sdf.$('a').append('<i>!</i>');
-* // adds a '<span><i>!</i><i>!</i><i>!</i></span>' to the first link
-* sdf.$('a').append(sdf.$().create('span', '<i>!</i><i>!</i><i>!</i>'));
-* // same as above but for each element. Works the fastest most of the time;
-* sdf.$('a').each(function(){
-*   sdf.$(this).append(sdf.$().create('span', '<i>!</i><i>!</i><i>!</i>'));
-* });
-*/
-SdfDom.prototype.append = function(value){
-    if(sdf.utils.validateArgTypes(arguments, ["string"])){
-        for (var i = 0; i < this.nodes.length; ++i) {
-            this.nodes[i].innerHTML += value;
-        }
-    } else if(sdf.utils.validateArgTypes(arguments, ["object"]) && value instanceof Node){
-        this.nodes[0].appendChild(value);
-    } else {
-        console.error("'append' takes value{string|node} as argument");
-    }
     return this;
 };
 /**
@@ -468,6 +515,47 @@ SdfDom.prototype.html = function(value){
     return this;
 };
 /**
+* Inserts content to each element of the list.
+* If content is a string, parses the specified text as HTML
+* and inserts the resulting nodes.
+*
+* @param  {string} position  Location relative to the element where to be inserted
+* @param  {string|node} value String or Node to be inserted
+*
+* @example
+* cheat sheet
+* <!-- beforebegin -->
+* <element>
+*   <!-- afterbegin -->
+*   {{element's content}}
+*   <!-- beforeend -->
+* </element>
+* <!-- afterend -->
+*
+* @example
+* // inserts a div before the div#first
+* sdf.$('div#first').insert('<div id="before_first"></div>', 'beforebegin');
+*
+* @return {object} Query object for nesting
+*/
+SdfDom.prototype.insert = function(position, content){
+    var insertMethod = "";
+    if(sdf.utils.validateArgTypes(arguments, ["string", "string"])){
+        insertMethod = "insertAdjacentHTML";
+    }
+    if(sdf.utils.validateArgTypes(arguments, ["string", "object"]) &&
+        content instanceof Node ){
+        insertMethod = "insertAdjacentElement";
+    }
+    if(!insertMethod.length){
+        throw new Error("'insert' takes position{string} and content{string|Node} as argument");
+    }
+    for(var i = 0; i < this.nodes.length; ++i) {
+        this.nodes[i][insertMethod](position, content);
+    }
+    return this;
+};
+/**
 * Adds event listener to the selected elements.
 * Sets "this" to the currently iterated element.
 *
@@ -498,20 +586,30 @@ SdfDom.prototype.on = function(event, method){
     return this;
 };
 /**
-* Prepends a string to each element in the list
+* Prepends content to each element of the list.
+* If content is a string parses the specified text as HTML
+* and inserts the resulting nodes.
 *
-* @param  {string} value String to be prepended
+* @param  {string|node} value String or Node to be inserted
+*
+* @example
+* cheat sheet
+* <!-- before -->
+* <element>
+*   <!-- prepend -->
+*   {{element's content}}
+*   <!-- append -->
+* </element>
+* <!-- after -->
+*
+* @example
+* // prepends a div in the div#first
+* sdf.$('div#first').prepend('<div id="start_of_first"></div>');
 *
 * @return {object} Query object for nesting
 */
-SdfDom.prototype.prepend = function(value){
-    if(sdf.utils.validateArgTypes(arguments, ["string"])){
-        for (var i = 0; i < this.nodes.length; ++i) {
-            this.nodes[i].innerHTML = value + this.nodes[i].innerHTML;
-        }
-    } else {
-        console.error("'prepend' takes string{string} as argument");
-    }
+SdfDom.prototype.prepend = function(content){
+    this.insert('afterbegin', content);
     return this;
 };
 /**
@@ -631,7 +729,6 @@ SdfDom.prototype.value = function(val){
     }
     return this;
 };
-
 })();
  /**
  * @license

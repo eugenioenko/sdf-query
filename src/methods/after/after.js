@@ -1,5 +1,5 @@
 /**
-* Prepends content to each element of the list.
+* Inserts content after each element of the list.
 * If content is a string parses the specified text as HTML
 * and inserts the resulting nodes.
 *
@@ -16,12 +16,12 @@
 * <!-- after -->
 *
 * @example
-* // prepends a div in the div#first
-* sdf.$('div#first').prepend('<div id="start_of_first"></div>');
+* // after a div in the div#first
+* sdf.$('li#first').after('<li id="second"></li>');
 *
 * @return {object} Query object for nesting
 */
-SdfDom.prototype.prepend = function(content){
-    this.insert('afterbegin', content);
+SdfDom.prototype.after = function(content){
+    this.insert('afterend', content);
     return this;
 };
