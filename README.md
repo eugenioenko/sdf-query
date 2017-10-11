@@ -1,4 +1,4 @@
-# [sdf-query](https://github.com/eugenioenko/sdf-query#readme) *0.9.5*
+# [sdf-query](https://github.com/eugenioenko/sdf-query#readme) *0.9.6*
 
 [![Build Status](https://travis-ci.org/eugenioenko/sdf-query.svg?branch=master)](https://travis-ci.org/eugenioenko/sdf-query)
 

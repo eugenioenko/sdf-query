@@ -38,4 +38,8 @@ src
 src/*
 specs
 specs/*
+.travis.yml
+karma.conf.js
+package-lock.json
+README.MD
 

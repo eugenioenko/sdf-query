@@ -7,7 +7,7 @@
  * @license http://opensource.org/licenses/MIT  MIT License
  * @tutorial https://eugenioenko.github.io/sdf-query/docs/index.html
  * @link    https://github.com/eugenioenko/sdf-css
- * @version 0.9.5
+ * @version 0.9.6
  */
 
 (function(){
@@ -160,7 +160,7 @@ SdfUtils.prototype.validateArgTypes = function(args, types){
          } else {
              if(typeof args[i] !== types[i]){
                  return false;
-             } 
+             }
          }
     }
     return true;
@@ -241,7 +241,7 @@ SdfDom.prototype.attr = function(attr, value){
         for (var i = 0; i < this.nodes.length; ++i) {
             this.nodes[i].setAttribute(attr, value);
         }
-    } else { 
+    } else {
         console.error("'attr' requires attr{string} for getter and value{any} as setter");
     }
     return this;
@@ -516,9 +516,9 @@ SdfDom.prototype.prepend = function(value){
 };
 /**
 * Removes each selected element from the page
-* 
+*
 * @return {object} Query object for nesting
-* 
+*
 * @example
 * // destroys the body
 * sdf.$('body', 1).remove();

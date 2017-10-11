@@ -1,6 +1,6 @@
 {
   "name": "sdf-query",
-  "version": "0.9.5",
+  "version": "0.9.6",
   "description": "Simple utility for selecting and modifying DOM elements used by SDF CSS Framework. Lightweight alternative to some escentials of jQuery compatible with modern browser and ie11+",
   "main": "js/sdf-query.js",
   "scripts": {
