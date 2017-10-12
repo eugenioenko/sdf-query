@@ -2,21 +2,21 @@ describe("sdf.$().attr", function() {
 
     it("Should not find [data-body-attr] in body", function(){
         expect(
-            sdf.$('body', 1).attr('data-body-attr')
+            sdf.$('body').attr('data-body-attr')
         ).toBeNull();
     });
 
     it("Should set  [data-body-attr='value'] in body", function(){
-        sdf.$('body', 1).attr('data-body-attr', 'value');
+        sdf.$('body').attr('data-body-attr', 'value');
         expect(
-            sdf.$('body', 1).attr('data-body-attr')
+            sdf.$('body').attr('data-body-attr')
         ).toEqual('value');
     });
 
     it("Should remove [data-body-attr] from body", function(){
-        sdf.$('body', 1).removeAttr('data-body-attr');
+        sdf.$('body').removeAttr('data-body-attr');
         expect(
-            sdf.$('body', 1).attr('data-body-attr')
+            sdf.$('body').attr('data-body-attr')
         ).toBeNull();
     });
 

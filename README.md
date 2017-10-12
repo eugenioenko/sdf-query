@@ -135,7 +135,7 @@ cheat sheet
 <!-- before -->
 <element>
   <!-- prepend -->
-  {{elements content}}
+  {{element's content}}
   <!-- append -->
 </element>
 <!-- after -->
@@ -143,6 +143,49 @@ cheat sheet
 ```javascript
 // after a div in the div#first
 sdf.$('li#first').after('<li id="second"></li>');
+```
+
+
+##### Returns
+
+
+- `object`  Query object for nesting
+
+
+
+#### sdf.$(selector, limit).append(value)
+
+Appends content to each element of the list.
+If content is a string parses the specified text as HTML
+and inserts the resulting nodes.
+
+
+
+
+##### Parameters
+
+| Name | Type | Description |  |
+| ---- | ---- | ----------- | -------- |
+| value | `string` `node`  | String or Node to be inserted | &nbsp; |
+
+
+
+
+##### Examples
+
+```javascript
+cheat sheet
+<!-- before -->
+<element>
+  <!-- prepend -->
+  {{element's content}}
+  <!-- append -->
+</element>
+<!-- after -->
+```
+```javascript
+// appends a div in the div#first
+sdf.$('div#first_element').append('<div></div>');
 ```
 
 
@@ -190,49 +233,6 @@ sdf.$('button').click(function(){
 
 
 
-#### sdf.$(selector, limit).append(value)
-
-Appends content to each element of the list.
-If content is a string parses the specified text as HTML
-and inserts the resulting nodes.
-
-
-
-
-##### Parameters
-
-| Name | Type | Description |  |
-| ---- | ---- | ----------- | -------- |
-| value | `string` `node`  | String or Node to be inserted | &nbsp; |
-
-
-
-
-##### Examples
-
-```javascript
-cheat sheet
-<!-- before -->
-<element>
-  <!-- prepend -->
-  {{elements content}}
-  <!-- append -->
-</element>
-<!-- after -->
-```
-```javascript
-// appends a div in the div#first
-sdf.$('div#first_element').append('<div></div>');
-```
-
-
-##### Returns
-
-
-- `object`  Query object for nesting
-
-
-
 #### sdf.$(selector, limit).before(value)
 
 Inserts content before each element of the list.
@@ -258,7 +258,7 @@ cheat sheet
 <!-- before -->
 <element>
   <!-- prepend -->
-  {{elements content}}
+  {{element's content}}
   <!-- append -->
 </element>
 <!-- after -->
@@ -384,6 +384,47 @@ sdf.$('button.active').each(function(){
 
 
 
+#### sdf.$(selector, limit).hasClass(className)
+
+Returns true if a class is present in the first element class list
+
+
+
+
+##### Parameters
+
+| Name | Type | Description |  |
+| ---- | ---- | ----------- | -------- |
+| className | `string`  | Name of the class without "." | &nbsp; |
+
+
+
+
+##### Examples
+
+```javascript
+if(sdf.$('#element').hasClass('class-name')){
+    // to do
+}
+```
+```javascript
+// checks if element is active on click, does stuff, removes class active.
+sdf.$('#element_id').on('click', function(){
+    if(sdf.$(this).hasClass('active')){
+        // to do
+        sdf.$(this).removeClass('active');
+    }
+});
+```
+
+
+##### Returns
+
+
+- `bool`  If the classname is present in the list
+
+
+
 #### sdf.$(selector, limit).element()
 
 Gets the first element in the selected list of nodes
@@ -426,70 +467,6 @@ Alias to element()
 
 
 
-#### sdf.$(selector, limit).find(selector)
-
-Returns a list of decendent elements from the selected element.
-
-
-
-
-##### Parameters
-
-| Name | Type | Description |  |
-| ---- | ---- | ----------- | -------- |
-| selector | `string`  |  | &nbsp; |
-
-
-
-
-##### Returns
-
-
--  Query object for nesting and dom modification
-
-
-
-#### sdf.$(selector, limit).hasClass(className)
-
-Returns true if a class is present in the first element class list
-
-
-
-
-##### Parameters
-
-| Name | Type | Description |  |
-| ---- | ---- | ----------- | -------- |
-| className | `string`  | Name of the class without "." | &nbsp; |
-
-
-
-
-##### Examples
-
-```javascript
-if(sdf.$('#element').hasClass('class-name')){
-    // to do
-}
-```
-```javascript
-// checks if element is active on click, does stuff, removes class active.
-sdf.$('#element_id').on('click', function(){
-    if(sdf.$(this).hasClass('active')){
-        // to do
-        sdf.$(this).removeClass('active');
-    }
-});
-```
-
-
-##### Returns
-
-
-- `bool`  If the classname is present in the list
-
-
-
 #### sdf.$(selector, limit).html(value)
 
 Sets the innerHTML of each element in the list or,
@@ -511,9 +488,9 @@ Gets the innerHTML of the first element on the list
 
 ```javascript
 // sets inner conent of body
-sdf.$('body', 1).html('<h1>Hello, World!</h1>');
+sdf.$('body').html('<h1>Hello, World!</h1>');
 // gets the html of the body
-var body = sdf.$('body', 1).html();
+var body = sdf.$('body').html();
 ```
 
 
@@ -550,7 +527,7 @@ cheat sheet
 <!-- beforebegin -->
 <element>
   <!-- afterbegin -->
-  {{elements content}}
+  {{element's content}}
   <!-- beforeend -->
 </element>
 <!-- afterend -->
@@ -631,7 +608,7 @@ cheat sheet
 <!-- before -->
 <element>
   <!-- prepend -->
-  {{elements content}}
+  {{element's content}}
   <!-- append -->
 </element>
 <!-- after -->
@@ -662,7 +639,7 @@ Removes each selected element from the page
 
 ```javascript
 // destroys the body
-sdf.$('body', 1).remove();
+sdf.$('body').remove();
 ```
 
 
@@ -701,6 +678,29 @@ sdf.$('div[data-active="false"]').removeAttr('data-active');
 
 
 - `object`  Query object for nesting
+
+
+
+#### sdf.$(selector, limit).find(selector)
+
+Returns a list of decendent elements from the selected element.
+
+
+
+
+##### Parameters
+
+| Name | Type | Description |  |
+| ---- | ---- | ----------- | -------- |
+| selector | `string`  |  | &nbsp; |
+
+
+
+
+##### Returns
+
+
+-  Query object for nesting and dom modification
 
 
 

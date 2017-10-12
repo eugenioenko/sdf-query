@@ -8,9 +8,9 @@
 *
 * @example
 * // sets inner conent of body
-* sdf.$('body', 1).html('<h1>Hello, World!</h1>');
+* sdf.$('body').html('<h1>Hello, World!</h1>');
 * // gets the html of the body
-* var body = sdf.$('body', 1).html();
+* var body = sdf.$('body').html();
 */
 SdfDom.prototype.html = function(value){
 	if(arguments.length == 0){

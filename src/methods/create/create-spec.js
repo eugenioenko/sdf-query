@@ -15,7 +15,7 @@ describe("sdf.$().create", function() {
 
     it("Should create nested elements", function(){
         var element = sdf.$().create('div', '<div id="created_nested_element_id"></div>');
-        sdf.$('body', 1).append(element);
+        sdf.$('body').append(element);
         expect(
             sdf.$('#created_nested_element_id').length
         ).toEqual(1);

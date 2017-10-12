@@ -16,12 +16,11 @@ SdfDom.prototype.text = function(value){
     if(arguments.length == 0){
         return this.nodes[0].textContent;
     }
-    if(sdf.utils.validateArgTypes(arguments, ["any"])){
-        for (var i = 0; i < this.nodes.length; ++i) {
-            this.nodes[i].textContent = value;
-        }
-    } else {
-        console.error("'text' takes value {any} as argument or no arguments.");
+    if(!sdf.utils.validateArgTypes(arguments, ["any"])){
+        throw new Error("'text' takes value {any} as argument or no arguments.");
+    }
+    for (var i = 0; i < this.nodes.length; ++i) {
+        this.nodes[i].textContent = value;
     }
     return this;
 };

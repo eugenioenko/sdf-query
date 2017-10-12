@@ -88,9 +88,10 @@ function SdfSelect(selector, limit, parent){
         var nodes = parent.querySelectorAll(selector);
         if(limit == -1){
             limit = nodes.length;
-        } else {
-            limit = limit > nodes.length ? nodes.length : limit;
+            elements = nodes;
+            return;
         }
+        limit = limit > nodes.length ? nodes.length : limit;
         for(var i = 0; i < limit; ++i){
             elements.push(nodes[i]);
         }

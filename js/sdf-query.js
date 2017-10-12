@@ -88,9 +88,10 @@ function SdfSelect(selector, limit, parent){
         var nodes = parent.querySelectorAll(selector);
         if(limit == -1){
             limit = nodes.length;
-        } else {
-            limit = limit > nodes.length ? nodes.length : limit;
+            elements = nodes;
+            return;
         }
+        limit = limit > nodes.length ? nodes.length : limit;
         for(var i = 0; i < limit; ++i){
             elements.push(nodes[i]);
         }
@@ -228,7 +229,7 @@ SdfDom.prototype.addClass = function(classList){
 * <!-- before -->
 * <element>
 *   <!-- prepend -->
-*   {{ elements content }}
+*   {{element's content}}
 *   <!-- append -->
 * </element>
 * <!-- after -->
@@ -241,6 +242,33 @@ SdfDom.prototype.addClass = function(classList){
 */
 SdfDom.prototype.after = function(content){
     this.insert('afterend', content);
+    return this;
+};
+/**
+* Appends content to each element of the list.
+* If content is a string parses the specified text as HTML
+* and inserts the resulting nodes.
+*
+* @param  {string|node} value String or Node to be inserted
+*
+* @example
+* cheat sheet
+* <!-- before -->
+* <element>
+*   <!-- prepend -->
+*   {{element's content}}
+*   <!-- append -->
+* </element>
+* <!-- after -->
+*
+* @example
+* // appends a div in the div#first
+* sdf.$('div#first_element').append('<div></div>');
+*
+* @return {object} Query object for nesting
+*/
+SdfDom.prototype.append = function(content){
+    this.insert('beforeend', content);
     return this;
 };
 /**
@@ -273,33 +301,6 @@ SdfDom.prototype.attr = function(attr, value){
     return this;
 };
 /**
-* Appends content to each element of the list.
-* If content is a string parses the specified text as HTML
-* and inserts the resulting nodes.
-*
-* @param  {string|node} value String or Node to be inserted
-*
-* @example
-* cheat sheet
-* <!-- before -->
-* <element>
-*   <!-- prepend -->
-*   {{ elements content }}
-*   <!-- append -->
-* </element>
-* <!-- after -->
-*
-* @example
-* // appends a div in the div#first
-* sdf.$('div#first_element').append('<div></div>');
-*
-* @return {object} Query object for nesting
-*/
-SdfDom.prototype.append = function(content){
-    this.insert('beforeend', content);
-    return this;
-};
-/**
 * Inserts content before each element of the list.
 * If content is a string, 'prepend' parses the specified text as HTML
 * and inserts the resulting nodes.
@@ -311,7 +312,7 @@ SdfDom.prototype.append = function(content){
 * <!-- before -->
 * <element>
 *   <!-- prepend -->
-*   {{ elements content }}
+*   {{element's content}}
 *   <!-- append -->
 * </element>
 * <!-- after -->
@@ -424,43 +425,6 @@ SdfDom.prototype.each = function(method){
     return this;
 };
 /**
-* Gets the first element in the selected list of nodes
-*
-* @return {object} First element in the list
-*
-* @example
-* var element = sdf.$('div.class-name').element();
-* element.style.display = 'block';
-* sdf.$(element).css({display: 'block', opacity: '0.5'});
-*/
-
-SdfDom.prototype.element = function(){
-    return this.nodes[0];
-};
-
-/**
-* Returns the first element in the list
-* Alias to element()
-* @return {object} Element
-*/
-SdfDom.prototype.first = function(){
-    return this.element();
-};
-/**
-* Returns a list of decendent elements from the selected element.
-* @param  {string} selector
-*
-* @return Query object for nesting and dom modification
-*
-*/
-SdfDom.prototype.find = function(selector){
-    if(!sdf.utils.validateArgTypes(arguments, ["string"])){
-        console.error("'find' takes selector{string} as argument");
-        return this;
-    }
-    return sdf.$(selector, -1, this.nodes[0]);
-};
-/**
 * Returns true if a class is present in the first element class list
 *
 * @param  {string} className Name of the class without "."
@@ -489,6 +453,29 @@ SdfDom.prototype.hasClass = function(className){
     return this.nodes[0].classList.contains(className);
 };
 /**
+* Gets the first element in the selected list of nodes
+*
+* @return {object} First element in the list
+*
+* @example
+* var element = sdf.$('div.class-name').element();
+* element.style.display = 'block';
+* sdf.$(element).css({display: 'block', opacity: '0.5'});
+*/
+
+SdfDom.prototype.element = function(){
+    return this.nodes[0];
+};
+
+/**
+* Returns the first element in the list
+* Alias to element()
+* @return {object} Element
+*/
+SdfDom.prototype.first = function(){
+    return this.element();
+};
+/**
 * Sets the innerHTML of each element in the list or,
 * Gets the innerHTML of the first element on the list
 *
@@ -498,9 +485,9 @@ SdfDom.prototype.hasClass = function(className){
 *
 * @example
 * // sets inner conent of body
-* sdf.$('body', 1).html('<h1>Hello, World!</h1>');
+* sdf.$('body').html('<h1>Hello, World!</h1>');
 * // gets the html of the body
-* var body = sdf.$('body', 1).html();
+* var body = sdf.$('body').html();
 */
 SdfDom.prototype.html = function(value){
 	if(arguments.length == 0){
@@ -527,7 +514,7 @@ SdfDom.prototype.html = function(value){
 * <!-- beforebegin -->
 * <element>
 *   <!-- afterbegin -->
-*   {{ elements content }}
+*   {{element's content}}
 *   <!-- beforeend -->
 * </element>
 * <!-- afterend -->
@@ -597,7 +584,7 @@ SdfDom.prototype.on = function(event, method){
 * <!-- before -->
 * <element>
 *   <!-- prepend -->
-*   {{ elements content }}
+*   {{element's content}}
 *   <!-- append -->
 * </element>
 * <!-- after -->
@@ -619,7 +606,7 @@ SdfDom.prototype.prepend = function(content){
 *
 * @example
 * // destroys the body
-* sdf.$('body', 1).remove();
+* sdf.$('body').remove();
 */
 SdfDom.prototype.remove = function(){
     for (var i = 0; i < this.nodes.length; ++i) {
@@ -650,6 +637,20 @@ SdfDom.prototype.removeAttr = function(attrName){
         this.nodes[i].removeAttribute(attrName);
     }
     return this;
+};
+/**
+* Returns a list of decendent elements from the selected element.
+* @param  {string} selector
+*
+* @return Query object for nesting and dom modification
+*
+*/
+SdfDom.prototype.find = function(selector){
+    if(!sdf.utils.validateArgTypes(arguments, ["string"])){
+        console.error("'find' takes selector{string} as argument");
+        return this;
+    }
+    return sdf.$(selector, -1, this.nodes[0]);
 };
 /**
 * Removes classes from  elements in the list
@@ -695,12 +696,11 @@ SdfDom.prototype.text = function(value){
     if(arguments.length == 0){
         return this.nodes[0].textContent;
     }
-    if(sdf.utils.validateArgTypes(arguments, ["any"])){
-        for (var i = 0; i < this.nodes.length; ++i) {
-            this.nodes[i].textContent = value;
-        }
-    } else {
-        console.error("'text' takes value {any} as argument or no arguments.");
+    if(!sdf.utils.validateArgTypes(arguments, ["any"])){
+        throw new Error("'text' takes value {any} as argument or no arguments.");
+    }
+    for (var i = 0; i < this.nodes.length; ++i) {
+        this.nodes[i].textContent = value;
     }
     return this;
 };
@@ -729,6 +729,7 @@ SdfDom.prototype.value = function(val){
     }
     return this;
 };
+
 })();
  /**
  * @license
