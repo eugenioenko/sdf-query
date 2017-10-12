@@ -137,7 +137,7 @@ cheat sheet
 <!-- before -->
 <element>
   <!-- prepend -->
-  {{element's content}}
+  {{ elements content }}
   <!-- append -->
 </element>
 <!-- after -->
@@ -180,7 +180,7 @@ cheat sheet
 <!-- before -->
 <element>
   <!-- prepend -->
-  {{element's content}}
+  {{ elements content }}
   <!-- append -->
 </element>
 <!-- after -->
@@ -260,7 +260,7 @@ cheat sheet
 <!-- before -->
 <element>
   <!-- prepend -->
-  {{element's content}}
+  {{ elements content }}
   <!-- append -->
 </element>
 <!-- after -->
@@ -529,7 +529,7 @@ cheat sheet
 <!-- beforebegin -->
 <element>
   <!-- afterbegin -->
-  {{element's content}}
+  {{ elements content }}
   <!-- beforeend -->
 </element>
 <!-- afterend -->
@@ -610,7 +610,7 @@ cheat sheet
 <!-- before -->
 <element>
   <!-- prepend -->
-  {{element's content}}
+  {{ elements content }}
   <!-- append -->
 </element>
 <!-- after -->
