@@ -11,7 +11,7 @@
 * <!-- beforebegin -->
 * <element>
 *   <!-- afterbegin -->
-*   {{element's content}}
+*   {{elements content}}
 *   <!-- beforeend -->
 * </element>
 * <!-- afterend -->

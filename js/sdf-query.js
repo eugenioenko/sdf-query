@@ -229,7 +229,7 @@ SdfDom.prototype.addClass = function(classList){
 * <!-- before -->
 * <element>
 *   <!-- prepend -->
-*   {{element's content}}
+*   {{elements content}}
 *   <!-- append -->
 * </element>
 * <!-- after -->
@@ -256,7 +256,7 @@ SdfDom.prototype.after = function(content){
 * <!-- before -->
 * <element>
 *   <!-- prepend -->
-*   {{element's content}}
+*   {{elements content}}
 *   <!-- append -->
 * </element>
 * <!-- after -->
@@ -312,7 +312,7 @@ SdfDom.prototype.attr = function(attr, value){
 * <!-- before -->
 * <element>
 *   <!-- prepend -->
-*   {{element's content}}
+*   {{elements content}}
 *   <!-- append -->
 * </element>
 * <!-- after -->
@@ -514,7 +514,7 @@ SdfDom.prototype.html = function(value){
 * <!-- beforebegin -->
 * <element>
 *   <!-- afterbegin -->
-*   {{element's content}}
+*   {{elements content}}
 *   <!-- beforeend -->
 * </element>
 * <!-- afterend -->
@@ -584,7 +584,7 @@ SdfDom.prototype.on = function(event, method){
 * <!-- before -->
 * <element>
 *   <!-- prepend -->
-*   {{element's content}}
+*   {{elements content}}
 *   <!-- append -->
 * </element>
 * <!-- after -->

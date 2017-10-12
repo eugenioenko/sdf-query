@@ -10,7 +10,7 @@
 * <!-- before -->
 * <element>
 *   <!-- prepend -->
-*   {{element's content}}
+*   {{elements content}}
 *   <!-- append -->
 * </element>
 * <!-- after -->
