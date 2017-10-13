@@ -229,13 +229,6 @@ describe("sdf.$().css", function() {
     });
 
 });
-describe("sdf.$().element", function() {
-
-    it("Should return the body element", function(){
-       expect(sdf.$('body').element()).toEqual(document.body);
-    });
-
-});
 describe("sdf.$().each", function() {
 
     it("Should throw invalid argument for no callback", function(){
@@ -268,24 +261,13 @@ describe("sdf.$().each", function() {
     });
 
 });
-describe("sdf.$().html", function() {
+describe("sdf.$().element", function() {
 
-    it("Should get innerHTML from body", function(){
-        expect(
-            sdf.$('body').html()
-        ).toEqual(document.body.innerHTML);
-    });
-
-    it("should set the innerHTML of and element", function(){
-        var element = sdf.$().create('div', '<b>bold</b>');
-        sdf.$(element).html('not bold');
-        expect(
-            sdf.$(element).html()
-        ).toEqual("not bold");
+    it("Should return the body element", function(){
+       expect(sdf.$('body').element()).toEqual(document.body);
     });
 
 });
-
 describe("sdf.$().hasClass", function() {
 
     it("Should not find a class '.class-no-present' in the body", function(){
@@ -315,6 +297,24 @@ describe("sdf.$().hasClass", function() {
     });
 
 });
+describe("sdf.$().html", function() {
+
+    it("Should get innerHTML from body", function(){
+        expect(
+            sdf.$('body').html()
+        ).toEqual(document.body.innerHTML);
+    });
+
+    it("should set the innerHTML of and element", function(){
+        var element = sdf.$().create('div', '<b>bold</b>');
+        sdf.$(element).html('not bold');
+        expect(
+            sdf.$(element).html()
+        ).toEqual("not bold");
+    });
+
+});
+
 describe("sdf.$().on", function() {
 
     it("Should throw invalid argument for no callback", function(){

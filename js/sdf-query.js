@@ -7,7 +7,7 @@
  * @license http://opensource.org/licenses/MIT  MIT License
  * @tutorial https://eugenioenko.github.io/sdf-query/docs/index.html
  * @link    https://github.com/eugenioenko/sdf-css
- * @version 0.9.7
+ * @version 0.9.8
  */
 (function(){
 "use strict";
@@ -160,7 +160,7 @@ SdfUtils.prototype.validateArgTypes = function(args, types){
          } else {
              if(typeof args[i] !== types[i]){
                  return false;
-             }
+             } 
          }
     }
     return true;
@@ -295,7 +295,7 @@ SdfDom.prototype.attr = function(attr, value){
         for (var i = 0; i < this.nodes.length; ++i) {
             this.nodes[i].setAttribute(attr, value);
         }
-    } else {
+    } else { 
         console.error("'attr' requires attr{string} for getter and value{any} as setter");
     }
     return this;
@@ -425,6 +425,43 @@ SdfDom.prototype.each = function(method){
     return this;
 };
 /**
+* Gets the first element in the selected list of nodes
+*
+* @return {object} First element in the list
+*
+* @example
+* var element = sdf.$('div.class-name').element();
+* element.style.display = 'block';
+* sdf.$(element).css({display: 'block', opacity: '0.5'});
+*/
+
+SdfDom.prototype.element = function(){
+    return this.nodes[0];
+};
+
+/**
+* Returns the first element in the list
+* Alias to element()
+* @return {object} Element
+*/
+SdfDom.prototype.first = function(){
+    return this.element();
+};
+/**
+* Returns a list of decendent elements from the selected element.
+* @param  {string} selector
+*
+* @return Query object for nesting and dom modification
+*
+*/
+SdfDom.prototype.find = function(selector){
+    if(!sdf.utils.validateArgTypes(arguments, ["string"])){
+        console.error("'find' takes selector{string} as argument");
+        return this;
+    }
+    return sdf.$(selector, -1, this.nodes[0]);
+};
+/**
 * Returns true if a class is present in the first element class list
 *
 * @param  {string} className Name of the class without "."
@@ -453,27 +490,20 @@ SdfDom.prototype.hasClass = function(className){
     return this.nodes[0].classList.contains(className);
 };
 /**
-* Gets the first element in the selected list of nodes
+* Hides an element.
+* (Sets display property to none)
 *
-* @return {object} First element in the list
+* @return {object} Query object for nesting
 *
 * @example
-* var element = sdf.$('div.class-name').element();
-* element.style.display = 'block';
-* sdf.$(element).css({display: 'block', opacity: '0.5'});
+* // hides the element
+* sdf.$('selector').hide();
 */
-
-SdfDom.prototype.element = function(){
-    return this.nodes[0];
-};
-
-/**
-* Returns the first element in the list
-* Alias to element()
-* @return {object} Element
-*/
-SdfDom.prototype.first = function(){
-    return this.element();
+SdfDom.prototype.hide = function(){
+    for (var i = 0; i < this.nodes.length; ++i) {
+        this.nodes[i].style.display = "none";
+    }
+    return this;
 };
 /**
 * Sets the innerHTML of each element in the list or,
@@ -639,20 +669,6 @@ SdfDom.prototype.removeAttr = function(attrName){
     return this;
 };
 /**
-* Returns a list of decendent elements from the selected element.
-* @param  {string} selector
-*
-* @return Query object for nesting and dom modification
-*
-*/
-SdfDom.prototype.find = function(selector){
-    if(!sdf.utils.validateArgTypes(arguments, ["string"])){
-        console.error("'find' takes selector{string} as argument");
-        return this;
-    }
-    return sdf.$(selector, -1, this.nodes[0]);
-};
-/**
 * Removes classes from  elements in the list
 *
 * @param  {string} classList List of classes separated by space
@@ -675,6 +691,22 @@ SdfDom.prototype.removeClass = function(classList){
                 this.nodes[i].classList.remove(classes[j]);
             }
         }
+    }
+    return this;
+};
+/**
+* Shows an element on the screen.
+* (Restores original display property value)
+*
+* @return {object} Query object for nesting
+*
+* @example
+* // shows the element
+* sdf.$('selector').show();
+*/
+SdfDom.prototype.show = function(){
+    for (var i = 0; i < this.nodes.length; ++i) {
+        this.nodes[i].style.removeProperty("display");
     }
     return this;
 };
@@ -729,7 +761,6 @@ SdfDom.prototype.value = function(val){
     }
     return this;
 };
-
 })();
  /**
  * @license

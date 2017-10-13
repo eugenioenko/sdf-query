@@ -1,4 +1,4 @@
-# [sdf-query](https://github.com/eugenioenko/sdf-query#readme) *0.9.7*
+# [sdf-query](https://github.com/eugenioenko/sdf-query#readme) *0.9.8*
 
 [![Build Status](https://travis-ci.org/eugenioenko/sdf-query.svg?branch=master)](https://travis-ci.org/eugenioenko/sdf-query)
 
@@ -18,7 +18,7 @@ Include the script
 ### js/sdf-query.js
 
 
-#### sdf.$(selector, limit)
+#### sdf.$(selector, limit) 
 
 Query Function
 
@@ -75,7 +75,7 @@ sdf.$('ul').append('<li>appended</li>').prepend('<li>prepended</li>');
 
 
 
-#### sdf.$(selector, limit).addClass(classList)
+#### sdf.$(selector).addClass(classList) 
 
 Adds classnames to the elements in the node list
 
@@ -112,7 +112,7 @@ sdf.$('li').addClass('class-1 class-2 class-3')
 
 
 
-#### sdf.$(selector, limit).after(value)
+#### sdf.$(selector).after(value) 
 
 Inserts content after each element of the list.
 If content is a string parses the specified text as HTML
@@ -137,7 +137,7 @@ cheat sheet
 <!-- before -->
 <element>
   <!-- prepend -->
-  {{ elements content }}
+  {{elements content}}
   <!-- append -->
 </element>
 <!-- after -->
@@ -155,7 +155,7 @@ sdf.$('li#first').after('<li id="second"></li>');
 
 
 
-#### sdf.$(selector, limit).append(value)
+#### sdf.$(selector).append(value) 
 
 Appends content to each element of the list.
 If content is a string parses the specified text as HTML
@@ -180,7 +180,7 @@ cheat sheet
 <!-- before -->
 <element>
   <!-- prepend -->
-  {{ elements content }}
+  {{elements content}}
   <!-- append -->
 </element>
 <!-- after -->
@@ -198,7 +198,7 @@ sdf.$('div#first_element').append('<div></div>');
 
 
 
-#### sdf.$(selector, limit).attr(attr, value)
+#### sdf.$(selector).attr(attr, value) 
 
 Sets the attribute of each elements in the list or,
 Gets the value of attribute of the first element if no arguments
@@ -235,7 +235,7 @@ sdf.$('button').click(function(){
 
 
 
-#### sdf.$(selector, limit).before(value)
+#### sdf.$(selector).before(value) 
 
 Inserts content before each element of the list.
 If content is a string, 'prepend' parses the specified text as HTML
@@ -260,7 +260,7 @@ cheat sheet
 <!-- before -->
 <element>
   <!-- prepend -->
-  {{ elements content }}
+  {{elements content}}
   <!-- append -->
 </element>
 <!-- after -->
@@ -278,7 +278,7 @@ sdf.$('div#first').before('<div id="before_first"></div>');
 
 
 
-#### sdf.$().create(type, html)
+#### sdf.$().create(type, html) 
 
 Creates an html element to be later appended with append
 
@@ -310,7 +310,7 @@ sdf.$('ul').append(sdf.$().create('li', 'list item A'));
 
 
 
-#### sdf.$(selector, limit).css(attr, value)
+#### sdf.$(selector).css(attr, value) 
 
 Sets the style of each elements in the list or,
 Gets the value of style of the first element if no arguments
@@ -349,7 +349,7 @@ sdf.$('button').click(function(){
 
 
 
-#### sdf.$(selector, limit).each(method)
+#### sdf.$(selector).each(method) 
 
 Iterates over every item from the selected element list.
 Sets "this" to the currently iterated element.
@@ -386,7 +386,72 @@ sdf.$('button.active').each(function(){
 
 
 
-#### sdf.$(selector, limit).hasClass(className)
+#### sdf.$(selector).element() 
+
+Gets the first element in the selected list of nodes
+
+
+
+
+
+
+##### Examples
+
+```javascript
+var element = sdf.$('div.class-name').element();
+element.style.display = 'block';
+sdf.$(element).css({display: 'block', opacity: '0.5'});
+```
+
+
+##### Returns
+
+
+- `object`  First element in the list
+
+
+
+#### sdf.$(selector).first() 
+
+Returns the first element in the list
+Alias to element()
+
+
+
+
+
+
+##### Returns
+
+
+- `object`  Element
+
+
+
+#### sdf.$(selector).find(selector) 
+
+Returns a list of decendent elements from the selected element.
+
+
+
+
+##### Parameters
+
+| Name | Type | Description |  |
+| ---- | ---- | ----------- | -------- |
+| selector | `string`  |  | &nbsp; |
+
+
+
+
+##### Returns
+
+
+-  Query object for nesting and dom modification
+
+
+
+#### sdf.$(selector).hasClass(className) 
 
 Returns true if a class is present in the first element class list
 
@@ -427,9 +492,10 @@ sdf.$('#element_id').on('click', function(){
 
 
 
-#### sdf.$(selector, limit).element()
+#### sdf.$(selector).hide() 
 
-Gets the first element in the selected list of nodes
+Hides an element.
+(Sets display property to none)
 
 
 
@@ -439,37 +505,19 @@ Gets the first element in the selected list of nodes
 ##### Examples
 
 ```javascript
-var element = sdf.$('div.class-name').element();
-element.style.display = 'block';
-sdf.$(element).css({display: 'block', opacity: '0.5'});
+// hides the element
+sdf.$('selector').hide();
 ```
 
 
 ##### Returns
 
 
-- `object`  First element in the list
+- `object`  Query object for nesting
 
 
 
-#### sdf.$(selector, limit).first()
-
-Returns the first element in the list
-Alias to element()
-
-
-
-
-
-
-##### Returns
-
-
-- `object`  Element
-
-
-
-#### sdf.$(selector, limit).html(value)
+#### sdf.$(selector).html(value) 
 
 Sets the innerHTML of each element in the list or,
 Gets the innerHTML of the first element on the list
@@ -503,7 +551,7 @@ var body = sdf.$('body').html();
 
 
 
-#### sdf.$(selector, limit).insert(position, value)
+#### sdf.$(selector).insert(position, value) 
 
 Inserts content to each element of the list.
 If content is a string, parses the specified text as HTML
@@ -529,7 +577,7 @@ cheat sheet
 <!-- beforebegin -->
 <element>
   <!-- afterbegin -->
-  {{ elements content }}
+  {{elements content}}
   <!-- beforeend -->
 </element>
 <!-- afterend -->
@@ -547,7 +595,7 @@ sdf.$('div#first').insert('<div id="before_first"></div>', 'beforebegin');
 
 
 
-#### sdf.$(selector, limit).on(event, method)
+#### sdf.$(selector).on(event, method) 
 
 Adds event listener to the selected elements.
 Sets "this" to the currently iterated element.
@@ -585,7 +633,7 @@ sdf.$('input[type="text"]').on('change', function(){
 
 
 
-#### sdf.$(selector, limit).prepend(value)
+#### sdf.$(selector).prepend(value) 
 
 Prepends content to each element of the list.
 If content is a string parses the specified text as HTML
@@ -610,7 +658,7 @@ cheat sheet
 <!-- before -->
 <element>
   <!-- prepend -->
-  {{ elements content }}
+  {{elements content}}
   <!-- append -->
 </element>
 <!-- after -->
@@ -628,7 +676,7 @@ sdf.$('div#first').prepend('<div id="start_of_first"></div>');
 
 
 
-#### sdf.$(selector, limit).remove()
+#### sdf.$(selector).remove() 
 
 Removes each selected element from the page
 
@@ -652,7 +700,7 @@ sdf.$('body').remove();
 
 
 
-#### sdf.$(selector, limit).removeAttr(attr)
+#### sdf.$(selector).removeAttr(attr) 
 
 Removes an attribute from each element in the list
 
@@ -683,30 +731,7 @@ sdf.$('div[data-active="false"]').removeAttr('data-active');
 
 
 
-#### sdf.$(selector, limit).find(selector)
-
-Returns a list of decendent elements from the selected element.
-
-
-
-
-##### Parameters
-
-| Name | Type | Description |  |
-| ---- | ---- | ----------- | -------- |
-| selector | `string`  |  | &nbsp; |
-
-
-
-
-##### Returns
-
-
--  Query object for nesting and dom modification
-
-
-
-#### sdf.$(selector, limit).removeClass(classList)
+#### sdf.$(selector).removeClass(classList) 
 
 Removes classes from  elements in the list
 
@@ -737,7 +762,32 @@ Removes classes from  elements in the list
 
 
 
-#### sdf.$(selector, limit).text(value)
+#### sdf.$(selector).show() 
+
+Shows an element on the screen.
+(Restores original display property value)
+
+
+
+
+
+
+##### Examples
+
+```javascript
+// shows the element
+sdf.$('selector').show();
+```
+
+
+##### Returns
+
+
+- `object`  Query object for nesting
+
+
+
+#### sdf.$(selector).text(value) 
 
 Sets the textContent of each elements in the list or
 Gets the value of textContent of the first element if no arguments
@@ -771,7 +821,7 @@ sdf.$('ul#list>li', 3).text('Hello, World!');
 
 
 
-#### sdf.$(selector, limit).value(val)
+#### sdf.$(selector).value(val) 
 
 Sets the value of each elements in the list or
 Gets the value of the first element if no arguments
