@@ -864,6 +864,16 @@ sdf.$(<span class="hljs-string">&#39;#element_id&#39;</span>).on(<span class="hl
 							<pre><code class="hljs javascript"><span class="hljs-comment">// hides the element</span>
 sdf.$(<span class="hljs-string">&#39;selector&#39;</span>).hide();</code></pre>
 						</section>
+                        <section class="tryitout">
+                            <h3>Try it out</h3>
+                            <button class="btn btn-primary" id="js-example-hide">hide Me</button>
+                            <div class="alert alert-primary" id="js-example-element-hide">Hide Me</div>
+                            <script>
+                                sdf.$('#js-example-hide').on('click', function(){
+                                    sdf.$('#js-example-element-hide').hide();
+                                });
+                            </script>
+                        </section>
 						<section class="returns">
 							<h3>Returns</h3>
 							<p><code>object</code></p>
@@ -907,6 +917,16 @@ sdf.$(<span class="hljs-string">&#39;body&#39;</span>).html(<span class="hljs-st
 <span class="hljs-comment">// gets the html of the body</span>
 <span class="hljs-keyword">var</span> body = sdf.$(<span class="hljs-string">&#39;body&#39;</span>).html();</code></pre>
 						</section>
+                        <section class="tryitout">
+                            <h3>Try it out</h3>
+                            <button class="btn btn-primary" id="js-example-html">innerHTML Me</button>
+                            <script>
+                                var html_count = 1;
+                                sdf.$('#js-example-html').on('click', function(){
+                                     sdf.$(this).html('innerHTML Me <span class="badge badge-danger">' + (html_count++) +'</span>');
+                                });
+                            </script>
+                        </section>
 						<section class="returns">
 							<h3>Returns</h3>
 							<p><code>object</code> <code>string</code></p>
@@ -1103,6 +1123,16 @@ sdf.$(<span class="hljs-string">&#39;div#first&#39;</span>).prepend(<span class=
 							<pre><code class="hljs javascript"><span class="hljs-comment">// destroys the body</span>
 sdf.$(<span class="hljs-string">&#39;body&#39;</span>).remove();</code></pre>
 						</section>
+                        <section class="tryitout">
+                            <h3>Try it out</h3>
+                            <button class="btn btn-primary" id="js-example-remove">remove Me</button>
+                            <div class="alert alert-primary" id="js-example-element-remove">remove Me</div>
+                            <script>
+                                sdf.$('#js-example-remove').on('click', function(){
+                                    sdf.$('#js-example-element-remove').remove();
+                                });
+                            </script>
+                        </section>
 						<section class="returns">
 							<h3>Returns</h3>
 							<p><code>object</code></p>
@@ -1201,6 +1231,16 @@ sdf.$(<span class="hljs-string">&#39;div[data-active=&quot;false&quot;]&#39;</sp
 							<pre><code class="hljs javascript"><span class="hljs-comment">// shows the element</span>
 sdf.$(<span class="hljs-string">&#39;selector&#39;</span>).show();</code></pre>
 						</section>
+                        <section class="tryitout">
+                            <h3>Try it out</h3>
+                            <button class="btn btn-primary" id="js-example-show">show Me</button>
+                            <div class="alert alert-primary" id="js-example-element-show" style="display: none;">I was hidden</div>
+                            <script>
+                                sdf.$('#js-example-show').on('click', function(){
+                                    sdf.$('#js-example-element-show').show();
+                                });
+                            </script>
+                        </section>
 						<section class="returns">
 							<h3>Returns</h3>
 							<p><code>object</code></p>
@@ -1244,6 +1284,17 @@ sdf.$(<span class="hljs-string">&#39;selector&#39;</span>).show();</code></pre>
 <span class="hljs-comment">// sets the textContent of all the first 3 li of ul#list</span>
 sdf.$(<span class="hljs-string">&#39;ul#list&gt;li&#39;</span>, <span class="hljs-number">3</span>).text(<span class="hljs-string">&#39;Hello, World!&#39;</span>);</code></pre>
 						</section>
+                        <section class="tryitout">
+                            <h3>Try it out</h3>
+                            <button class="btn btn-primary" id="js-example-text">text Me</button>
+                            <script>
+                                var text_count = 1;
+                                sdf.$('#js-example-text').on('click', function(){
+                                     sdf.$(this).text('innertext Me ' + (text_count++));
+                                });
+                            </script>
+                        </section>
+                       
 						<section class="returns">
 							<h3>Returns</h3>
 							<p><code>mixed</code></p>
