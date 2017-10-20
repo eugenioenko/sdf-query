@@ -10,14 +10,14 @@
 * @example
 * // Iterates over buttons with class active, gets the attribute data-state,
 * does something and finally sets data-state to false
-* sdf.$('button.active').each(function(){
-*   var state = sdf.$(this).attr('data-state');
+* s('button.active').each(function(){
+*   var state = s(this).attr('data-state');
 *   // to do
-*   sdf.$(this).attr('data-state', 'false');
+*   s(this).attr('data-state', 'false');
 * });
 */
 SdfDom.prototype.each = function(method){
-    if(sdf.utils.validateArgTypes(arguments, ["function"])){
+    if(this.utils.validateArgTypes(arguments, ["function"])){
         for (var i = 0; i < this.nodes.length; ++i) {
             method.call(this.nodes[i]);
         }

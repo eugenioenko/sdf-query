@@ -6,7 +6,7 @@
 *
 * @example
 * // shows the element
-* sdf.$('selector').show();
+* s('selector').show();
 */
 SdfDom.prototype.show = function(){
     for (var i = 0; i < this.nodes.length; ++i) {

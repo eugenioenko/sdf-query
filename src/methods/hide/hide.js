@@ -6,7 +6,7 @@
 *
 * @example
 * // hides the element
-* sdf.$('selector').hide();
+* s('selector').hide();
 */
 SdfDom.prototype.hide = function(){
     for (var i = 0; i < this.nodes.length; ++i) {

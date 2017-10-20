@@ -5,7 +5,7 @@
 *
 * @example
 * // destroys the body
-* sdf.$('body').remove();
+* s('body').remove();
 */
 SdfDom.prototype.remove = function(){
     for (var i = 0; i < this.nodes.length; ++i) {

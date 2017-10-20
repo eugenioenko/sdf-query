@@ -7,14 +7,14 @@
 *
 * @example
 *  // removes the classes ".class-1, .class-2" from the first 10 elements with class .class-0
-*  sdf.$('.class-0').removeclass('class-1 class-2');
+*  s('.class-0').removeclass('class-1 class-2');
 */
 SdfDom.prototype.removeClass = function(classList){
-    if(!sdf.utils.validateArgTypes(arguments, ["string"])){
+    if(!this.utils.validateArgTypes(arguments, ["string"])){
         console.error("'removeClass' takes classList{string} as argument");
         return this;
     }
-    var classes = sdf.utils.createClassList(classList);
+    var classes = this.utils.createClassList(classList);
     for (var i = 0; i < this.nodes.length; ++i) {
         for(var j = 0; j < classes.length; ++j){
             if(classes[j] != ''){

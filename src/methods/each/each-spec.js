@@ -1,28 +1,28 @@
-describe("sdf.$().each", function() {
+describe("s().each", function() {
 
     it("Should throw invalid argument for no callback", function(){
        expect(function(){
-            sdf.$('div').each();
+            s('div').each();
         }).toThrow();
     });
 
     it("Should throw invalid argument for invalid callback", function(){
        expect(function(){
-            sdf.$('div').each('not_a_call_back');
+            s('div').each('not_a_call_back');
         }).toThrow();
     });
 
     it("Should pass", function(){
        expect(function(){
-            sdf.$('ul').each(function(){});
+            s('ul').each(function(){});
         }).not.toThrow();
     });
 
     it("Should execute once per each li on page", function(){
        var counter = 0;
-       var length = 0; 
+       var length = 0;
        expect((function(){
-            length = sdf.$('li').each(function(){
+            length = s('li').each(function(){
                 counter++;
             }).length;
             return counter;

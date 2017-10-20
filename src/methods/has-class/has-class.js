@@ -6,21 +6,21 @@
 * @return {bool} If the classname is present in the list
 *
 * @example
-* if(sdf.$('#element').hasClass('class-name')){
+* if(s('#element').hasClass('class-name')){
 *     // to do
 * }
 *
 * @example
 * // checks if element is active on click, does stuff, removes class active.
-* sdf.$('#element_id').on('click', function(){
-*     if(sdf.$(this).hasClass('active')){
+* s('#element_id').on('click', function(){
+*     if(s(this).hasClass('active')){
 *         // to do
-*         sdf.$(this).removeClass('active');
+*         s(this).removeClass('active');
 *     }
 * });
 */
 SdfDom.prototype.hasClass = function(className){
-    if(!sdf.utils.validateArgTypes(arguments, ["string"])){
+    if(!this.utils.validateArgTypes(arguments, ["string"])){
         throw new Error("'hasClass' takes className{string} as argument");
     }
     className = className.trim();

@@ -18,16 +18,16 @@
 *
 * @example
 * // inserts a div before the div#first
-* sdf.$('div#first').insert('<div id="before_first"></div>', 'beforebegin');
+* s('div#first').insert('<div id="before_first"></div>', 'beforebegin');
 *
 * @return {object} Query object for nesting
 */
 SdfDom.prototype.insert = function(position, content){
     var insertMethod = "";
-    if(sdf.utils.validateArgTypes(arguments, ["string", "string"])){
+    if(this.utils.validateArgTypes(arguments, ["string", "string"])){
         insertMethod = "insertAdjacentHTML";
     }
-    if(sdf.utils.validateArgTypes(arguments, ["string", "object"]) &&
+    if(this.utils.validateArgTypes(arguments, ["string", "object"]) &&
         content instanceof Node ){
         insertMethod = "insertAdjacentElement";
     }

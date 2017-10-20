@@ -9,20 +9,20 @@
 *
 * @example
 * // reads the attribute data-date from a clicked button
-* sdf.$('button').click(function(){
-*   var date = sdf.$(this).attr('data-date');
+* s('button').click(function(){
+*   var date = s(this).attr('data-date');
 *   // to do
-*   sdf.$(this).attr('data-date', date);
+*   s(this).attr('data-date', date);
 * });
 */
 SdfDom.prototype.attr = function(attr, value){
-    if(sdf.utils.validateArgTypes(arguments, ["string"])){
+    if(this.utils.validateArgTypes(arguments, ["string"])){
         return this.nodes[0].getAttribute(attr);
-    } else if(sdf.utils.validateArgTypes(arguments, ["string", "any"])){
+    } else if(this.utils.validateArgTypes(arguments, ["string", "any"])){
         for (var i = 0; i < this.nodes.length; ++i) {
             this.nodes[i].setAttribute(attr, value);
         }
-    } else { 
+    } else {
         console.error("'attr' requires attr{string} for getter and value{any} as setter");
     }
     return this;

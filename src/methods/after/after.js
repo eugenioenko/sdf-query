@@ -17,7 +17,7 @@
 *
 * @example
 * // after a div in the div#first
-* sdf.$('li#first').after('<li id="second"></li>');
+* s('li#first').after('<li id="second"></li>');
 *
 * @return {object} Query object for nesting
 */

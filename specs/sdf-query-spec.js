@@ -1,259 +1,259 @@
-describe("sdf.$", function() {
+describe("s", function() {
 
-    it("Should be defined sdf.$", function(){
-        expect(sdf.$).toBeDefined();
+    it("Should be defined s", function(){
+        expect(s).toBeDefined();
     });
 
     it("Should get elements", function(){
         expect(
-            sdf.$('*').length
+            s('*').length
         ).toBeGreaterThan(0);
     });
 
     it("Should get maximum of 3 elements", function(){
         expect(
-            sdf.$('*', 3).length
+            s('*', 3).length
         ).toBeLessThanOrEqual(3);
     });
 
     it("Should use the querySelector method", function(){
         expect(
-            sdf.$('body',1 ).method
+            s('body',1 ).method
         ).toEqual('querySelector');
     });
 
     it("Should use the querySelectorAll method", function(){
         expect(
-            sdf.$('body').method
+            s('body').method
         ).toEqual('querySelectorAll');
     });
 
     it("Should use getElementById method", function(){
         expect(
-            sdf.$('#element_id').method
+            s('#element_id').method
         ).toEqual('getElementById');
     });
 
     it("Should use element selector method", function(){
         expect(
-            sdf.$(document.body).method
+            s(document.body).method
         ).toEqual('element');
     });
 
     it("Should not find any element with id #not_id_in_this_doc", function(){
         expect(
-            sdf.$('#not_id_in_this_doc').length
+            s('#not_id_in_this_doc').length
         ).toEqual(0);
     });
 
 
 });
 
-describe("sdf.utils.validateArgTypes", function() {
+describe("s().utils.validateArgTypes", function() {
 
     it("true == ['string']:[string]", function(){
         expect(
-            sdf.utils.validateArgTypes(['string'], ["string"])
+            s().utils.validateArgTypes(['string'], ["string"])
         ).toBe(true);
     });
 
     it("true == ['string']:[any]", function(){
         expect(
-            sdf.utils.validateArgTypes(["string"], ["any"])
+            s().utils.validateArgTypes(["string"], ["any"])
         ).toBe(true);
     });
 
     it("true == [{},{}]:[object, any]", function(){
         expect(
-            sdf.utils.validateArgTypes([{}, {}], ["object", "any"])
+            s().utils.validateArgTypes([{}, {}], ["object", "any"])
         ).toBe(true);
     });
 
     it("true == [1,2,3]:[three numbers]", function(){
         expect(
-            sdf.utils.validateArgTypes([1,2,3], ["number", "number", "number"])
+            s().utils.validateArgTypes([1,2,3], ["number", "number", "number"])
         ).toBe(true);
     });
 
     it("true == [1,2,3]:[number, number, any]", function(){
         expect(
-            sdf.utils.validateArgTypes([1,2,3], ["number", "number", "any"])
+            s().utils.validateArgTypes([1,2,3], ["number", "number", "any"])
         ).toBe(true);
     });
 
     it("true == [function(){}]:[any]", function(){
         expect(
-            sdf.utils.validateArgTypes([function(){}], ["any"])
+            s().utils.validateArgTypes([function(){}], ["any"])
         ).toBe(true);
     });
 
     it("true == [function(){}]:[function]", function(){
         expect(
-            sdf.utils.validateArgTypes([function(){}], ["function"])
+            s().utils.validateArgTypes([function(){}], ["function"])
         ).toBe(true);
     });
 
     it("false == ['not_number',2,3]:[number, number, any]", function(){
         expect(
-            sdf.utils.validateArgTypes(["string",2,3], ["number", "number", "any"])
+            s().utils.validateArgTypes(["string",2,3], ["number", "number", "any"])
         ).toBe(false);
     });
 
     it("false == [2,3]:[number, number, any]", function(){
         expect(
-            sdf.utils.validateArgTypes([2,3], ["number", "number", "any"])
+            s().utils.validateArgTypes([2,3], ["number", "number", "any"])
         ).toBe(false);
     });
 
     it("false == [{},{}]:[object]", function(){
         expect(
-            sdf.utils.validateArgTypes([{}, {}], ["object"])
+            s().utils.validateArgTypes([{}, {}], ["object"])
         ).toBe(false);
     });
 
     it("false == [(function(){})()]:[function]", function(){
         expect(
-            sdf.utils.validateArgTypes([(function(){})()], ["function"])
+            s().utils.validateArgTypes([(function(){})()], ["function"])
         ).toBe(false);
     });
 
     it("false == [(function(){return 0;})()]:[function]", function(){
         expect(
-            sdf.utils.validateArgTypes([(function(){return 0;})()], ["string"])
+            s().utils.validateArgTypes([(function(){return 0;})()], ["string"])
         ).toBe(false);
     });
 
 });
 
-describe("sdf.$().addClass", function() {
+describe("s().addClass", function() {
 
     it("Should add class .body-test to the body", function(){
-        sdf.$('body', 1).addClass('body-test');
-        expect(sdf.$('body', 1).hasClass('body-test')).toBe(true);
+        s('body', 1).addClass('body-test');
+        expect(s('body', 1).hasClass('body-test')).toBe(true);
     });
 
     it("Should add multiple classes to the body", function(){
-        sdf.$('body').addClass('body-one body-two body-three  ');
-        expect(sdf.$('body', 1).hasClass('body-one')).toBe(true);
-        expect(sdf.$('body', 1).hasClass('body-two  ')).toBe(true);
-        expect(sdf.$('body', 1).hasClass(' body-three')).toBe(true);
+        s('body').addClass('body-one body-two body-three  ');
+        expect(s('body', 1).hasClass('body-one')).toBe(true);
+        expect(s('body', 1).hasClass('body-two  ')).toBe(true);
+        expect(s('body', 1).hasClass(' body-three')).toBe(true);
     });
-    
+
 });
-describe("sdf.$().append", function() {
+describe("s().append", function() {
 
     it("Should create an element", function(){
         var element1 = document.createElement('div');
-        var element2 = sdf.$().create('div', '');
+        var element2 = s().create('div', '');
         expect(typeof element1).toEqual(typeof element2);
     });
 
 });
 
-describe("sdf.$().attr", function() {
+describe("s().attr", function() {
 
     it("Should not find [data-body-attr] in body", function(){
         expect(
-            sdf.$('body').attr('data-body-attr')
+            s('body').attr('data-body-attr')
         ).toBeNull();
     });
 
     it("Should set  [data-body-attr='value'] in body", function(){
-        sdf.$('body').attr('data-body-attr', 'value');
+        s('body').attr('data-body-attr', 'value');
         expect(
-            sdf.$('body').attr('data-body-attr')
+            s('body').attr('data-body-attr')
         ).toEqual('value');
     });
 
     it("Should remove [data-body-attr] from body", function(){
-        sdf.$('body').removeAttr('data-body-attr');
+        s('body').removeAttr('data-body-attr');
         expect(
-            sdf.$('body').attr('data-body-attr')
+            s('body').attr('data-body-attr')
         ).toBeNull();
     });
 
 });
 
-describe("sdf.$().create", function() {
+describe("s().create", function() {
 
     it("Should create a div element", function(){
         var element1 = document.createElement('div');
-        var element2 = sdf.$().create('div', '');
+        var element2 = s().create('div', '');
         expect(typeof element1).toEqual(typeof element2);
     });
 
     it("Should create a div element with text 'test text'", function(){
-        var element = sdf.$().create('div', 'test text');
+        var element = s().create('div', 'test text');
         expect(
-            sdf.$(element).html()
+            s(element).html()
         ).toEqual('test text');
     });
 
     it("Should create nested elements", function(){
-        var element = sdf.$().create('div', '<div id="created_nested_element_id"></div>');
-        sdf.$('body').append(element);
+        var element = s().create('div', '<div id="created_nested_element_id"></div>');
+        s('body').append(element);
         expect(
-            sdf.$('#created_nested_element_id').length
+            s('#created_nested_element_id').length
         ).toEqual(1);
     });
 
 });
 
-describe("sdf.$().css", function() {
+describe("s().css", function() {
 
 
     it("Should set  body background color to rgb(238, 238, 238)", function(){
-       sdf.$('body', 1).css('backgroundColor', 'rgb(238, 238, 238)');
+       s('body', 1).css('backgroundColor', 'rgb(238, 238, 238)');
         expect(
-            sdf.$('body', 1).css('backgroundColor')
+            s('body', 1).css('backgroundColor')
         ).toEqual('rgb(238, 238, 238)');
     });
 
     it("Should set  body background-color and line-height", function(){
-       sdf.$('body', 1).css({backgroundColor: 'rgb(238, 238, 238)', lineHeight: '1.2'});
+       s('body', 1).css({backgroundColor: 'rgb(238, 238, 238)', lineHeight: '1.2'});
         expect(
-            sdf.$('body', 1).css('lineHeight')
+            s('body', 1).css('lineHeight')
         ).toEqual('1.2');
     });
 
     it("Should throw invalid argument for function", function(){
        expect(function(){
-            sdf.$('body', 1).css(function(){});
+            s('body', 1).css(function(){});
         }).toThrow();
     });
 
     it("Should throw invalid argument for number as getter", function(){
        expect(function(){
-            sdf.$('body', 1).css(1);
+            s('body', 1).css(1);
         }).toThrow();
     });
 
 });
-describe("sdf.$().each", function() {
+describe("s().each", function() {
 
     it("Should throw invalid argument for no callback", function(){
        expect(function(){
-            sdf.$('div').each();
+            s('div').each();
         }).toThrow();
     });
 
     it("Should throw invalid argument for invalid callback", function(){
        expect(function(){
-            sdf.$('div').each('not_a_call_back');
+            s('div').each('not_a_call_back');
         }).toThrow();
     });
 
     it("Should pass", function(){
        expect(function(){
-            sdf.$('ul').each(function(){});
+            s('ul').each(function(){});
         }).not.toThrow();
     });
 
     it("Should execute once per each li on page", function(){
        var counter = 0;
-       var length = 0; 
+       var length = 0;
        expect((function(){
-            length = sdf.$('li').each(function(){
+            length = s('li').each(function(){
                 counter++;
             }).length;
             return counter;
@@ -261,29 +261,29 @@ describe("sdf.$().each", function() {
     });
 
 });
-describe("sdf.$().element", function() {
+describe("s().element", function() {
 
     it("Should return the body element", function(){
-       expect(sdf.$('body').element()).toEqual(document.body);
+       expect(s('body').element()).toEqual(document.body);
     });
 
 });
-describe("sdf.$().hasClass", function() {
+describe("s().hasClass", function() {
 
     it("Should not find a class '.class-no-present' in the body", function(){
-        expect(sdf.$('body').hasClass('.class-no-present')).toBe(false);
+        expect(s('body').hasClass('.class-no-present')).toBe(false);
     });
 
     it("Should find a class '.body-class' in the body", function(){
-        sdf.$('body').addClass('body-class');
-        sdf.$('body').addClass('other-class');
-        expect(sdf.$('body').hasClass('body-class')).toBe(true);
+        s('body').addClass('body-class');
+        s('body').addClass('other-class');
+        expect(s('body').hasClass('body-class')).toBe(true);
     });
 
     it("Should throw an error, classname should be string", function(){
     	expect(
             function(){
-                return sdf.$('div').hasClass(1);
+                return s('div').hasClass(1);
             }
         ).toThrow();
     });
@@ -291,90 +291,90 @@ describe("sdf.$().hasClass", function() {
     it("Should throw an error, classname should be string", function(){
     	expect(
             function(){
-                return sdf.$('div').hasClass(1);
+                return s('div').hasClass(1);
             }
         ).toThrow();
     });
 
 });
-describe("sdf.$().html", function() {
+describe("s().html", function() {
 
     it("Should get innerHTML from body", function(){
         expect(
-            sdf.$('body').html()
+            s('body').html()
         ).toEqual(document.body.innerHTML);
     });
 
     it("should set the innerHTML of and element", function(){
-        var element = sdf.$().create('div', '<b>bold</b>');
-        sdf.$(element).html('not bold');
+        var element = s().create('div', '<b>bold</b>');
+        s(element).html('not bold');
         expect(
-            sdf.$(element).html()
+            s(element).html()
         ).toEqual("not bold");
     });
 
 });
 
-describe("sdf.$().on", function() {
+describe("s().on", function() {
 
     it("Should throw invalid argument for no callback", function(){
        expect(function(){
-            sdf.$('div', 1).on();
+            s('div', 1).on();
         }).toThrow();
     });
 
     it("Should throw invalid argument for invalid callback", function(){
        expect(function(){
-            sdf.$('div', 1).on(1, 'not_a_call_back');
+            s('div', 1).on(1, 'not_a_call_back');
         }).toThrow();
     });
 
     it("Should throw invalid argument for invalid event", function(){
        expect(function(){
-            sdf.$('div', 1).on({}, function(){});
+            s('div', 1).on({}, function(){});
         }).toThrow();
     });
 
      it("Should throw invalid argument for invalid arguments", function(){
        expect(function(){
-            sdf.$('div', 1).on();
+            s('div', 1).on();
         }).toThrow();
     });
-    
+
     it("Should pass", function(){
        expect(function(){
-            sdf.$('div', 1).on('click', function(){});
+            s('div', 1).on('click', function(){});
         }).not.toThrow();
     });
 
 });
-describe("sdf.$().text", function() {
+describe("s().text", function() {
 
     it("Should get textContent from body", function(){
         expect(
-            sdf.$('body').text()
+            s('body').text()
         ).toEqual(document.body.textContent);
     });
 
     it("should set the textContent of and element", function(){
-        var element = sdf.$().create('div', '<b>bold</b>');
-        sdf.$(element).text('not bold');
+        var element = s().create('div', '<b>bold</b>');
+        s(element).text('not bold');
         expect(
-            sdf.$(element).text()
+            s(element).text()
         ).toEqual("not bold");
     });
 
     it("Should get textContent and not innerHTML", function(){
-        var element = sdf.$().create('div', '<b>bold</b>');
+        var element = s().create('div', '<b>bold</b>');
         expect(
-            sdf.$(element).text()
+            s(element).text()
         ).toEqual("bold");
     });
 
     it("Should throw exception, too many arguments", function(){
-        var element = sdf.$().create('div', '<b>bold</b>');
+        var element = s().create('div', '<b>bold</b>');
         expect(function(){
-            sdf.$(element).text('arg', 'arg', 'arg');
+            s(element).text('arg', 'arg', 'arg');
         }).toThrow();
     });
 

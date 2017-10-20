@@ -7,10 +7,10 @@
 *
 * @example
 * // removes the attribute 'data-active' from all the div with data-active="false"
-* sdf.$('div[data-active="false"]').removeAttr('data-active');
+* s('div[data-active="false"]').removeAttr('data-active');
 */
 SdfDom.prototype.removeAttr = function(attrName){
-    if(!sdf.utils.validateArgTypes(arguments, ["any"])){
+    if(!this.utils.validateArgTypes(arguments, ["any"])){
         console.error("'append' takes string{any} as argument");
         return this;
     }

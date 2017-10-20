@@ -6,9 +6,9 @@
 *
 */
 SdfDom.prototype.find = function(selector){
-    if(!sdf.utils.validateArgTypes(arguments, ["string"])){
+    if(!this.utils.validateArgTypes(arguments, ["string"])){
         console.error("'find' takes selector{string} as argument");
         return this;
     }
-    return sdf.$(selector, -1, this.nodes[0]);
+    return s(selector, -1, this.nodes[0]);
 };

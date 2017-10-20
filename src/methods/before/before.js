@@ -17,7 +17,7 @@
 *
 * @example
 * // inserts a div before the div#first
-* sdf.$('div#first').before('<div id="before_first"></div>');
+* s('div#first').before('<div id="before_first"></div>');
 *
 * @return {object} Query object for nesting
 */

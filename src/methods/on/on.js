@@ -9,16 +9,16 @@
 * @return {object} Query object for nesting
 *
 * @example
-* sdf.$('selector').on('click', function(){
+* s('selector').on('click', function(){
 *     //to do
 * });
-* sdf.$('input[type="text"]').on('change', function(){
-*     var value = sdf.$(this).value();
+* s('input[type="text"]').on('change', function(){
+*     var value = s(this).value();
 *     alert(value);
 * });
 */
 SdfDom.prototype.on = function(event, method){
-    if(sdf.utils.validateArgTypes(arguments, ["string", "function"])){
+    if(this.utils.validateArgTypes(arguments, ["string", "function"])){
         // adding event listeners
         for (var i = 0; i < this.nodes.length; ++i) {
             this.nodes[i].addEventListener(event, method);

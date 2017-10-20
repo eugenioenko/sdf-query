@@ -18,7 +18,7 @@ Include the script
 ### js/sdf-query.js
 
 
-#### sdf.$(selector, limit) 
+#### s(selector, limit)
 
 Query Function
 
@@ -42,29 +42,29 @@ lets you modify their attributes, classes, values, styles and add event handlers
 
 ```javascript
 // adds an event handler for a button of id #button_id
-sdf.$('#button_id').on('click', function(){});
+s('#button_id').on('click', function(){});
 ```
 ```javascript
 // sets the attribute data-item to all the li with class '.active'
-sdf.$('li.active').attr('data-item', 'value');
+s('li.active').attr('data-item', 'value');
 ```
 ```javascript
 // removes class .active from all h2 with class '.active' of the page
-sdf.$('h2.active').removeClass('active');
+s('h2.active').removeClass('active');
 // removes class .active from 3 of h2 of the page
-sdf.$('h2.active', 3).removeClass('active');
+s('h2.active', 3).removeClass('active');
 ```
 ```javascript
 // Iterates over all the ul of a page and appends an li and prepends li
-sdf.$('ul').append('<li>appended</li>').prepend('<li>prepended</li>');
+s('ul').append('<li>appended</li>').prepend('<li>prepended</li>');
 ```
 ```javascript
  // Custom iterator
- sdf.$('span').each(function(){
-     sdf.$(this).attr('data-active', 'false');
+ s('span').each(function(){
+     s(this).attr('data-active', 'false');
  });
  // Chaining
- sdf.$('span[data-attr="value"]').prepend('<br>').append('!');
+ s('span[data-attr="value"]').prepend('<br>').append('!');
 ```
 
 
@@ -75,7 +75,7 @@ sdf.$('ul').append('<li>appended</li>').prepend('<li>prepended</li>');
 
 
 
-#### sdf.$(selector).addClass(classList) 
+#### s(selector).addClass(classList)
 
 Adds classnames to the elements in the node list
 
@@ -95,13 +95,13 @@ Adds classnames to the elements in the node list
 
 ```javascript
 // adds classes through custom iterator
-sdf.$('li').each(function(){
-  sdf.$(this).addClass('class-1 class-2 class-3');
+s('li').each(function(){
+  s(this).addClass('class-1 class-2 class-3');
 });
 ```
 ```javascript
 // adds classes through method
-sdf.$('li').addClass('class-1 class-2 class-3')
+s('li').addClass('class-1 class-2 class-3')
 ```
 
 
@@ -112,7 +112,7 @@ sdf.$('li').addClass('class-1 class-2 class-3')
 
 
 
-#### sdf.$(selector).after(value) 
+#### s(selector).after(value)
 
 Inserts content after each element of the list.
 If content is a string parses the specified text as HTML
@@ -144,7 +144,7 @@ cheat sheet
 ```
 ```javascript
 // after a div in the div#first
-sdf.$('li#first').after('<li id="second"></li>');
+s('li#first').after('<li id="second"></li>');
 ```
 
 
@@ -155,7 +155,7 @@ sdf.$('li#first').after('<li id="second"></li>');
 
 
 
-#### sdf.$(selector).append(value) 
+#### s(selector).append(value)
 
 Appends content to each element of the list.
 If content is a string parses the specified text as HTML
@@ -187,7 +187,7 @@ cheat sheet
 ```
 ```javascript
 // appends a div in the div#first
-sdf.$('div#first_element').append('<div></div>');
+s('div#first_element').append('<div></div>');
 ```
 
 
@@ -198,7 +198,7 @@ sdf.$('div#first_element').append('<div></div>');
 
 
 
-#### sdf.$(selector).attr(attr, value) 
+#### s(selector).attr(attr, value)
 
 Sets the attribute of each elements in the list or,
 Gets the value of attribute of the first element if no arguments
@@ -220,10 +220,10 @@ Gets the value of attribute of the first element if no arguments
 
 ```javascript
 // reads the attribute data-date from a clicked button
-sdf.$('button').click(function(){
-  var date = sdf.$(this).attr('data-date');
+s('button').click(function(){
+  var date = s(this).attr('data-date');
   // to do
-  sdf.$(this).attr('data-date', date);
+  s(this).attr('data-date', date);
 });
 ```
 
@@ -235,7 +235,7 @@ sdf.$('button').click(function(){
 
 
 
-#### sdf.$(selector).before(value) 
+#### s(selector).before(value)
 
 Inserts content before each element of the list.
 If content is a string, 'prepend' parses the specified text as HTML
@@ -267,7 +267,7 @@ cheat sheet
 ```
 ```javascript
 // inserts a div before the div#first
-sdf.$('div#first').before('<div id="before_first"></div>');
+s('div#first').before('<div id="before_first"></div>');
 ```
 
 
@@ -278,7 +278,7 @@ sdf.$('div#first').before('<div id="before_first"></div>');
 
 
 
-#### sdf.$().create(type, html) 
+#### s().create(type, html)
 
 Creates an html element to be later appended with append
 
@@ -299,7 +299,7 @@ Creates an html element to be later appended with append
 
 ```javascript
 // creates a node and appends it
-sdf.$('ul').append(sdf.$().create('li', 'list item A'));
+s('ul').append(s().create('li', 'list item A'));
 ```
 
 
@@ -310,7 +310,7 @@ sdf.$('ul').append(sdf.$().create('li', 'list item A'));
 
 
 
-#### sdf.$(selector).css(attr, value) 
+#### s(selector).css(attr, value)
 
 Sets the style of each elements in the list or,
 Gets the value of style of the first element if no arguments
@@ -332,12 +332,12 @@ Gets the value of style of the first element if no arguments
 
 ```javascript
 // reads the style data-date from a clicked button
-sdf.$('button').click(function(){
-  var opacity = sdf.$(this).css('opacity');
+s('button').click(function(){
+  var opacity = s(this).css('opacity');
   // to do
   opacity -= 0.3;
-  sdf.$(this).css('opacity', opacity);
-  sdf.$(this).css({opacity: 1, color: 'red'});
+  s(this).css('opacity', opacity);
+  s(this).css({opacity: 1, color: 'red'});
 });
 ```
 
@@ -349,7 +349,7 @@ sdf.$('button').click(function(){
 
 
 
-#### sdf.$(selector).each(method) 
+#### s(selector).each(method)
 
 Iterates over every item from the selected element list.
 Sets "this" to the currently iterated element.
@@ -371,10 +371,10 @@ Sets "this" to the currently iterated element.
 ```javascript
 // Iterates over buttons with class active, gets the attribute data-state,
 does something and finally sets data-state to false
-sdf.$('button.active').each(function(){
-  var state = sdf.$(this).attr('data-state');
+s('button.active').each(function(){
+  var state = s(this).attr('data-state');
   // to do
-  sdf.$(this).attr('data-state', 'false');
+  s(this).attr('data-state', 'false');
 });
 ```
 
@@ -386,7 +386,7 @@ sdf.$('button.active').each(function(){
 
 
 
-#### sdf.$(selector).element() 
+#### s(selector).element()
 
 Gets the first element in the selected list of nodes
 
@@ -398,9 +398,9 @@ Gets the first element in the selected list of nodes
 ##### Examples
 
 ```javascript
-var element = sdf.$('div.class-name').element();
+var element = s('div.class-name').element();
 element.style.display = 'block';
-sdf.$(element).css({display: 'block', opacity: '0.5'});
+s(element).css({display: 'block', opacity: '0.5'});
 ```
 
 
@@ -411,7 +411,7 @@ sdf.$(element).css({display: 'block', opacity: '0.5'});
 
 
 
-#### sdf.$(selector).first() 
+#### s(selector).first()
 
 Returns the first element in the list
 Alias to element()
@@ -428,7 +428,7 @@ Alias to element()
 
 
 
-#### sdf.$(selector).find(selector) 
+#### s(selector).find(selector)
 
 Returns a list of decendent elements from the selected element.
 
@@ -451,7 +451,7 @@ Returns a list of decendent elements from the selected element.
 
 
 
-#### sdf.$(selector).hasClass(className) 
+#### s(selector).hasClass(className)
 
 Returns true if a class is present in the first element class list
 
@@ -470,16 +470,16 @@ Returns true if a class is present in the first element class list
 ##### Examples
 
 ```javascript
-if(sdf.$('#element').hasClass('class-name')){
+if(s('#element').hasClass('class-name')){
     // to do
 }
 ```
 ```javascript
 // checks if element is active on click, does stuff, removes class active.
-sdf.$('#element_id').on('click', function(){
-    if(sdf.$(this).hasClass('active')){
+s('#element_id').on('click', function(){
+    if(s(this).hasClass('active')){
         // to do
-        sdf.$(this).removeClass('active');
+        s(this).removeClass('active');
     }
 });
 ```
@@ -492,7 +492,7 @@ sdf.$('#element_id').on('click', function(){
 
 
 
-#### sdf.$(selector).hide() 
+#### s(selector).hide()
 
 Hides an element.
 (Sets display property to none)
@@ -506,7 +506,7 @@ Hides an element.
 
 ```javascript
 // hides the element
-sdf.$('selector').hide();
+s('selector').hide();
 ```
 
 
@@ -517,7 +517,7 @@ sdf.$('selector').hide();
 
 
 
-#### sdf.$(selector).html(value) 
+#### s(selector).html(value)
 
 Sets the innerHTML of each element in the list or,
 Gets the innerHTML of the first element on the list
@@ -538,9 +538,9 @@ Gets the innerHTML of the first element on the list
 
 ```javascript
 // sets inner conent of body
-sdf.$('body').html('<h1>Hello, World!</h1>');
+s('body').html('<h1>Hello, World!</h1>');
 // gets the html of the body
-var body = sdf.$('body').html();
+var body = s('body').html();
 ```
 
 
@@ -551,7 +551,7 @@ var body = sdf.$('body').html();
 
 
 
-#### sdf.$(selector).insert(position, value) 
+#### s(selector).insert(position, value)
 
 Inserts content to each element of the list.
 If content is a string, parses the specified text as HTML
@@ -584,7 +584,7 @@ cheat sheet
 ```
 ```javascript
 // inserts a div before the div#first
-sdf.$('div#first').insert('<div id="before_first"></div>', 'beforebegin');
+s('div#first').insert('<div id="before_first"></div>', 'beforebegin');
 ```
 
 
@@ -595,7 +595,7 @@ sdf.$('div#first').insert('<div id="before_first"></div>', 'beforebegin');
 
 
 
-#### sdf.$(selector).on(event, method) 
+#### s(selector).on(event, method)
 
 Adds event listener to the selected elements.
 Sets "this" to the currently iterated element.
@@ -616,11 +616,11 @@ Sets "this" to the currently iterated element.
 ##### Examples
 
 ```javascript
-sdf.$('selector').on('click', function(){
+s('selector').on('click', function(){
     //to do
 });
-sdf.$('input[type="text"]').on('change', function(){
-    var value = sdf.$(this).value();
+s('input[type="text"]').on('change', function(){
+    var value = s(this).value();
     alert(value);
 });
 ```
@@ -633,7 +633,7 @@ sdf.$('input[type="text"]').on('change', function(){
 
 
 
-#### sdf.$(selector).prepend(value) 
+#### s(selector).prepend(value)
 
 Prepends content to each element of the list.
 If content is a string parses the specified text as HTML
@@ -665,7 +665,7 @@ cheat sheet
 ```
 ```javascript
 // prepends a div in the div#first
-sdf.$('div#first').prepend('<div id="start_of_first"></div>');
+s('div#first').prepend('<div id="start_of_first"></div>');
 ```
 
 
@@ -676,7 +676,7 @@ sdf.$('div#first').prepend('<div id="start_of_first"></div>');
 
 
 
-#### sdf.$(selector).remove() 
+#### s(selector).remove()
 
 Removes each selected element from the page
 
@@ -689,7 +689,7 @@ Removes each selected element from the page
 
 ```javascript
 // destroys the body
-sdf.$('body').remove();
+s('body').remove();
 ```
 
 
@@ -700,7 +700,7 @@ sdf.$('body').remove();
 
 
 
-#### sdf.$(selector).removeAttr(attr) 
+#### s(selector).removeAttr(attr)
 
 Removes an attribute from each element in the list
 
@@ -720,7 +720,7 @@ Removes an attribute from each element in the list
 
 ```javascript
 // removes the attribute 'data-active' from all the div with data-active="false"
-sdf.$('div[data-active="false"]').removeAttr('data-active');
+s('div[data-active="false"]').removeAttr('data-active');
 ```
 
 
@@ -731,7 +731,7 @@ sdf.$('div[data-active="false"]').removeAttr('data-active');
 
 
 
-#### sdf.$(selector).removeClass(classList) 
+#### s(selector).removeClass(classList)
 
 Removes classes from  elements in the list
 
@@ -751,7 +751,7 @@ Removes classes from  elements in the list
 
 ```javascript
  // removes the classes ".class-1, .class-2" from the first 10 elements with class .class-0
- sdf.$('.class-0').removeclass('class-1 class-2');
+ s('.class-0').removeclass('class-1 class-2');
 ```
 
 
@@ -762,7 +762,7 @@ Removes classes from  elements in the list
 
 
 
-#### sdf.$(selector).show() 
+#### s(selector).show()
 
 Shows an element on the screen.
 (Restores original display property value)
@@ -776,7 +776,7 @@ Shows an element on the screen.
 
 ```javascript
 // shows the element
-sdf.$('selector').show();
+s('selector').show();
 ```
 
 
@@ -787,7 +787,7 @@ sdf.$('selector').show();
 
 
 
-#### sdf.$(selector).text(value) 
+#### s(selector).text(value)
 
 Sets the textContent of each elements in the list or
 Gets the value of textContent of the first element if no arguments
@@ -808,9 +808,9 @@ Gets the value of textContent of the first element if no arguments
 
 ```javascript
 // gets the textContent of the element with id #element
-var text = sdf.$('#element').text();
+var text = s('#element').text();
 // sets the textContent of all the first 3 li of ul#list
-sdf.$('ul#list>li', 3).text('Hello, World!');
+s('ul#list>li', 3).text('Hello, World!');
 ```
 
 
@@ -821,7 +821,7 @@ sdf.$('ul#list>li', 3).text('Hello, World!');
 
 
 
-#### sdf.$(selector).value(val) 
+#### s(selector).value(val)
 
 Sets the value of each elements in the list or
 Gets the value of the first element if no arguments
@@ -842,7 +842,7 @@ Gets the value of the first element if no arguments
 
 ```javascript
 // gets the value of the input with id #input_1
-var val = sdf.$('input#input_1').value();
+var val = s('input#input_1').value();
 ```
 
 

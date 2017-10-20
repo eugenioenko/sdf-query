@@ -17,7 +17,7 @@
 *
 * @example
 * // prepends a div in the div#first
-* sdf.$('div#first').prepend('<div id="start_of_first"></div>');
+* s('div#first').prepend('<div id="start_of_first"></div>');
 *
 * @return {object} Query object for nesting
 */

@@ -1,16 +1,16 @@
-describe("sdf.$().html", function() {
+describe("s().html", function() {
 
     it("Should get innerHTML from body", function(){
         expect(
-            sdf.$('body').html()
+            s('body').html()
         ).toEqual(document.body.innerHTML);
     });
 
     it("should set the innerHTML of and element", function(){
-        var element = sdf.$().create('div', '<b>bold</b>');
-        sdf.$(element).html('not bold');
+        var element = s().create('div', '<b>bold</b>');
+        s(element).html('not bold');
         expect(
-            sdf.$(element).html()
+            s(element).html()
         ).toEqual("not bold");
     });
 

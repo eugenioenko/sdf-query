@@ -1,19 +1,19 @@
-describe("sdf.$().hasClass", function() {
+describe("s().hasClass", function() {
 
     it("Should not find a class '.class-no-present' in the body", function(){
-        expect(sdf.$('body').hasClass('.class-no-present')).toBe(false);
+        expect(s('body').hasClass('.class-no-present')).toBe(false);
     });
 
     it("Should find a class '.body-class' in the body", function(){
-        sdf.$('body').addClass('body-class');
-        sdf.$('body').addClass('other-class');
-        expect(sdf.$('body').hasClass('body-class')).toBe(true);
+        s('body').addClass('body-class');
+        s('body').addClass('other-class');
+        expect(s('body').hasClass('body-class')).toBe(true);
     });
 
     it("Should throw an error, classname should be string", function(){
     	expect(
             function(){
-                return sdf.$('div').hasClass(1);
+                return s('div').hasClass(1);
             }
         ).toThrow();
     });
@@ -21,7 +21,7 @@ describe("sdf.$().hasClass", function() {
     it("Should throw an error, classname should be string", function(){
     	expect(
             function(){
-                return sdf.$('div').hasClass(1);
+                return s('div').hasClass(1);
             }
         ).toThrow();
     });

@@ -17,7 +17,7 @@
 *
 * @example
 * // appends a div in the div#first
-* sdf.$('div#first_element').append('<div></div>');
+* s('div#first_element').append('<div></div>');
 *
 * @return {object} Query object for nesting
 */

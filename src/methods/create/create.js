@@ -8,7 +8,7 @@
 *
 * @example
 * // creates a node and appends it
-* sdf.$('ul').append(sdf.$().create('li', 'list item A'));
+* s('ul').append(s().create('li', 'list item A'));
 */
 SdfDom.prototype.create = function(tag, html){
 	if(typeof tag === "string"){

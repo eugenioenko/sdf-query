@@ -1,7 +1,7 @@
-describe("sdf.$().element", function() {
+describe("s().element", function() {
 
     it("Should return the body element", function(){
-       expect(sdf.$('body').element()).toEqual(document.body);
+       expect(s('body').element()).toEqual(document.body);
     });
 
 });

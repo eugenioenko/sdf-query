@@ -4,9 +4,9 @@
 * @return {object} First element in the list
 *
 * @example
-* var element = sdf.$('div.class-name').element();
+* var element = s('div.class-name').element();
 * element.style.display = 'block';
-* sdf.$(element).css({display: 'block', opacity: '0.5'});
+* s(element).css({display: 'block', opacity: '0.5'});
 */
 
 SdfDom.prototype.element = function(){

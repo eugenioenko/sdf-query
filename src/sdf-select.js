@@ -7,7 +7,7 @@
  * @license http://opensource.org/licenses/MIT  MIT License
  * @tutorial https://eugenioenko.github.io/sdf-query/docs/index.html
  * @link    https://github.com/eugenioenko/sdf-css
- * @version 0.9.8
+ * @version 0.9.9
  */
 
 //"use strict";
@@ -31,29 +31,19 @@ if(typeof window === "undefined" || typeof document === "undefined"){
  *
  * @example
  * // adds an event handler for a button of id #button_id
- * sdf.$('#button_id').on('click', function(){});
- *
- * @example
- * // sets the attribute data-item to all the li with class '.active'
- * sdf.$('li.active').attr('data-item', 'value');
- *
- * @example
- * // removes class .active from all h2 with class '.active' of the page
- * sdf.$('h2.active').removeClass('active');
- * // removes class .active from 3 of h2 of the page
- * sdf.$('h2.active', 3).removeClass('active');
+ * s('#button_id').on('click', function(){});
  *
  * @example
  * // Iterates over all the ul of a page and appends an li and prepends li
- * sdf.$('ul').append('<li>appended</li>').prepend('<li>prepended</li>');
+ * s('ul').append('<li>appended</li>').prepend('<li>prepended</li>');
  *
  * @example
  *  // Custom iterator
- *  sdf.$('span').each(function(){
- *      sdf.$(this).attr('data-active', 'false');
+ *  s('span').each(function(){
+ *      s(this).attr('data-active', 'false');
  *  });
  *  // Chaining
- *  sdf.$('span[data-attr="value"]').prepend('<br>').append('!');
+ *  s('span[data-attr="value"]').prepend('<br>').append('!');
  *
  */
 function SdfSelect(selector, limit, parent){
@@ -120,6 +110,31 @@ function SdfSelect(selector, limit, parent){
         console.error(selector + " is not a string, 'query' requires a string as selector");
         selector = false;
     };
+    var utils = {
+        validateArgTypes: function(args, types){
+            // the number of arguments passed should be the same as required ones
+            if(args.length != (types.length)){
+                return false;
+            }
+            for(var i = 0; i < args.length; ++i){
+                 if(types[i] === "any"){
+                    args[i] = (args[i]).toString();
+                } else {
+                    if(typeof args[i] !== types[i]){
+                        return false;
+                    }
+                }
+            }
+            return true;
+        },
+        createClassList: function(classList){
+            var classes = classList.split(' ');
+            for (var i = 0; i < classes.length; ++i){
+                classes[i] = classes[i].replace(' ', '');
+            }
+            return classes;
+        }
+    };
 
     if (arguments.length) {
         if (typeof selector === "string"){
@@ -138,11 +153,7 @@ function SdfSelect(selector, limit, parent){
         console.warn('sdf-query: No elements with selector "' + selector + '"');
         return new SdfDom(selector, null, 0, method);
     }
-    return new SdfDom(selector, elements, elements.length, method);
+    return new SdfDom(selector, elements, elements.length, method, utils);
 }
 
-
-if(typeof window.sdf === "undefined"){
-    window.sdf = {};
-}
-window.sdf.$ =  SdfSelect;
+window.s =  SdfSelect;

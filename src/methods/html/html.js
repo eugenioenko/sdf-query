@@ -8,15 +8,15 @@
 *
 * @example
 * // sets inner conent of body
-* sdf.$('body').html('<h1>Hello, World!</h1>');
+* s('body').html('<h1>Hello, World!</h1>');
 * // gets the html of the body
-* var body = sdf.$('body').html();
+* var body = s('body').html();
 */
 SdfDom.prototype.html = function(value){
 	if(arguments.length == 0){
 	    return this.nodes[0].innerHTML;
 	}
-    if(!sdf.utils.validateArgTypes(arguments, ["any"])){
+    if(!this.utils.validateArgTypes(arguments, ["any"])){
         throw new Error("'html' takes value {any} as argument or no arguments.");
     }
     for (var i = 0; i < this.nodes.length; ++i) {
